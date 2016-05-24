@@ -6,8 +6,9 @@
 //  Copyright © 2015 Matthew Clarkson. All rights reserved.
 //
 
-import Foundation
-
+/**
+ OAuth scope
+ */
 public enum Scope: String {
     case Public = "public"
     case Write = "write"
