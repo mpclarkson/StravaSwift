@@ -9,7 +9,7 @@
 /**
  The default delegate for accessing and storing tokens. You should implement your own handler.
  **/
-public struct DefaultTokenHandler: TokenDelegate {
+public struct DefaultTokenD: TokenDelegate {
     private var token: OAuthToken?
     
     /**

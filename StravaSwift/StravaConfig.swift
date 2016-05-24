@@ -35,6 +35,6 @@ public struct StravaConfig {
         self.clientSecret = clientSecret
         self.redirectUri = redirectUri
         self.scope = scope
-        self.delegate = delegate ?? DefaultTokenHandler()
+        self.delegate = delegate ?? DefaultTokenDelegate()
     }
 }
