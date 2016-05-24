@@ -7,7 +7,7 @@
 
 This is a Swift wrapper for the Strava API (v3).
 
-While not complete, it is functional but not tested. As this is a passion project, I only work on it when I have time. So, if you are interested in contributing, feel free to submit PRs.
+While not complete, it is functional but not tested. Most of the endpoints have been implemented. As this is a passion project, I only work on it when I have time. So, if you are interested in contributing, feel free to submit PRs.
 
 ## Example
 
@@ -73,7 +73,7 @@ StravaClient.sharedInstance.initWithConfig(config)
     }
 ```
 
-* Now you can start requesting resources, for example:
+* Now you can start requesting resources (note the Router implementation is based on this Alamofire [example](https://github.com/Alamofire/Alamofire#api-parameter-abstraction)). For example:
 
 ```swift
 
@@ -84,11 +84,21 @@ strava.request(Router.Athlete) { [weak self] (athlete: Athlete?) in
     //do something with the athlete
 }
 
+let params = [
+    'page' = 2,
+    'per_page' = 25
+]
+
 strava.request(Router.AthleteActivities(params)) { [weak self] (activities: [Activity]?) in
     guard let `self` = self, activities = activities else { return }
    //do something with the activities
 }
 ```
+
+## Todos
+[ ] Documentation 
+[ ] Tests
+[ ] Error handling
 
 ## Author
 

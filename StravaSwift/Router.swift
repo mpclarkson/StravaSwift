@@ -74,7 +74,6 @@ extension Router: URLRequestConvertible  {
     }
     
     struct Parameters {
-    
         var set:[String:AnyObject]?
     }
     
