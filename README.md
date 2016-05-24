@@ -5,6 +5,10 @@
 [![License](https://img.shields.io/cocoapods/l/StravaSwift.svg?style=flat)](http://cocoapods.org/pods/StravaSwift)
 [![Platform](https://img.shields.io/cocoapods/p/StravaSwift.svg?style=flat)](http://cocoapods.org/pods/StravaSwift)
 
+This is a Swift wrapper for the Strava API (v3).
+
+While not complete, it is functional but not tested. As this is a passion project, I only work on it when I have time. So, if you are interested in contributing, feel free to submit PRs.
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
