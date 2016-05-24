@@ -19,7 +19,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fn4-HB-sIb">
                                 <rect key="frame" x="52" y="352" width="311" height="31"/>
-                                <state key="normal" image="StravaButton"/>
+                                <state key="normal" image="Strava"/>
                                 <connections>
                                     <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kqr-Td-JP1"/>
                                 </connections>
@@ -151,6 +151,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="StravaButton" width="172" height="31"/>
+        <image name="Strava" width="172" height="31"/>
     </resources>
 </document>

@@ -26,11 +26,15 @@ public struct StravaConfig {
     public let scope: Scope
     public let delegate: TokenDelegate
     
-    public init(clientId: Int, clientSecret: String, redirectUri: String, scope: Scope = .ViewPrivateWrite, delegate: TokenDelegate = DefaultTokenHandler()) {
+    public init(clientId: Int,
+                clientSecret: String,
+                redirectUri: String,
+                scope: Scope = .ViewPrivateWrite,
+                delegate: TokenDelegate? = nil ) {
         self.clientId = clientId
         self.clientSecret = clientSecret
         self.redirectUri = redirectUri
         self.scope = scope
-        self.delegate = delegate
+        self.delegate = delegate ?? DefaultTokenHandler()
     }
 }
