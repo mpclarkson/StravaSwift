@@ -22,7 +22,7 @@ pod "StravaSwift"
 
 * First, you must [register your app](http://labs.strava.com/developers/) with Strava and get an oAuth `client id` and `client secret`.
 
-* Now, create a custom object that implements the `TokenDelegate` protocol. which is responsible for saving and retrieving the oAuth token. Here is an example to get you started:
+* Now, create a custom object that implements the `TokenDelegate` protocol, which is responsible for saving and retrieving the oAuth token. Here is an example to get you started:
 
 ```swift
 struct TokenHandler: TokenDelegate {
