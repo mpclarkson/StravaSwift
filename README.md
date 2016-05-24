@@ -26,22 +26,6 @@ pod "StravaSwift"
 
 * First, you must [register your app](http://labs.strava.com/developers/) with Strava and get an oAuth `client id` and `client secret`.
 
-* Now, create a custom object that implements the `TokenDelegate` protocol, which is responsible for saving and retrieving the oAuth token. Here is an example to get you started:
-
-```swift
-struct TokenHandler: TokenDelegate {
-
-    //You'd probably want to save the token somewhere (e.g. NSUserDefaults)
-    private var token: OAuthToken?
-
-    func get() -> OAuthToken? {
-        return token
-    }
-
-    mutating func set(token: OAuthToken?) {
-        self.token = token
-    }
-}
 ```
 
 * Initialize the Strava Client as follows, preferably in your `AppDelegate.swift` to ensure it is configured before you call it:
@@ -51,11 +35,12 @@ struct TokenHandler: TokenDelegate {
     clientId: YourStravaClientId,
     clientSecret: YourStravaClientSecret,
     redirectUri: YourRedirectUrl, //Don't forget to register this scheme in your info.plist
-    delegate: TokenHandler()  //i.e. your custom object that implements the TokenDelegate protocol (see above)
 )
 
 StravaClient.sharedInstance.initWithConfig(config)
 ```
+
+* Note, by default the oAuth token is only available while the app is running, which means you need to request a new token. You can implement custom token storage and retrieval behaviour by overriding the default token `delegate` in the `StravaConfig` initializer which must implement the `TokenDelegate` protocol.
 
 * Register your redirect URL scheme in your info.plist.
 
@@ -73,7 +58,8 @@ StravaClient.sharedInstance.initWithConfig(config)
     }
 ```
 
-* Now you can start requesting resources (note the Router implementation is based on this Alamofire [example](https://github.com/Alamofire/Alamofire#api-parameter-abstraction)). For example:
+* Now you can start requesting resources (note the Router implementation is based on this 
+Alamofire [example](https://github.com/Alamofire/Alamofire#api-parameter-abstraction)). For example:
 
 ```swift
 
@@ -96,8 +82,11 @@ strava.request(Router.AthleteActivities(params)) { [weak self] (activities: [Act
 ```
 
 ## Todos
+
 [ ] Documentation 
+
 [ ] Tests
+
 [ ] Error handling
 
 ## Author

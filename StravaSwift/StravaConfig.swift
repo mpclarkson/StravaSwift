@@ -20,13 +20,13 @@ public enum Scope: String {
  */
 public struct StravaConfig {
     
-    public var clientId: Int
-    public var clientSecret: String
-    public var redirectUri: String
-    public var scope: Scope
-    public var delegate: TokenDelegate
+    public let clientId: Int
+    public let clientSecret: String
+    public let redirectUri: String
+    public let scope: Scope
+    public let delegate: TokenDelegate
     
-    public init(clientId: Int, clientSecret: String, redirectUri: String, scope: Scope = .ViewPrivateWrite, delegate: TokenDelegate) {
+    public init(clientId: Int, clientSecret: String, redirectUri: String, scope: Scope = .ViewPrivateWrite, delegate: TokenDelegate = DefaultTokenHandler()) {
         self.clientId = clientId
         self.clientSecret = clientSecret
         self.redirectUri = redirectUri

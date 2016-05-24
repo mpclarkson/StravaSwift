@@ -17,7 +17,6 @@
 		C9F475451CF3E19400B730EF /* AthleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F475411CF3E19400B730EF /* AthleteViewController.swift */; };
 		C9F475461CF3E19400B730EF /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F475421CF3E19400B730EF /* ConnectViewController.swift */; };
 		C9F475481CF3E1B800B730EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9F475471CF3E1B800B730EF /* Main.storyboard */; };
-		C9F4754A1CF3E1EF00B730EF /* TokenHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F475491CF3E1EF00B730EF /* TokenHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +51,6 @@
 		C9F475411CF3E19400B730EF /* AthleteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AthleteViewController.swift; sourceTree = "<group>"; };
 		C9F475421CF3E19400B730EF /* ConnectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		C9F475471CF3E1B800B730EF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		C9F475491CF3E1EF00B730EF /* TokenHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenHandler.swift; sourceTree = "<group>"; };
 		E205A84E7E90DD2DF36F8489 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,7 +98,6 @@
 		607FACD21AFB9204008FA782 /* Example for StravaSwift */ = {
 			isa = PBXGroup;
 			children = (
-				C9F475491CF3E1EF00B730EF /* TokenHandler.swift */,
 				C9F475471CF3E1B800B730EF /* Main.storyboard */,
 				C9F4753F1CF3E19400B730EF /* ActivitiesViewController.swift */,
 				C9F475401CF3E19400B730EF /* AppDelegate.swift */,
@@ -370,7 +367,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9F4754A1CF3E1EF00B730EF /* TokenHandler.swift in Sources */,
 				C9F475451CF3E19400B730EF /* AthleteViewController.swift in Sources */,
 				C9F475441CF3E19400B730EF /* AppDelegate.swift in Sources */,
 				C9F475431CF3E19400B730EF /* ActivitiesViewController.swift in Sources */,

@@ -9,12 +9,24 @@
 import UIKit
 import StravaSwift
 
+extension UIImageView {
+    func from(url url: NSURL?) {
+        guard let
+            url = url,
+            data = NSData(contentsOfURL: url)
+            else { return }
+        
+        self.image = UIImage(data: data)
+    }
+}
+
+
 class AthleteViewController: UIViewController {
     
     var athlete: Athlete? {
         didSet {
             name?.text = "\(athlete?.firstname ?? "") \(athlete?.lastname ?? "")"
-//            avatar?.from(url: athlete?.profileMedium)
+            avatar?.from(url: athlete?.profileMedium)
         }
     }
     

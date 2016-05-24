@@ -12,7 +12,7 @@ import SwiftyJSON
 
 extension Request {
     
-    public static func StravaSerializer<T: Strava>(keyPath: String?) -> ResponseSerializer<T, NSError> {
+    static func StravaSerializer<T: Strava>(keyPath: String?) -> ResponseSerializer<T, NSError> {
         return ResponseSerializer { request, response, data, error in
             guard error == nil else {
                 return .Failure(error!)
@@ -38,19 +38,19 @@ extension Request {
         }
     }
 
-    public func responseStrava<T: Strava>(completionHandler: Response<T, NSError> -> Void) -> Self {
+    func responseStrava<T: Strava>(completionHandler: Response<T, NSError> -> Void) -> Self {
         return responseStrava(nil, keyPath: nil, completionHandler: completionHandler)
     }
     
-    public func responseStrava<T: Strava>(keyPath: String, completionHandler: Response<T, NSError> -> Void) -> Self {
+    func responseStrava<T: Strava>(keyPath: String, completionHandler: Response<T, NSError> -> Void) -> Self {
         return responseStrava(nil, keyPath: keyPath, completionHandler: completionHandler)
     }
     
-    public func responseStrava<T: Strava>(queue: dispatch_queue_t?, keyPath: String?, completionHandler: Response<T, NSError> -> Void) -> Self {
+    func responseStrava<T: Strava>(queue: dispatch_queue_t?, keyPath: String?, completionHandler: Response<T, NSError> -> Void) -> Self {
         return response(queue: queue, responseSerializer: Request.StravaSerializer(keyPath), completionHandler: completionHandler)
     }
     
-    public static func StravaArraySerializer<T: Strava>(keyPath: String?) -> ResponseSerializer<[T], NSError> {
+    static func StravaArraySerializer<T: Strava>(keyPath: String?) -> ResponseSerializer<[T], NSError> {
         return ResponseSerializer { request, response, data, error in
             guard error == nil else {
                 return .Failure(error!)
@@ -80,19 +80,19 @@ extension Request {
         }
     }
     
-    public func responseStravaArray<T: Strava>(completionHandler: Response<[T], NSError> -> Void) -> Self {
+    func responseStravaArray<T: Strava>(completionHandler: Response<[T], NSError> -> Void) -> Self {
         return responseStravaArray(nil, keyPath: nil, completionHandler: completionHandler)
     }
     
-    public func responseStravaArray<T: Strava>(keyPath: String, completionHandler: Response<[T], NSError> -> Void) -> Self {
+    func responseStravaArray<T: Strava>(keyPath: String, completionHandler: Response<[T], NSError> -> Void) -> Self {
         return responseStravaArray(nil, keyPath: keyPath, completionHandler: completionHandler)
     }
     
-    public func responseStravaArray<T: Strava>(queue: dispatch_queue_t?, completionHandler: Response<[T], NSError> -> Void) -> Self {
+    func responseStravaArray<T: Strava>(queue: dispatch_queue_t?, completionHandler: Response<[T], NSError> -> Void) -> Self {
         return responseStravaArray(queue, keyPath: nil, completionHandler: completionHandler)
     }
     
-    public func responseStravaArray<T: Strava>(queue: dispatch_queue_t?, keyPath: String?, completionHandler: Response<[T], NSError> -> Void) -> Self {
+    func responseStravaArray<T: Strava>(queue: dispatch_queue_t?, keyPath: String?, completionHandler: Response<[T], NSError> -> Void) -> Self {
         return response(queue: queue, responseSerializer: Request.StravaArraySerializer(keyPath), completionHandler: completionHandler)
     }
 }

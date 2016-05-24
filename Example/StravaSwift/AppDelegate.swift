@@ -24,8 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let config = StravaConfig(
             clientId: 8873,
             clientSecret: "97b97b29ede769eec2dc26c52dd281b5a1efe594",
-            redirectUri: "stravaswift://mpclarkson.github.io",
-            delegate: TokenHandler()
+            redirectUri: "stravaswift://mpclarkson.github.io"
         )
         
         strava = StravaClient.sharedInstance.initWithConfig(config)

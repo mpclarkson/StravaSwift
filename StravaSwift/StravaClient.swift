@@ -11,10 +11,14 @@ import Alamofire
 import SwiftyJSON
 
 
-/** StravaClient Class
+/**
+ StravaClient responsible for making all api requests
 */
 public class StravaClient {
     
+    /**
+     Access the shared instance
+     */
     public static let sharedInstance = StravaClient()
     
     private init() {}
@@ -27,7 +31,7 @@ public class StravaClient {
     
     public var token:  OAuthToken? { return delegage?.get() }
     
-    var authParams: [String:AnyObject] {
+    var authParams: [String: AnyObject] {
         return [
             "client_id" : clientId ?? 0,
             "redirect_uri" : redirectUri ?? "",
@@ -51,6 +55,13 @@ public class StravaClient {
 
 extension StravaClient {
 
+    /**
+     Initialize the shared instance with your credentials. You must use this otherwise fatal errors will be 
+     returned when making api requests.
+     
+     - Parameter config: a StravaConfig struct
+     - Returns: An instance of self (i.e. StravaClient)
+     */
     public func initWithConfig(config: StravaConfig) -> StravaClient {
         clientId = config.clientId
         clientSecret = config.clientSecret
@@ -60,38 +71,34 @@ extension StravaClient {
         
         return self
     }
-    
-    private func isConfigured() -> (Bool, StravaClientError?) {
-        if redirectUri == nil || clientSecret == nil || clientId == nil  {
-            return (false, StravaClientError.NoCredentials)
-        }
-        
-        return (true, nil)
-    }
-    
-    public func oauthRequest(URLRequest: URLRequestConvertible) -> Request? {
-        let (_, error) = StravaClient.sharedInstance.isConfigured()
-        
-        if let _ = error {
-             fatalError("Strava client is not configured")
-        }
-        
-        return Alamofire.Manager.sharedInstance.request(URLRequest.URLRequest)
-    }
 }
 
 //MARK : - Auth
 
 extension StravaClient {
-   
+    
+    /**
+     Opens the Strava OAuth web page in mobile Safari for the user to authorize the application.
+     **/
     public func authorize() {
         UIApplication.sharedApplication().openURL(Router.authorizationUrl)
     }
     
+    /**
+    Helper method to get the code from the redirection from Strava after the user has authorized the application (useful in AppDelegate)
+     
+     - Parameter: url
+     **/
     public func handleAuthorizationRedirect(url: NSURL) -> String?  {
         return url.getQueryParameters()?["code"]
     }
     
+    /**
+     Get an OAuth token from Strava
+     
+     - Parameter code: the code (string) returned from strava
+     - Parameter result: a closure to handle the OAuthToken
+     **/
     public func getAccessToken(code: String, result: ((OAuthToken)? -> Void)) {
         oauthRequest(Router.Token(code))?.responseStrava { [weak self] (response: Response<OAuthToken, NSError>) in
             guard let `self` = self else { return }
@@ -107,15 +114,49 @@ extension StravaClient {
 
 extension StravaClient {
 
+    /**
+     Request a single object from the Strava Api
+     
+     - Parameter route: a Router enum case which may require parameters
+     - Parameter result: a closure to handle the returned object
+     **/
     public func request<T: Strava>(route: Router, result: ((T)? -> Void)) {
         oauthRequest(route)?.responseStrava { (response: Response<T, NSError>) in
             result(response.result.value)
         }
     }
     
+    /**
+     Request an array of objects from the Strava Api
+     
+     - Parameter route: a Router enum case which may require parameters
+     - Parameter result: a closure to handle the returned objects
+     **/
     public func request<T: Strava>(route: Router, result: (([T])? -> Void)) {
         oauthRequest(route)?.responseStravaArray { (response: Response<[T], NSError>) in
             result(response.result.value)
         }
     }
+}
+
+extension StravaClient {
+    
+    private func isConfigured() -> (Bool, StravaClientError?) {
+        if redirectUri == nil || clientSecret == nil || clientId == nil  {
+            return (false, StravaClientError.NoCredentials)
+        }
+        
+        return (true, nil)
+    }
+    
+    private func oauthRequest(URLRequest: URLRequestConvertible) -> Request? {
+        let (_, error) = StravaClient.sharedInstance.isConfigured()
+        
+        if let _ = error {
+            fatalError("Strava client is not configured")
+        }
+        
+        return Alamofire.Manager.sharedInstance.request(URLRequest.URLRequest)
+    }
+
 }
