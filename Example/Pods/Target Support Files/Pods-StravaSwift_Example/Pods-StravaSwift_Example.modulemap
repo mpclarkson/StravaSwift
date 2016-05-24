@@ -1,0 +1,6 @@
+framework module Pods_StravaSwift_Example {
+  umbrella header "Pods-StravaSwift_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

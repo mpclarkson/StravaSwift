@@ -1,0 +1,22 @@
+PODS:
+  - Alamofire (3.4.0)
+  - StravaSwift (0.1.0):
+    - Alamofire (~> 3.1)
+    - SwiftyJSON (~> 2.3)
+  - SwiftyJSON (2.3.2)
+
+DEPENDENCIES:
+  - StravaSwift (from `../`)
+
+EXTERNAL SOURCES:
+  StravaSwift:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
+  StravaSwift: c1abab5f30c410c92fbda80e2f807dfc080dcd46
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+
+PODFILE CHECKSUM: 830d895e372f32b9cdc73b0fe3c991b3ee08e234
+
+COCOAPODS: 1.0.0
