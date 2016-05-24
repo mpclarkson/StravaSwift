@@ -26,8 +26,6 @@ pod "StravaSwift"
 
 * First, you must [register your app](http://labs.strava.com/developers/) with Strava and get an oAuth `client id` and `client secret`.
 
-```
-
 * Initialize the Strava Client as follows, preferably in your `AppDelegate.swift` to ensure it is configured before you call it:
 
 ```swift
