@@ -1,6 +1,6 @@
 {
   "name": "StravaSwift",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "summary": "A Swift library for the Strava API v3",
   "description": "A Swift library for the Strava API v3",
   "homepage": "https://github.com/mpclarkson/StravaSwift",
@@ -9,11 +9,11 @@
     "file": "LICENSE"
   },
   "authors": {
-    "Matthew Clarkson": "mpclarkson@gmail.com.com"
+    "Matthew Clarkson": "mpclarkson@gmail.com"
   },
   "source": {
     "git": "https://github.com/mpclarkson/StravaSwift.git",
-    "tag": "0.1.0"
+    "tag": "0.1.1"
   },
   "social_media_url": "https://twitter.com/matt_pc",
   "platforms": {
