@@ -2,20 +2,50 @@
 //  AppDelegate.swift
 //  StravaSwift
 //
-//  Created by Matthew Clarkson on 05/24/2016.
-//  Copyright (c) 2016 Matthew Clarkson. All rights reserved.
+//  Created by Matthew on 11/11/2015.
+//  Copyright © 2015 Matthew Clarkson. All rights reserved.
 //
 
 import UIKit
+import StravaSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    var strava: StravaClient?
+    
+    lazy var storyboard = { return UIStoryboard(name: "Main", bundle: nil) }()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let config = StravaConfig(
+            clientId: 8873,
+            clientSecret: "97b97b29ede769eec2dc26c52dd281b5a1efe594",
+            redirectUri: "stravaswift://mpclarkson.github.io",
+            delegate: TokenHandler()
+        )
+        
+        strava = StravaClient.sharedInstance.initWithConfig(config)
+        
+        loadInitialViewController()
+        
+        return true
+    }
+    
+    private func loadInitialViewController() {
+        if let _ = StravaClient.sharedInstance.token {
+            window?.rootViewController = storyboard.instantiateViewControllerWithIdentifier("tab") as! UITabBarController
+            self.window?.makeKeyAndVisible()
+        }
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        guard let code = strava?.handleAuthorizationRedirect(url) else { return false }
+        NSNotificationCenter.defaultCenter().postNotificationName("code", object: code )
+        
         return true
     }
 
