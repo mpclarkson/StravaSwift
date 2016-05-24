@@ -15,11 +15,10 @@ public enum Scope: String {
     case ViewPrivateWrite = "view_private,write"
     
 }
-
-/** Client Class
+/** 
+ Strava configuration struct
  */
 public struct StravaConfig {
-    
     public let clientId: Int
     public let clientSecret: String
     public let redirectUri: String
