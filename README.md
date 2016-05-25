@@ -65,8 +65,7 @@ Alamofire [example](https://github.com/Alamofire/Alamofire#api-parameter-abstrac
 
 let strava = StravaClient.sharedInstance
 
-strava.request(Router.Athlete) { [weak self] (athlete: Athlete?) in
-    guard let `self` = self, athlete = athlete else { return }
+strava.request(Router.Athlete) { (athlete: Athlete?) in
     //do something with the athlete
 }
 
@@ -75,19 +74,16 @@ let params = [
     'per_page' = 25
 ]
 
-strava.request(Router.AthleteActivities(params)) { [weak self] (activities: [Activity]?) in
-    guard let `self` = self, activities = activities else { return }
+strava.request(Router.AthleteActivities(params) { (activities: [Activity]?) in
    //do something with the activities
 }
 ```
 
 ## Todos
 
-[ ] Documentation 
-
-[ ] Tests
-
-[ ] Error handling
+- [ ] Documentation 
+- [ ] Tests
+- [ ] Better example app
 
 ## Author
 
