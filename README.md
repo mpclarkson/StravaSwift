@@ -81,6 +81,7 @@ strava.request(Router.AthleteActivities(params) { (activities: [Activity]?) in
 
 ## Todos
 
+- [ ] 100% API coverage (about 90% now) 
 - [ ] Documentation 
 - [ ] Tests
 - [ ] Better example app
