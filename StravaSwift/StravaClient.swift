@@ -31,7 +31,7 @@ public class StravaClient {
     
     public var token:  OAuthToken? { return delegage?.get() }
     
-    var authParams: [String: AnyObject] {
+    internal var authParams: [String: AnyObject] {
         return [
             "client_id" : clientId ?? 0,
             "redirect_uri" : redirectUri ?? "",
@@ -42,7 +42,7 @@ public class StravaClient {
         ]
     }
     
-    func tokenParams(code: String) -> [String:AnyObject]  {
+    internal func tokenParams(code: String) -> [String:AnyObject]  {
         return [
             "client_id" : clientId ?? 0,
             "client_secret" : clientSecret ?? "",

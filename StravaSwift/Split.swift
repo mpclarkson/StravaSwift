@@ -9,6 +9,9 @@
 import Foundation
 import SwiftyJSON
 
+/**
+ Represents a summary of a split
+ **/
 public struct Split {
     public var distance: Double?
     public var elapsedTime: Int?

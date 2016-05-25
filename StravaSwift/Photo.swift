@@ -9,6 +9,9 @@
 import Foundation
 import SwiftyJSON
 
+/**
+ Photos are objects associated with an activity. Currently, the only external photo source is Instagram. Photos can also be stored on Strava - these photos are referred to as “native”.
+ **/
 public class Photo: Strava, StravaResourceState {
     public var id: Int?
     public var uniqueId: String?

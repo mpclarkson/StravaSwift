@@ -9,6 +9,9 @@
 import Foundation
 import SwiftyJSON
 
+/**
+ - Internal
+ **/
 public protocol Strava: CustomStringConvertible {
     init(_ json: JSON)
 }
@@ -25,6 +28,9 @@ extension Strava {
     }
 }
 
+/**
+ - Internal
+ **/
 public protocol StravaProfile: class {
     var profileMedium: NSURL? { get set }
     var profile: NSURL? { get set }
@@ -37,6 +43,9 @@ public extension StravaProfile {
     }
 }
 
+/**
+ - Internal
+ **/
 public protocol StravaResourceState: class {
     var resourceState:ResourceState? { get set }
 }
@@ -47,6 +56,9 @@ public extension StravaResourceState {
     }
 }
 
+/**
+ - Internal
+ **/
 public protocol StravaDescription: class {
     var name: String? { get set }
     var description: String? { get set }
@@ -59,12 +71,18 @@ public extension StravaDescription {
     }
 }
 
+/**
+ - Internal
+ **/
 public protocol StravaLocation: class {
     var city: String? { get set }
     var state: String? { get set }
     var country: String? { get set }
 }
 
+/**
+ - Internal
+ **/
 public extension StravaLocation {
     func setLocation(json: JSON) {
         city = json["city"].string

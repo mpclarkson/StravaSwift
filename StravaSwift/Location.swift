@@ -9,6 +9,9 @@
 import Foundation
 import SwiftyJSON
 
+/**
+    Represents the latitude and longitude of a point
+ **/
 public struct Location {
     let lat: Double
     let lng: Double

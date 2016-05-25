@@ -15,10 +15,20 @@ import Foundation
 public struct DefaultTokenDelegate: TokenDelegate {
     private var token: OAuthToken?
     
+    /**
+     Retrieves the token
+     
+     - Returns: a optional OAuthToken
+     **/
     public func get() -> OAuthToken? {
         return token
     }
     
+    /**
+     Stores the token internally (note that it is not persisted between app start ups)
+     
+     - Parameter token: an optional OAuth token
+     **/
     public mutating func set(token: OAuthToken?) {
         self.token = token
     }

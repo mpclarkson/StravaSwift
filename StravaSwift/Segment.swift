@@ -9,6 +9,9 @@
 import Foundation
 import SwiftyJSON
 
+/**
+ Segments are specific sections of road. Athletes’ times are compared on these segments and leaderboards are created.
+ **/
 public class Segment: Strava, StravaResourceState {
     public var id: Int?
     public var name: String?

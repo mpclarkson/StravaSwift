@@ -8,7 +8,8 @@
 
 import Foundation
 
-/** StravaClientError Enum
+/** 
+ StravaClientError Enum
 
 */
 public enum StravaClientError: ErrorType {

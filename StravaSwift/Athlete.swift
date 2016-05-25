@@ -9,6 +9,9 @@
 import Foundation
 import SwiftyJSON
 
+/**
+ Athletes are Strava users, Strava users are athletes. The object is returned in detailed, summary or meta representations.
+ **/
 public class Athlete: Strava, StravaProfile, StravaResourceState, StravaLocation {
     
     public var id: Int?

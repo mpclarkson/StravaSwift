@@ -9,6 +9,15 @@
 import Foundation
 import SwiftyJSON
 
+/**
+ Achievement class - a detailed representation is returned if the activity is owned by the requesting athlete, otherwise 
+ a summary representation is returned for all other requests.
+ 
+ Activity details, including segment efforts, splits and best efforts, are only available to the owner of the activity.
+ 
+ By default, only “important” efforts are included. “Importance” is based on a number of factors and its value may change over time.
+ 
+ **/
 public class Activity: Strava, StravaResourceState {
     
     public typealias Speed = Double
