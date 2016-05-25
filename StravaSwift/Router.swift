@@ -23,6 +23,12 @@ public enum Router {
     case Token(String)
     
     /**
+     Allows an application to revoke its access to an athlete’s data. This will invalidate all access tokens associated with the ‘athlete,application’ pair used to create the token. The application will be removed from the Athlete Settings page on Strava. All requests made using invalidated tokens will receive a 401 Unauthorized response.
+     - parameter token: the access token to deauthorize
+     **/
+    case Deauthorize(String)
+  
+    /**
      Gets the current user/athlete
      **/
     case Athlete
@@ -252,6 +258,11 @@ public enum Router {
      **/
     case SegmentsLeaderboards(Segment, Params)
 
+    /**
+     Retrieve details about a specific segment effort. The effort must be public or it must correspond to the current athlete.
+     - parameter segment: an EffortObject
+     - parameter params: a [String: String] dictionary of acceptable parameters
+     **/
     case SegmentEfforts(Effort, Params)
 
     //case SegmentsExplorer
@@ -273,14 +284,13 @@ extension Router: URLRequestConvertible  {
         var set:[String:AnyObject]?
     }
     
-    static var deauthorizationUrl: NSURL {
-        return NSURL(string: "https://www.strava.com/oauth/deauthorize")!
-    }
-    
     private var requestConfig: (path: String, params:[String:AnyObject]?, method: Alamofire.Method) {
         switch self {
         case .Token(let code):
             return ("/token", StravaClient.sharedInstance.tokenParams(code), .POST)
+        case .Deauthorize(let token):
+            let params = ["access_token" : token]
+            return ("/deauthorize", params, .POST)
         
         case .Athlete:
             return ("/athlete", nil, .GET)
@@ -375,7 +385,7 @@ extension Router: URLRequestConvertible  {
         
         var baseURL: NSURL {
             switch self {
-            case .Token:
+            case .Token, .Deauthorize:
                 return NSURL(string: "https://www.strava.com/oauth")!
             default:
                 return NSURL(string: "https://www.strava.com/api/v3")!
