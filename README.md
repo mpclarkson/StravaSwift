@@ -65,7 +65,7 @@ Alamofire [example](https://github.com/Alamofire/Alamofire#api-parameter-abstrac
 
 let strava = StravaClient.sharedInstance
 
-strava.request(Router.Athlete) { (athlete: Athlete?) in
+strava.request(Router.Athletes(9999999999)) { (athlete: Athlete?) in
     //do something with the athlete
 }
 
