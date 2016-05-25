@@ -10,20 +10,21 @@ import Foundation
 import SwiftyJSON
 
 /**
- Achievement struct - details the type of achievement and the rank
+   Achievement struct - details the type of achievement and the rank
  **/
 public struct Achievement: Strava {
-    
-    /**
-    Achievement type enum
-    **/
+    /** Achievement type enum **/
     public var type: AchievementType?
     
-    /**
-     Rank for the achievement
-     **/
+    /** Rank for the achievement **/
     public var rank: Int?
     
+    /**
+     Initializer
+     
+     - Parameter json: SwiftyJSON object
+     - Internal
+     **/
     public init(_ json: JSON) {
         type = AchievementType(optionalRawValue: json["type"].string)
         rank = json["rank"].int

@@ -19,6 +19,12 @@ public struct Split {
     public var elevationDifference: Int?
     public var split: Int?
     
+    /**
+     Initializer
+     
+     - Parameter json: SwiftyJSON object
+     - Internal
+     **/
     public init(_ json: JSON) {
         distance = json["distance"].double
         elapsedTime = json["elapsed_time"].int

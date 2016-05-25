@@ -63,7 +63,7 @@
 		C4EAE1419E4CB80D8D55CAC26691C766 /* SwiftyJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 17C7C311169F3CAF970644274FB0787A /* SwiftyJSON-dummy.m */; };
 		C7B6DD7C0456C50289A2C381DFE9FA3F /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413FC5CAFF8CC5E69FEB7938D8EFA262 /* MultipartFormData.swift */; };
 		C9F475541CF41D8300B730EF /* DefaultTokenDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F475521CF41D4900B730EF /* DefaultTokenDelegate.swift */; };
-		C9F4755C1CF54A5C00B730EF /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F4755B1CF54A5C00B730EF /* Route.swift */; };
+		C9F4755E1CF5711100B730EF /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F4755B1CF54A5C00B730EF /* Route.swift */; };
 		CF3F4D8284C5FF48FA3CD99E30D0B195 /* GeneralExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6124103482570992A40C6E94573386DB /* GeneralExtensions.swift */; };
 		D7CDF3D07A98EDDDF2326A489A6CCE3B /* Pods-StravaSwift_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D1FCCDF45EBF15783FA6111399C4B109 /* Pods-StravaSwift_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E7B2FCF9180378C388D2FCB6A3684B23 /* OAuthToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C28EFFE369A0DD3D6982B38A97EEAD4 /* OAuthToken.swift */; };
@@ -686,6 +686,7 @@
 				70A575FFDD0941D2BFBF121692DB6A23 /* Achievement.swift in Sources */,
 				09C5EBC1ED4F4CB92BE30A3CF8125527 /* Activity.swift in Sources */,
 				AE60457B8ED5C77FA39CDF2DA8E71D41 /* AlamofireRequest.swift in Sources */,
+				C9F4755E1CF5711100B730EF /* Route.swift in Sources */,
 				3CA21C2009BFA55C5670A2A82303792B /* Athlete.swift in Sources */,
 				293D49B3B086A9F49A0F3C855218D080 /* Club.swift in Sources */,
 				4E90E4EF7485BF6DCE428DA6C293C23A /* Comment.swift in Sources */,
@@ -737,7 +738,6 @@
 				16102E4E35FAA0FC4161282FECE56469 /* Timeline.swift in Sources */,
 				5BC19E6E0F199276003F0AF96838BCE5 /* Upload.swift in Sources */,
 				2D3405986FC586FA6C0A5E0B6BA7E64E /* Validation.swift in Sources */,
-				C9F4755C1CF54A5C00B730EF /* Route.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

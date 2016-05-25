@@ -19,6 +19,12 @@ public struct Stream: Strava {
     public var originalSize: Int?
     public var resolution: ResolutionType?
     
+    /**
+     Initializer
+     
+     - Parameter json: SwiftyJSON object
+     - Internal
+     **/
     public init(_ json: JSON) {
         type = StreamType(optionalRawValue: json["type"].string)
         data = json["data"].arrayObject

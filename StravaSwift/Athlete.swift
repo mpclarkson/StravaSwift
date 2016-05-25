@@ -10,23 +10,18 @@ import Foundation
 import SwiftyJSON
 
 /**
- Athletes are Strava users, Strava users are athletes. The object is returned in detailed, summary or meta representations.
+  Athletes are Strava users, Strava users are athletes. The object is returned in detailed, summary or meta representations.
  **/
 public class Athlete: Strava, StravaProfile, StravaResourceState, StravaLocation {
-    
     public var id: Int?
     public var resourceState: ResourceState?
     public var firstname: String?
     public var lastname: String?
-    
-    //Profile
     public var profileMedium: NSURL?
     public var profile: NSURL?
-    //Location
     public var city: String?
     public var state: String?
     public var country: String?
-    
     public var sex: Sex?
     public var friend: FollowingStatus?
     public var follower: FollowingStatus?
@@ -42,11 +37,16 @@ public class Athlete: Strava, StravaProfile, StravaResourceState, StravaLocation
     public var email: String?
     public var FTP: Int?
     public var weight: Double?
-    
     public var clubs: [Club]?
     public var bikes: [Bike]?
     public var shoes: [Shoe]?
     
+    /**
+     Initializer
+     
+     - Parameter json: SwiftyJSON object
+     - Internal
+     **/
     required public init(_ json: JSON) {
 
         setProfile(json)

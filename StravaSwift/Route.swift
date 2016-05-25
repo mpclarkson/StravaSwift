@@ -6,7 +6,7 @@
 //
 //
 
-import Foundation
+import SwiftyJSON
 
 /**
  Routes are manually-created paths made up of sections called legs. 
@@ -14,5 +14,15 @@ import Foundation
  - Warning: Not yet implmented
  **/
 class Route {
-    //Not implemented
+    public var id: Int?
+    
+    /**
+     Initializer
+     
+     - Parameter json: SwiftyJSON object
+     - Internal
+     **/
+    required public init(_ json: JSON) {
+        fatalError("Not yet implemented")
+    }
 }

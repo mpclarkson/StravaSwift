@@ -27,7 +27,7 @@ public struct DefaultTokenDelegate: TokenDelegate {
     /**
      Stores the token internally (note that it is not persisted between app start ups)
      
-     - Parameter token: an optional OAuth token
+     - Parameter token: an optional OAuthToken
      **/
     public mutating func set(token: OAuthToken?) {
         self.token = token

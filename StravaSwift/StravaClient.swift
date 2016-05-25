@@ -29,6 +29,9 @@ public class StravaClient {
     private var scope: Scope?
     private var delegage: TokenDelegate?
     
+    /** 
+      The OAuthToken returned by the delegate
+     **/
     public var token:  OAuthToken? { return delegage?.get() }
     
     internal var authParams: [String: AnyObject] {
@@ -88,6 +91,7 @@ extension StravaClient {
     Helper method to get the code from the redirection from Strava after the user has authorized the application (useful in AppDelegate)
      
      - Parameter: url
+     - Returns: the OAuth code
      **/
     public func handleAuthorizationRedirect(url: NSURL) -> String?  {
         return url.getQueryParameters()?["code"]
@@ -143,7 +147,7 @@ extension StravaClient {
     
     private func isConfigured() -> (Bool, StravaClientError?) {
         if redirectUri == nil || clientSecret == nil || clientId == nil  {
-            return (false, StravaClientError.NoCredentials)
+            return (false, StravaClientError.InvalidCredentials)
         }
         
         return (true, nil)
@@ -158,5 +162,4 @@ extension StravaClient {
         
         return Alamofire.Manager.sharedInstance.request(URLRequest.URLRequest)
     }
-
 }

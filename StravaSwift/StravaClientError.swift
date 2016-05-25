@@ -10,16 +10,16 @@ import Foundation
 
 /** 
  StravaClientError Enum
-
 */
 public enum StravaClientError: ErrorType {
     case
-    NoClientId,
-    NoClientSecret,
-    NoRedirectURL,
-    NoUsername,
-    NoPassword,
-    NoCredentials,
-    NoCode,
+    /**
+     The OAuthCredentials are invalid
+    **/
+    InvalidCredentials,
+    
+    /**
+     Uknown error
+     **/
     Unknown
 }

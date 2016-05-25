@@ -27,6 +27,12 @@ public class Photo: Strava, StravaResourceState {
     public var uuid: String?
     public var type: String?
     
+    /**
+     Initializer
+     
+     - Parameter json: SwiftyJSON object
+     - Internal
+     **/
     required public init(_ json: JSON) {
         setResourceState(json)
         id = json["id"].int

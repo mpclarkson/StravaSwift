@@ -63,6 +63,12 @@ public class Activity: Strava, StravaResourceState {
     public var splitsStandard: [Split]?
     public var bestEfforts: [Split]?
 
+    /**
+     Initializer
+     
+     - Parameter json: SwiftyJSON object
+     - Internal
+     **/
     required public init(_ json: JSON) {
         setResourceState(json)
         id = json["id"].int

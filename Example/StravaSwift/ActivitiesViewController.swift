@@ -10,7 +10,6 @@ import UIKit
 import StravaSwift
 
 class ActivitiesViewController: UITableViewController {
-
     private var activities: [Activity] = []
     
     override func viewDidLoad() {

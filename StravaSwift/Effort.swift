@@ -35,6 +35,12 @@ public class Effort: Strava, StravaResourceState {
     public var prRank: Int?
     public var hidden: Bool?
     
+    /**
+     Initializer
+     
+     - Parameter json: SwiftyJSON object
+     - Internal
+     **/
     required public init(_ json: JSON) {
         setResourceState(json)
         id = json["id"].int

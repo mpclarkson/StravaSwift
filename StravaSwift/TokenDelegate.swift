@@ -6,9 +6,7 @@
 //  Copyright © 2016 Matthew Clarkson. All rights reserved.
 //
 
-/**
- Token Delegate protocol
- **/
+//Token Delegate protocol
 public protocol TokenDelegate {
     
     /**
@@ -21,7 +19,7 @@ public protocol TokenDelegate {
     /**
      Store the token
      
-     - parameter token: an optional OAuthToken
+     - Parameter token: an optional OAuthToken
      **/
     mutating func set(token: OAuthToken?)
 }

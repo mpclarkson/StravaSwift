@@ -16,6 +16,12 @@ public struct Location {
     let lat: Double
     let lng: Double
     
+    /**
+     Initializer (failable)
+     
+     - Parameter json: SwiftyJSON object
+     - Internal
+     **/
     init?(_ points: [JSON]?) {
         guard let lat = points?.first?.double, lng = points?[1].double else { return nil }
         self.lat = lat

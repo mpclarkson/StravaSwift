@@ -9,11 +9,9 @@
 import Foundation
 
 extension String {
-    
     func toDate(format: String = "yyyy-MM-dd'T'HH:mm:ssZZZZZ") -> NSDate? {
         let formatter = NSDateFormatter()
         formatter.dateFormat = format
         return formatter.dateFromString(self)
     }
-   
 }

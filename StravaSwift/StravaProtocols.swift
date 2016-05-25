@@ -10,7 +10,9 @@ import Foundation
 import SwiftyJSON
 
 /**
- - Internal
+  Base protocol for Strava resources
+ 
+  - Internal
  **/
 public protocol Strava: CustomStringConvertible {
     init(_ json: JSON)
@@ -28,62 +30,47 @@ extension Strava {
     }
 }
 
-/**
- - Internal
- **/
-public protocol StravaProfile: class {
+internal protocol StravaProfile: class {
     var profileMedium: NSURL? { get set }
     var profile: NSURL? { get set }
 }
 
-public extension StravaProfile {
+extension StravaProfile {
     func setProfile(json: JSON) {
         profileMedium = NSURL(optionalString: json["profile_medium"].string)
         profile = NSURL(optionalString: json["profile"].string)
     }
 }
 
-/**
- - Internal
- **/
-public protocol StravaResourceState: class {
+internal protocol StravaResourceState: class {
     var resourceState:ResourceState? { get set }
 }
 
-public extension StravaResourceState {
+extension StravaResourceState {
     func setResourceState(json: JSON) {
         resourceState = ResourceState(optionalRawValue: json["resource_state"].int)
     }
 }
 
-/**
- - Internal
- **/
-public protocol StravaDescription: class {
+internal protocol StravaDescription: class {
     var name: String? { get set }
     var description: String? { get set }
 }
 
-public extension StravaDescription {
+extension StravaDescription {
     func setDescription(json: JSON) {
         name = json["name"].string
         description = json["description"].string
     }
 }
 
-/**
- - Internal
- **/
-public protocol StravaLocation: class {
+internal protocol StravaLocation: class {
     var city: String? { get set }
     var state: String? { get set }
     var country: String? { get set }
 }
 
-/**
- - Internal
- **/
-public extension StravaLocation {
+extension StravaLocation {
     func setLocation(json: JSON) {
         city = json["city"].string
         state = json["state"].string

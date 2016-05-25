@@ -28,6 +28,12 @@ public class Event: Strava, StravaResourceState {
     public var terrain: Terrain?
     public var upcomingOccurrences: [NSDate]?
     
+    /**
+     Initializer
+     
+     - Parameter json: SwiftyJSON object
+     - Internal
+     **/
     required public init(_ json: JSON) {
         setResourceState(json)
         id = json["id"].int

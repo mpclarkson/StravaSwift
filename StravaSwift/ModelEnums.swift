@@ -9,41 +9,67 @@
 
 /**
  Athlete's gender
+ 
+ - Male
+ - Female
 **/
 public enum Sex: String {
-    case Mail = "M", Female = "F"
+    case Male = "M", Female = "F"
 }
 
 /**
  Following status of the athlete
+ 
+ - Pending
+ - Accepted
+ - Blocked
  **/
 public enum FollowingStatus: String {
     case Pending = "pending", Accepted = "accepted", Blocked = "Blocked"
 }
 
 /**
- Athlete type (cyclist or runner)
+ Athlete type
+ 
+ - Cyclist
+ - Runner
  **/
 public enum AthleteType: Int {
     case Cyclist, Runner
 }
 
 /**
- Measurement units (meters or feet)
+ Measurement units
+ 
+ - Feet
+ - Meters
  **/
 public enum Units: String {
     case Feet = "feet", Meters = "meters"
 }
 
 /**
- Resource state (i.e. the level of detail of the response)
+ Resource state (describes the detail of the resource)
+ 
+ - Meta
+ - Summary
+ - Detailed
  **/
 public enum ResourceState: Int {
     case Meta = 1, Summary = 2, Detailed = 3
 }
 
 /**
- The workout type
+ Workout type
+ 
+ - Run
+ - RaceRun
+ - LongRun
+ - WorkOutRun
+ - Ride
+ - RaceRide
+ - WorkoutRide
+ 
  **/
 public enum WorkoutType: Int {
     case Run = 0, RaceRun = 1, LongRun = 3, WorkoutRun = 4
@@ -52,6 +78,36 @@ public enum WorkoutType: Int {
 
 /**
  Activity type
+ 
+  - Ride
+  - Run
+  - Swim
+  - Hike
+  - Walk
+  - AlpineSki
+  - BackcountrySki
+  - Canoeing
+  - Crossfit
+  - EBikeRide
+  - Elliptical
+  - IceSkate
+  - InlineSkate
+  - Kayaking
+  - Yoga
+  - Kitesurf
+  - NordicSki 
+  - RockClimbing
+  - RollerSki
+  - Rowing
+  - Snowboard
+  - Snowshoe
+  - StairStepper
+  - StandUpPaddling
+  - Surfing
+  - VirtualRide
+  - WeightTraining
+  - Windsurf
+  - Workout
  **/
 public enum ActivityType: String {
     case
@@ -61,7 +117,12 @@ public enum ActivityType: String {
 }
 
 /**
-Sport type
+ Sport type
+ 
+ - Cycling
+ - Running
+ - Triathlon
+ - Other
  **/
 public enum SportType: String {
     case Cycling = "cycling", Running = "running", Triathlon = "triathlon", Other = "other"
@@ -69,6 +130,13 @@ public enum SportType: String {
 
 /**
  Club type
+ 
+ - CasualClub
+ - RacingTeam
+ - Shop
+ - Company
+ - Other
+
  **/
 public enum ClubType: String {
     case CasualClub = "casual_club", RacingTeam = "racing_team", Shop = "shop", Company = "company", Other = "other"
@@ -76,6 +144,11 @@ public enum ClubType: String {
 
 /**
  Frame type (cycling only)
+ 
+ - MTB
+ - Cross
+ - Road
+ - TimeTrial
  **/
 public enum FrameType: Int {
     case MTB = 1, Cross = 2, Road = 3, TimeTrial = 4
@@ -83,6 +156,10 @@ public enum FrameType: Int {
 
 /**
  Resolution type
+ 
+ - Low
+ - Medium
+ - High
  **/
 public enum ResolutionType: String {
     case Low = "low", Medium = "medium", High = "High"
@@ -90,6 +167,18 @@ public enum ResolutionType: String {
 
 /**
  Stream type (ie the data type)
+ 
+ - Time
+ - LatLng
+ - Distance
+ - Altitude
+ - VelocitySmooth
+ - HeartRate
+ - Cadence
+ - Watts
+ - Temp
+ - Moving
+ - GradeSmooth
  **/
 public enum StreamType: String {
     case Time = "time",
@@ -104,9 +193,7 @@ public enum StreamType: String {
     Moving = "moving",
     GradeSmooth = "grade_smooth"
     
-    /**
-     Description of the units associated with the stream
-     **/
+    //Description of the units associated with the stream
     var unit: String {
         switch self {
         case Time:
@@ -137,6 +224,10 @@ public enum StreamType: String {
 
 /**
  Skill level
+ 
+ - Casual
+ - Tempo
+ - Hammerfest
  **/
 public enum SkillLevel: Int {
     case Casual = 1, Tempo = 2, Hammerfest = 4
@@ -144,6 +235,10 @@ public enum SkillLevel: Int {
 
 /**
  Terrain description
+ 
+ - MostlyFlat
+ - RollingHills
+ - KillerClimbs
  **/
 public enum Terrain: Int {
     case MostlyFlat = 0, RollingHills = 1, KillerClimbs = 2
@@ -151,6 +246,9 @@ public enum Terrain: Int {
 
 /**
  Photo source
+ 
+ - Strava
+ - Instagram
  **/
 public enum PhotoSource: Int {
     case Strava = 1, Instagram = 2
@@ -158,6 +256,10 @@ public enum PhotoSource: Int {
 
 /**
  Achievement type
+ 
+ - Overall
+ - PR
+ - YearOverall
  **/
 public enum AchievementType: String {
     case Overall = "overall", PR = "pr", YearOverall = "year_overall"

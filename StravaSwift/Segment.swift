@@ -10,7 +10,7 @@ import Foundation
 import SwiftyJSON
 
 /**
- Segments are specific sections of road. Athletes’ times are compared on these segments and leaderboards are created.
+  Segments are specific sections of road. Athletes’ times are compared on these segments and leaderboards are created.
  **/
 public class Segment: Strava, StravaResourceState {
     public var id: Int?
@@ -40,6 +40,12 @@ public class Segment: Strava, StravaResourceState {
     public var hazardous: Bool?
     public var starCount: Int?
     
+    /**
+     Initializer
+     
+     - Parameter json: SwiftyJSON object
+     - Internal
+     **/
     required public init(_ json: JSON) {
         setResourceState(json)
         id = json["id"].int

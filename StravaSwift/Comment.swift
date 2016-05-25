@@ -22,6 +22,12 @@ public class Comment: Strava, StravaResourceState {
     public var athlete: Athlete?
     public var createdAt: NSDate?
     
+    /**
+     Initializer
+     
+     - Parameter json: SwiftyJSON object
+     - Internal
+     **/
     required public init(_ json: JSON) {
         id = json["id"].int
         setResourceState(json)

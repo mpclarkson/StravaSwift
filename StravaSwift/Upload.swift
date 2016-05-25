@@ -21,6 +21,12 @@ import SwiftyJSON
 public class Upload: Strava {
     public var id: Int?
     
+    /**
+     Initializer
+     
+     - Parameter json: SwiftyJSON object
+     - Internal
+     **/
     required public init(_ json: JSON) {
         fatalError("Not yet implemented")
     }
