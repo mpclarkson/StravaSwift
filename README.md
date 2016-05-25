@@ -31,10 +31,10 @@ The full library documentation is available [here](http://cocoadocs.org/docsets/
 * Initialize the Strava Client as follows, preferably in your `AppDelegate.swift` to ensure it is configured before you call it:
 
 ```swift
-  let config = StravaConfig(
+let config = StravaConfig(
     clientId: YourStravaClientId,
     clientSecret: YourStravaClientSecret,
-    redirectUri: YourRedirectUrl, //Don't forget to register this scheme in your info.plist
+    redirectUri: YourRedirectUrl
 )
 
 StravaClient.sharedInstance.initWithConfig(config)
@@ -47,15 +47,15 @@ StravaClient.sharedInstance.initWithConfig(config)
 * Implement the following method in your `AppDelegate.swift` to handle the oAuth redirection from Strava:
 
 ```swift
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        guard let code = strava?.handleAuthorizationRedirect(url) else { return false }
-        //Exchange the code for a token
-        strava.getAccessToken(code) { token in
-            //Do something if you want, but the token is already available to the
-            //StravaClient thanks to the TokenDelegate
-        }
-        return true
+func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+    guard let code = strava?.handleAuthorizationRedirect(url) else { return false }
+    //Exchange the code for a token
+    strava.getAccessToken(code) { token in
+        //Do something if you want, but the token is already available to the
+        //StravaClient thanks to the TokenDelegate
     }
+    return true
+}
 ```
 
 * Now you can start requesting resources (note the Router implementation is based on this 
