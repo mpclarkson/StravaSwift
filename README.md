@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/cocoapods/l/StravaSwift.svg?style=flat)](http://cocoapods.org/pods/StravaSwift)
 [![Platform](https://img.shields.io/cocoapods/p/StravaSwift.svg?style=flat)](http://cocoapods.org/pods/StravaSwift)
 
-This is a Swift wrapper for [Strava v3 API](https://strava.github.io/api/).
+This is a Swift wrapper for the [Strava v3 API](https://strava.github.io/api/).
 
 As this is a passion project, I only work on it when I have time. So, if you are interested in contributing, feel free to submit PRs.
 
@@ -24,7 +24,7 @@ pod "StravaSwift"
 
 ## Quick Start
 
-The full library documentation is available (here](http://cocoadocs.org/docsets/StravaSwift).
+The full library documentation is available [here](http://cocoadocs.org/docsets/StravaSwift).
 
 * First, you must [register your app](http://labs.strava.com/developers/) with Strava and get an oAuth `client id` and `client secret`.
 
