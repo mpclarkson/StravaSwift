@@ -9,9 +9,14 @@
 import Foundation
 import SwiftyJSON
 
+/**
+ oAuth token which is required for request Strava resources
+ 
+ - parameter json: A SwiftyJSON object
+ **/
 public struct OAuthToken: Strava {
-    public var accessToken: String?
-    public var athlete: Athlete?
+    public let accessToken: String?
+    public let athlete: Athlete?
 
     public init(_ json: JSON) {
         accessToken = json["access_token"].string

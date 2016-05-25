@@ -42,7 +42,6 @@
 		70448033C6D6D819C56FEFAF8E18E857 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF2A740D34D6A6AD2BB69B8460409793 /* StringExtensions.swift */; };
 		70A575FFDD0941D2BFBF121692DB6A23 /* Achievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6B98939D641ADC7CACA17A529976A4 /* Achievement.swift */; };
 		7B48852C4D848FA2DA416A98F6425869 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A64FD6EA90FBA31DFA9101B0FF7901 /* ServerTrustPolicy.swift */; };
-		86B245CA0E3A49AF4191C758CCB0D605 /* NSDateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E766C84390B9B2230EBF6D055CF76E /* NSDateExtensions.swift */; };
 		8A97835291BC66C6F002979EF8947B59 /* Pods-StravaSwift_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 42BAB195A8D963034781DBE27D695D29 /* Pods-StravaSwift_Tests-dummy.m */; };
 		8AF456E7F7C9702189263CC167ADE66C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 373D303C0C761C3D20B69A4535818BAB /* Foundation.framework */; };
 		8EB11202167FCDDF1257AAAB1D1FB244 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E5EF6BB7D195D5FA6C641B07B50D4D /* Alamofire.swift */; };
@@ -147,7 +146,6 @@
 		4BA00B7770CE5C0311E922DD7CA72265 /* Upload.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Upload.swift; path = Source/Upload.swift; sourceTree = "<group>"; };
 		51D3931E976C0FF2B3CBFD590528F74E /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachabilityManager.swift; path = Source/NetworkReachabilityManager.swift; sourceTree = "<group>"; };
 		53E0071B37F7E6A8C118754C1B9EFCDB /* Segment.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
-		53E766C84390B9B2230EBF6D055CF76E /* NSDateExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NSDateExtensions.swift; sourceTree = "<group>"; };
 		57AF9F06C1CD4F9FCBA49BBBF2DF93C7 /* Upload.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Upload.swift; sourceTree = "<group>"; };
 		582C0D56CD61146874DF0CEF602D1F08 /* Stream.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Stream.swift; path = Source/Stream.swift; sourceTree = "<group>"; };
 		59EAF966C069E4AF30BE3118E7B01609 /* StravaSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = StravaSwift.modulemap; sourceTree = "<group>"; };
@@ -399,6 +397,63 @@
 			path = SwiftyJSON;
 			sourceTree = "<group>";
 		};
+		C9F475551CF52E8D00B730EF /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				0C28EFFE369A0DD3D6982B38A97EEAD4 /* OAuthToken.swift */,
+				C808ED89CCE7746D50317BC272259D71 /* Router.swift */,
+				170525A7D1061AE7078E4A78CE11AE00 /* StravaClient.swift */,
+				DB3374C8D6100F24AF5A0C80FDFC03CF /* StravaClientError.swift */,
+				321E3EA8010BBC81D49B30FA3BEF2834 /* StravaConfig.swift */,
+				16D37B419B8143BB668BC8C78CDD2281 /* TokenDelegate.swift */,
+				C9F475521CF41D4900B730EF /* DefaultTokenDelegate.swift */,
+			);
+			name = Api;
+			sourceTree = "<group>";
+		};
+		C9F475581CF52EA700B730EF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C9F475591CF52EAE00B730EF /* Enums */,
+				9C6B98939D641ADC7CACA17A529976A4 /* Achievement.swift */,
+				886389C003033426EF8FF912DDCF5B59 /* Activity.swift */,
+				13A7DB0ABBCBA3DF88CA211B25DE579E /* Athlete.swift */,
+				01F5AB650E25FA1B51220D78832973EB /* Club.swift */,
+				22D9C4BE69259EA2B81C405EF75BB9F6 /* Comment.swift */,
+				7CBB843CA28E0E9848CFF6AF8E09A267 /* Effort.swift */,
+				29E0647A1ACC8DE5F40FB3D09630F77C /* Event.swift */,
+				3763B2D0512774F9D8028DD5A0F1018F /* GearBikeShoe.swift */,
+				FBEF634C8B4627D500D32E7012E91AC7 /* Location.swift */,
+				04F18F99CD7CF8E20FE7C129976FDE88 /* Map.swift */,
+				3050E71EA2EA4BB9F76E1484FB1EFEC2 /* Photo.swift */,
+				53E0071B37F7E6A8C118754C1B9EFCDB /* Segment.swift */,
+				B922677AC5B39D47049D94C1682E53CF /* Split.swift */,
+				EEADBD6E09980D87E78B27882F418E78 /* StravaProtocols.swift */,
+				721E9C4F7D54D335EDE9336E45DFC8DE /* Stream.swift */,
+				57AF9F06C1CD4F9FCBA49BBBF2DF93C7 /* Upload.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		C9F475591CF52EAE00B730EF /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				D93858E5508074CAB24F573AB4BA9B8A /* ModelEnums.swift */,
+			);
+			name = Enums;
+			sourceTree = "<group>";
+		};
+		C9F4755A1CF52EC200B730EF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0BD52EBACCF6859F6D40615F2A67585A /* AlamofireRequest.swift */,
+				6124103482570992A40C6E94573386DB /* GeneralExtensions.swift */,
+				AFF409EEE47139D233FE2AEEEFA93ADE /* NSURLExtensions.swift */,
+				EF2A740D34D6A6AD2BB69B8460409793 /* StringExtensions.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		CCBA6BEF76EFB0FF4786EE59DFA558C0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,35 +478,9 @@
 		F7922D22C1341F8CB7C2D1DA47280E5F /* StravaSwift */ = {
 			isa = PBXGroup;
 			children = (
-				9C6B98939D641ADC7CACA17A529976A4 /* Achievement.swift */,
-				886389C003033426EF8FF912DDCF5B59 /* Activity.swift */,
-				0BD52EBACCF6859F6D40615F2A67585A /* AlamofireRequest.swift */,
-				13A7DB0ABBCBA3DF88CA211B25DE579E /* Athlete.swift */,
-				01F5AB650E25FA1B51220D78832973EB /* Club.swift */,
-				22D9C4BE69259EA2B81C405EF75BB9F6 /* Comment.swift */,
-				7CBB843CA28E0E9848CFF6AF8E09A267 /* Effort.swift */,
-				29E0647A1ACC8DE5F40FB3D09630F77C /* Event.swift */,
-				3763B2D0512774F9D8028DD5A0F1018F /* GearBikeShoe.swift */,
-				6124103482570992A40C6E94573386DB /* GeneralExtensions.swift */,
-				FBEF634C8B4627D500D32E7012E91AC7 /* Location.swift */,
-				04F18F99CD7CF8E20FE7C129976FDE88 /* Map.swift */,
-				D93858E5508074CAB24F573AB4BA9B8A /* ModelEnums.swift */,
-				53E766C84390B9B2230EBF6D055CF76E /* NSDateExtensions.swift */,
-				AFF409EEE47139D233FE2AEEEFA93ADE /* NSURLExtensions.swift */,
-				0C28EFFE369A0DD3D6982B38A97EEAD4 /* OAuthToken.swift */,
-				3050E71EA2EA4BB9F76E1484FB1EFEC2 /* Photo.swift */,
-				C808ED89CCE7746D50317BC272259D71 /* Router.swift */,
-				53E0071B37F7E6A8C118754C1B9EFCDB /* Segment.swift */,
-				B922677AC5B39D47049D94C1682E53CF /* Split.swift */,
-				170525A7D1061AE7078E4A78CE11AE00 /* StravaClient.swift */,
-				DB3374C8D6100F24AF5A0C80FDFC03CF /* StravaClientError.swift */,
-				321E3EA8010BBC81D49B30FA3BEF2834 /* StravaConfig.swift */,
-				EEADBD6E09980D87E78B27882F418E78 /* StravaProtocols.swift */,
-				721E9C4F7D54D335EDE9336E45DFC8DE /* Stream.swift */,
-				EF2A740D34D6A6AD2BB69B8460409793 /* StringExtensions.swift */,
-				16D37B419B8143BB668BC8C78CDD2281 /* TokenDelegate.swift */,
-				C9F475521CF41D4900B730EF /* DefaultTokenDelegate.swift */,
-				57AF9F06C1CD4F9FCBA49BBBF2DF93C7 /* Upload.swift */,
+				C9F475551CF52E8D00B730EF /* Api */,
+				C9F4755A1CF52EC200B730EF /* Extensions */,
+				C9F475581CF52EA700B730EF /* Models */,
 			);
 			path = StravaSwift;
 			sourceTree = "<group>";
@@ -665,7 +694,6 @@
 				8FA9DE6A5E2FE6804D12701E5E2C6889 /* Location.swift in Sources */,
 				209D615F2C2983C6511D90928A48A2F1 /* Map.swift in Sources */,
 				417B558BA032C364121E69484262662A /* ModelEnums.swift in Sources */,
-				86B245CA0E3A49AF4191C758CCB0D605 /* NSDateExtensions.swift in Sources */,
 				6CD86B9EC0C78032E4B5D6DA709D9A43 /* NSURLExtensions.swift in Sources */,
 				E7B2FCF9180378C388D2FCB6A3684B23 /* OAuthToken.swift in Sources */,
 				27BAEB9DC4B02B74CF699880CB571BB1 /* Photo.swift in Sources */,

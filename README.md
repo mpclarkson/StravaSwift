@@ -5,9 +5,9 @@
 [![License](https://img.shields.io/cocoapods/l/StravaSwift.svg?style=flat)](http://cocoapods.org/pods/StravaSwift)
 [![Platform](https://img.shields.io/cocoapods/p/StravaSwift.svg?style=flat)](http://cocoapods.org/pods/StravaSwift)
 
-This is a Swift wrapper for the Strava API (v3).
+This is a Swift wrapper for [Strava v3 API](https://strava.github.io/api/).
 
-While not complete, it is functional but not tested. Most of the endpoints have been implemented. As this is a passion project, I only work on it when I have time. So, if you are interested in contributing, feel free to submit PRs.
+As this is a passion project, I only work on it when I have time. So, if you are interested in contributing, feel free to submit PRs.
 
 ## Example
 
@@ -23,6 +23,8 @@ pod "StravaSwift"
 ```
 
 ## Quick Start
+
+The full library documentation is available (here](http://cocoadocs.org/docsets/StravaSwift).
 
 * First, you must [register your app](http://labs.strava.com/developers/) with Strava and get an oAuth `client id` and `client secret`.
 
@@ -57,7 +59,7 @@ StravaClient.sharedInstance.initWithConfig(config)
 ```
 
 * Now you can start requesting resources (note the Router implementation is based on this 
-Alamofire [example](https://github.com/Alamofire/Alamofire#api-parameter-abstraction)). For example:
+Alamofire [example](https://github.com/Alamofire/Alamofire#api-parameter-abstraction). For example:
 
 ```swift
 
