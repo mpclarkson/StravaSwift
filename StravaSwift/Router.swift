@@ -11,294 +11,96 @@ import Alamofire
 
 /**
  Router enum for type safe routing. For information on how this is used please [see here](https://github.com/Alamofire/Alamofire#api-parameter-abstraction).
+ 
+    - Token: Requests a Strava OAuth token for the given code
+    - Deauthorize: Revoke the supplied access token
+    - Athlete: Gets the current user/athlete
+    - UpdateAthlete: Updates the current user/athlete
+    - AthleteActivities: Lists the current user/athlete's activities
+    - AthleteFriends: Lists the current user/athlete's friends
+    - AthleteFollowers: Lists the current user/athlete's followers
+    - AthleteClubs: Lists the current user/athlete's clubs
+    - Athletes: Retrieves a specific athlete
+    - AthletesFriends: Lists a specific athlete's friends
+    - AthletesFollowers: Lists a specific athlete's followers
+    - AthletesBothFollowing: Lists athletes the current user and the requested athlete are both following
+    - AthletesStats: Gets the statistics for a specific athlete
+    - AthletesKoms: Lists the specific athlete's KOMS
+    - CreateActivity: Creates a new manual activity in Strava for the athlete (not for uploading files)
+    - UpdateActivity: Updates an activity, requires write permissions
+    - DeleteActivity: Deletes an activity, requires write permissions
+    - Activities:  Retrieves an activity
+    - ActivitiesKudos: Lists kudos for an activity
+    - ActivitiesComments: Lists comments for an activity
+    - ActivitiesPhotos: Lists photos for an activity
+    - ActivitiesRelated: Lists related activities
+    - ActivitiesFriends: List the recent activities performed by the current athlete and those they are following. Pagination is supported but results are limited to 200.
+    - ActivitiesZones: Heartrate and power zones are set by the athlete. This endpoint returns the time (seconds) in each zone. The distribution is not customizable. Requires an access token associated with the owner of the activity and the owner must be a premium user.
+    - ActivitiesLaps: Lists all laps associated with an activity
+    - Clubs: Retrieves a club
+    - ClubsAnnouncements: Lists announcements for a club
+    - ClubsEvents: Lists events for a club
+    - ClubsMembers: Lists members of a club
+    - ClubsActivities: Lists activities by club members
+    - ClubsJoin: Join a club (ie the current athlete)
+    - ClubsLeave: Leave a club (ie the current athlete)
+    - Gear: Retrieves a gear object
+    - Segments: Retrieves a segment
+    - SegmentsStarred: Lists segments the current athlete has starred
+    - SegmentsEfforts: Lists efforts for a segment
+    - SegmentsLeaderboards: Lists the leaderboards for a segment
+    - SegmentEfforts: Retrieve details about a specific segment effort. The effort must be public or it must correspond to the current athlete.
+ 
  **/
 public enum Router {
     
     public typealias Id = Int
     public typealias Params = [String: AnyObject]?
     
-    /**
-     Requests a Strava OAuth token
-     
-     - parameter code: the code returned from Strava after granting access to the application
-    **/
     case Token(String)
-    
-    /**
-     Allows an application to revoke its access to an athlete’s data. This will invalidate all access tokens associated with the ‘athlete,application’ pair used to create the token. The application will be removed from the Athlete Settings page on Strava. All requests made using invalidated tokens will receive a 401 Unauthorized response.
-     
-     - parameter token: the access token to deauthorize
-     **/
     case Deauthorize(String)
-  
-    /**
-     Gets the current user/athlete
-     **/
+    
     case Athlete
-    
-    /**
-     Updates the current user/athlete
-     **/
     case UpdateAthlete
-    
-    /**
-     Lists the current user/athlete's activities
-     
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case AthleteActivities(Params)
-    
-    /**
-     Lists the current user/athlete's friends
-     
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case AthleteFriends(Params)
-    
-    /**
-     Lists the current user/athlete's followers
-     
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case AthleteFollowers(Params)
-    
-    /**
-     Lists the current user/athlete's clubs
-     
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case AthleteClubs(Params)
     
-    /**
-    Gets a specific athlete
-    
-     - parameter id: the athlete id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-    **/
     case Athletes(Id, Params)
-    
-    /**
-     Lists a specific athlete's friends
-     
-     - parameter id: the athlete id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case AthletesFriends(Id, Params)
-    
-    /**
-     Lists a specific athlete's followers
-     
-     - parameter id: the athlete id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case AthletesFollowers(Id, Params)
-    
-    /**
-     Lists athletes the current user and the requested athlete are both following
-     
-     - parameter id: the athlete id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case AthletesBothFollowing(Id, Params)
-    
-    /**
-     Gets the statistics for a specific athlete
-     
-     - parameter id: the athlete id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case AthletesStats(Id, Params)
-    
-    /**
-     Lists the specific athlete's KOMS
-     
-     - parameter id: the athlete id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case AthletesKoms(Id, Params)
-    
-    /**
-     Creates a new manual activity in Strava for the athlete (not for uploading files)
-     
-     - parameter params: a [String: String] dictionary representing the activity
-     **/
+
     case CreateActivity(Params)
-    
-    /**
-     Updates an activity, requires write permissions
-     - parameter activity: an Activity object
-     **/
     case UpdateActivity(Activity)
-    
-    /**
-     Deletes an activity, requires write permissions
-     
-     - parameter activity: an Activity object
-     **/
     case DeleteActivity(Activity)
-    
-    /**
-     Gets an activity
-     
-     - parameter id: the activity id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case Activities(Id, Params)
     
-    /**
-     Lists kudos for an activity
-     
-     - parameter id: the activity id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case ActivitiesKudos(Id, Params)
-    
-    /**
-     Lists comments for an activity
-     
-     - parameter id: the activity id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case ActivitiesComments(Id, Params)
-    
-    /**
-     Lists photos for an activity
-     
-     - parameter id: the activity id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case ActivitiesPhotos(Id, Params)
-    
-    /**
-     Lists related activities
-     
-     - parameter id: the activity id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case ActivitiesRelated(Id, Params)
-    
-    /**
-     List the recent activities performed by the current athlete and those they are following. Pagination is supported. However, results are limited to the last 200 total activities.
-     
-     - parameter id: the activity id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case ActivitiesFriends(Id, Params)
-    
-    /**
-     Heartrate and power zones are set by the athlete. This endpoint returns the time (seconds) in each zone. The distribution is not customizable. Requires an access token associated with the owner of the activity and the owner must be a premium user.
-     
-     - parameter id: the activity id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case ActivitiesZones(Id, Params)
-    
-    /**
-     Lists all laps associated with an activity
-     
-     - parameter id: the activity id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case ActivitiesLaps(Id, Params)
     
-    /**
-     Retrieves a club
-     
-     - parameter id: the club id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case Clubs(Id, Params)
-    
-    /**
-     Lists announcments for a club
-     
-     - parameter id: the club id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case ClubsAnnouncements(Id, Params)
-    
-    /**
-     Lists events for a club
-     
-     - parameter id: the club id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case ClubsEvents(Id, Params)
-    
-    /**
-     Lists members of a club
-     
-     - parameter id: the club id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case ClubsMembers(Id, Params)
-    
-    /**
-     Lists activities by club members
-     
-     - parameter id: the club id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case ClubsActivities(Id, Params)
-    
-    /**
-     Join a club (ie the current athlete)
-     
-     - parameter id: the club id
-     **/
     case ClubsJoin(Id)
-    
-    /**
-     Leave a club (ie the current athlete)
-    
-     - parameter id: the club id
-     **/
     case ClubsLeave(Id)
     
-    /**
-     Retrieves a gear object
-     
-     - parameter id: the gear id
-     **/
     case Gear(Id, Params)
     
-    /**
-     Retrieves a segment
-     
-     - parameter id: the segment id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case Segments(Id, Params)
-    
-    /**
-     Lists segments the current athlete has starred
-     
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case SegmentsStarred(Params)
-    
-    /**
-     Lists efforts for a segment
-     
-     - parameter id: the segment id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case SegmentsEfforts(Id, Params)
-    
-    /**
-     Lists the leaderboards for a segment
-     
-     - parameter id: the segment id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case SegmentsLeaderboards(Id, Params)
-
-    /**
-     Retrieve details about a specific segment effort. The effort must be public or it must correspond to the current athlete.
-     
-     - parameter id: the segment efforr id
-     - parameter params: a [String: String] dictionary of acceptable parameters
-     **/
     case SegmentEfforts(Id, Params)
 
     //case SegmentsExplorer
