@@ -9,9 +9,7 @@
 import SwiftyJSON
 
 /**
- Routes are manually-created paths made up of sections called legs. 
- 
- - Warning: Not yet implmented
+ Routes are manually-created paths made up of sections called legs.
  **/
 public final class Route: Strava, StravaResourceState {
     public var id: Int?
@@ -39,16 +37,16 @@ public final class Route: Strava, StravaResourceState {
         id = json["id"].int
         name = json["name"].string
         description = json["description"].string
-        athlete = Athlete(json["athlete"])
+        athlete = json["athlete"].strava(Athlete)
         distance = json["distance"].double
         elevationGain = json["elevation_gain"].double
-        map = Map(json["map"])
-        type = RouteType(optionalRawValue: json["type"].int)
-        subType = RouteSubType(optionalRawValue: json["sub_type"].int)
+        map = json["map"].strava(Map)
+        type = json["type"].strava(RouteType)
+        subType = json["sub_type"].strava(RouteSubType)
         `private` = json["private"].bool
         starred = json["starred"].bool
         timeStamp = json["time_stamp"].int
-        segments = json["segments"].array?.flatMap { Segment($0) }
+        segments = json["segments"].strava(Segment)
         setResourceState(json)
     }
 }

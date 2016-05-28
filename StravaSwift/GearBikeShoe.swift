@@ -58,8 +58,7 @@ public final class Bike: Gear {
      **/
     required public init(_ json: JSON) {
         super.init(json)
-        
-        frameType = FrameType(optionalRawValue: json["frame_type"].int)
+        frameType = json["frame_type"].strava(FrameType)
     }
 }
 

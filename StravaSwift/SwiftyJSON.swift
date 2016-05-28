@@ -16,15 +16,20 @@ extension RawRepresentable {
 }
 
 extension JSON  {
-    public func object<T: Strava>(type: T.Type?) -> T? {
+    public func strava<T: Strava>(type: T.Type?) -> T? {
         return type?.init(self)
     }
     
-    public func object<T: RawRepresentable where T.RawValue == Int>(type: T.Type?) -> T? {
+    public func strava<T: RawRepresentable where T.RawValue == Int>(type: T.Type?) -> T? {
         return type?.init(optionalRawValue: self.int)
     }
     
-    public func object<T: RawRepresentable where T.RawValue == String>(type: T.Type?) -> T? {
+    public func strava<T: RawRepresentable where T.RawValue == String>(type: T.Type?) -> T? {
         return type?.init(optionalRawValue: self.string)
     }
+
+    public func strava<T: Strava>(type: T.Type?) -> [T]? {
+        return self.arrayValue.flatMap  { T($0) }
+    }
+ 
 }

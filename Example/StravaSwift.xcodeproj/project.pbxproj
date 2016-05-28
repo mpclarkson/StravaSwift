@@ -98,8 +98,8 @@
 		607FACD21AFB9204008FA782 /* Example for StravaSwift */ = {
 			isa = PBXGroup;
 			children = (
-				C9F4753F1CF3E19400B730EF /* ActivitiesViewController.swift */,
 				C9F475401CF3E19400B730EF /* AppDelegate.swift */,
+				C9F4753F1CF3E19400B730EF /* ActivitiesViewController.swift */,
 				C9F475411CF3E19400B730EF /* AthleteViewController.swift */,
 				C9F475421CF3E19400B730EF /* ConnectViewController.swift */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,

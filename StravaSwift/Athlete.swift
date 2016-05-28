@@ -48,29 +48,27 @@ public final class Athlete: Strava, StravaProfile, StravaResourceState, StravaLo
      - Internal
      **/
     required public init(_ json: JSON) {
-
         setProfile(json)
         setResourceState(json)
         setLocation(json)
-    
         id = json["id"].int
         firstname = json["firstname"].string
         lastname = json["lastname"].string
-        sex = Sex(optionalRawValue: json["sex"].string)
-        friend = FollowingStatus(optionalRawValue: json["friend"].string)
-        follower = FollowingStatus(optionalRawValue: json["follower"].string)
+        sex = json["sex"].strava(Sex)
+        friend = json["friend"].strava(FollowingStatus)
+        follower = json["follower"].strava(FollowingStatus)
         createdAt = json["created_at"].string?.toDate()
         updatedAt = json["updated_at"].string?.toDate()
         followerCount = json["follower_count"].int
         friendCount = json["friend_count"].int
         mutualFriendCount = json["mutual_friend_count"].int
-        athleteType = AthleteType(optionalRawValue: json["athlete_type"].int)
+        athleteType = json["athlete_type"].strava(AthleteType)
         datePreference = json["date_preference"].string
-        measurementPreference = Units(optionalRawValue: json["measurement_preference"].string)
+        measurementPreference = json["measurement_preference"].strava(Units)
         FTP = json["ftp"].int
         weight = json["weight"].double
-        clubs = json["clubs"].arrayValue.map  { Club($0) }
-        bikes = json["bikes"].arrayValue.map  { Bike($0) }
-        shoes = json["shoes"].arrayValue.map  { Shoe($0) }
+        clubs = json["clubs"].strava(Club)
+        bikes = json["bikes"].strava(Bike)
+        shoes = json["shoes"].strava(Shoe)
     }
 }

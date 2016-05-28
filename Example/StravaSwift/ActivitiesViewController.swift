@@ -21,7 +21,7 @@ class ActivitiesViewController: UITableViewController {
 
 extension ActivitiesViewController {
     private func update(params: [String: String]? = nil) {
-        StravaClient.sharedInstance.request(Router.AthleteActivities(params)) { [weak self] (activities: [Activity]?) in
+        StravaClient.sharedInstance.request(Router.AthleteActivities(params: params)) { [weak self] (activities: [Activity]?) in
             guard let `self` = self, activities = activities else { return }
             self.activities = activities
             self.tableView?.reloadData()

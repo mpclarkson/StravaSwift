@@ -40,10 +40,10 @@ public final class Photo: Strava, StravaResourceState {
         activityId = json["activity_id"].int
         urls = json["urls"].dictionary?.flatMap { NSURL(optionalString: $0.1.string) }
         caption = json["caption"].string
-        source = PhotoSource(optionalRawValue: json["source"].int)
+        source = json["source"].strava(PhotoSource)
         uploadedAt = json["uploaded_at"].string?.toDate()
         createdAt = json["created_at"].string?.toDate()
-        location = Location(json["location"].array)
+        location = json["location"].strava(Location)
         refs = json["refs"].string
         uuid = json["uuid"].string
         type = json["type"].string

@@ -12,9 +12,9 @@ import SwiftyJSON
 /**
     Represents the latitude and longitude of a point
  **/
-public struct Location {
-    let lat: Double
-    let lng: Double
+public struct Location: Strava {
+    let lat: Double?
+    let lng: Double?
     
     /**
      Initializer (failable)
@@ -22,9 +22,9 @@ public struct Location {
      - Parameter json: SwiftyJSON object
      - Internal
      **/
-    init?(_ points: [JSON]?) {
-        guard let lat = points?.first?.double, lng = points?[1].double else { return nil }
-        self.lat = lat
-        self.lng = lng
+    public init(_ json: JSON) {
+        let points = json.arrayValue
+        self.lat = points.first?.double
+        self.lng = points.last?.double
     }
 }

@@ -51,14 +51,14 @@ public final class Segment: Strava, StravaResourceState {
         id = json["id"].int
         name = json["name"].string
         descr = json["description"].string
-        activityType = ActivityType(optionalRawValue: json["activity_type"].string)
+        activityType = json["activity_type"].strava(ActivityType)
         distance = json["distance"].double
         averageGrade = json["average_grade"].double
         maximumGrade = json["maximum_grade"].double
         elevationHigh = json["elevation_high"].double
         elevationLow = json["elevation_low"].double
-        startLatLng = Location(json["start_latlng"].array)
-        endLatLng = Location(json["end_latlng"].array)
+        startLatLng = json["start_latlng"].strava(Location)
+        endLatLng = json["end_latlng"].strava(Location)
         climbCategory = json["climb_category"].int
         city = json["city"].string
         state = json["state"].string
@@ -68,7 +68,7 @@ public final class Segment: Strava, StravaResourceState {
         createdAt = json["created_at"].string?.toDate()
         updateAt = json["updated_at"].string?.toDate()
         totalElevationGain = json["total_elevation_gained"].double
-        map = Map(json["map"])
+        map = json["map"].strava(Map)
         effortCount = json["effort_count"].int
         athleteCount = json["athlete_count"].int
         hazardous = json["hazardous"].bool

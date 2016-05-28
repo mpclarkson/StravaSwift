@@ -45,8 +45,8 @@ public final class Effort: Strava, StravaResourceState {
         setResourceState(json)
         id = json["id"].int
         name = json["name"].string
-        activity = Activity(json["activity_type"])
-        athlete = Athlete(json["athlete"])
+        activity = json["activity_type"].strava(Activity)
+        athlete = json["athlete"].strava(Athlete)
         elapsedTime = json["elapsed_time"].int
         movingTime = json["moving_time"].int
         startDate = json["start_date"].string?.toDate()
@@ -59,7 +59,7 @@ public final class Effort: Strava, StravaResourceState {
         deviceWatts = json["device_watts"].bool
         averageHeartRate = json["average_heartrate"].double
         maxHeartRate = json["max_heartrate"].int
-        segment = Segment(json["segment"])
+        segment = json["segment"].strava(Segment)
         komRank = json["kom_rank"].int
         prRank = json["pr_rank"].int
         hidden = json["hidden"].bool

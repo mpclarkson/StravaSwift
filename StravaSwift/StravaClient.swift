@@ -104,7 +104,7 @@ extension StravaClient {
      - Parameter result: a closure to handle the OAuthToken
      **/
     public func getAccessToken(code: String, result: ((OAuthToken)? -> Void)) {
-        oauthRequest(Router.Token(code))?.responseStrava { [weak self] (response: Response<OAuthToken, NSError>) in
+        oauthRequest(Router.Token(code: code))?.responseStrava { [weak self] (response: Response<OAuthToken, NSError>) in
             guard let `self` = self else { return }
             let token = response.result.value
             self.delegage?.set(token)

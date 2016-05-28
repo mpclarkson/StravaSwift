@@ -40,14 +40,14 @@ public final class Event: Strava, StravaResourceState {
         title = json["title"].string
         descr = json["description"].string
         clubId = json["club_id"].int
-        organizingAthlete = Athlete(json["organizing_athlete"])
-        activityType = ActivityType(optionalRawValue: json["activity_type"].string)
+        organizingAthlete = json["organizing_athlete"].strava(Athlete)
+        activityType = json["activity_type"].strava(ActivityType)
         createdAt = json["created_at"].string?.toDate()
         routeId = json["route_id"].int
         womenOnly = json["women_only"].bool
         `private` =  json["private"].bool
-        skillLevels = SkillLevel(optionalRawValue: json["skill_level"].int)
-        terrain = Terrain(optionalRawValue: json["terrain"].int)
+        skillLevels = json["skill_level"].strava(SkillLevel)
+        terrain = json["terrain"].strava(Terrain)
         upcomingOccurrences = json["terrain"].arrayValue.flatMap { $0.string?.toDate() }
     }
 }

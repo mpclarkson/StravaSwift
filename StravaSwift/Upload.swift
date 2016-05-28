@@ -18,16 +18,35 @@ import SwiftyJSON
  
  - Warning: Not yet implemented
  **/
-public final class Upload: Strava {
-    public var id: Int?
-    
+public struct Upload: Strava {
+//
+//    activity_type:	string optional, case insensitive
+//    possible values: ride, run, swim, workout, hike, walk, nordicski, alpineski, backcountryski, iceskate, inlineskate, kitesurf, rollerski, windsurf, workout, snowboard, snowshoe, ebikeride, virtualride
+//    Type detected from file overrides, uses athlete’s default type if not specified
+//    name:	string optional
+//    if not provided, will be populated using start date and location, if available
+//    description:	string optional
+//    private:	integer optional
+//    set to 1 to mark the resulting activity as private, ‘view_private’ permissions will be necessary to view the activity
+//    trainer:	integer optional
+//    activities without lat/lng info in the file are auto marked as stationary, set to 1 to force
+//    commute:	integer optional
+//    set to 1 to mark as commute
+//    data_type:	string required case insensitive
+//    possible values: fit, fit.gz, tcx, tcx.gz, gpx, gpx.gz
+//    external_id:	string optional
+//    data filename will be used by default but should be a unique identifier
+//    file:	multipart/form-data required
+//    the actual activity data, if gzipped the data_type must end with .gz
+//    
+//    
     /**
      Initializer
      
      - Parameter json: SwiftyJSON object
      - Internal
      **/
-    required public init(_ json: JSON) {
+    public init(_ json: JSON) {
         fatalError("Not yet implemented")
     }
 }

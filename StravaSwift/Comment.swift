@@ -33,8 +33,7 @@ public final class Comment: Strava, StravaResourceState {
         setResourceState(json)
         activityId = json["activity_id"].int
         text = json["text"].string
-        athlete = Athlete(json["athlete"])
+        athlete = json["athlete"].strava(Athlete)
         createdAt = json["created_at"].string?.toDate()
-        
     }
 }
