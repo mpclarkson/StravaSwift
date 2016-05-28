@@ -74,7 +74,7 @@ public final class Activity: Strava, StravaResourceState {
         id = json["id"].int
         externalId = json["external_id"].string
         uploadId = json["upload_id"].int
-        athlete = Athlete(json["athlete"])
+        athlete = json["athlete"].object(Athlete) //Athlete(json["athlete"])
         name = json["name"].string
         description = json["description"].string
         distance = json["distance"].double

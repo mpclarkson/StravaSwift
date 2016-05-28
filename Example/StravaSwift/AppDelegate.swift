@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         
         strava = StravaClient.sharedInstance.initWithConfig(config)
-        
         loadInitialViewController()
         
         return true
