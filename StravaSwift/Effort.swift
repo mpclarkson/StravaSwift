@@ -12,7 +12,7 @@ import SwiftyJSON
 /**
  A segment effort represents an athlete’s attempt at a segment. It can also be thought of as a portion of a ride that covers a segment. The object is returned in summary or detailed representations. They are currently the same.
  **/
-public class Effort: Strava, StravaResourceState {
+public final class Effort: Strava, StravaResourceState {
     public var id: Int?
     public var resourceState: ResourceState?
     public var name: String?

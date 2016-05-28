@@ -42,12 +42,12 @@ public class Gear: Strava, StravaResourceState, StravaDescription {
 /**
   Shoe represents shoes worn on a run. The object is returned in summary or detailed representations.
  **/
-public class Shoe: Gear {}
+public final class Shoe: Gear {}
 
 /**
  Bike represents a... bike!  The object is returned in summary or detailed representations.
  **/
-public class Bike: Gear {
+public final class Bike: Gear {
     public var frameType: FrameType?
     
     /**

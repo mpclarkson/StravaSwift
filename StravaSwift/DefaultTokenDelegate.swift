@@ -9,8 +9,8 @@
 import Foundation
 
 /**
- The default token delegate. You really should replace this with something that persists the 
- token (eg to NSUserDefaults)
+ The default token delegate. You should replace this with something that persists the 
+ token (e.g. to NSUserDefaults)
 **/
 public struct DefaultTokenDelegate: TokenDelegate {
     private var token: OAuthToken?

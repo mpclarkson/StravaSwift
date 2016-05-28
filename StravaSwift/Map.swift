@@ -12,7 +12,7 @@ import SwiftyJSON
 /**
   Represents a map of a ride or route
  **/
-public class Map: Strava, StravaResourceState {
+public final class Map: Strava, StravaResourceState {
     public var id: String?
     public var resourceState: ResourceState?
     public var polyline: String?

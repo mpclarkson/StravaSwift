@@ -12,7 +12,7 @@ import SwiftyJSON
 /**
  Clubs represent groups of athletes on Strava. They can be public or private. The object is returned in summary or detailed representations.
  **/
-public class Club: Strava, StravaProfile, StravaResourceState, StravaDescription, StravaLocation {
+public final class Club: Strava, StravaProfile, StravaResourceState, StravaDescription, StravaLocation {
     public var id: Int?
     public var profileMedium: NSURL?
     public var profile: NSURL?

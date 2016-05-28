@@ -18,7 +18,7 @@ import SwiftyJSON
  By default, only “important” efforts are included. “Importance” is based on a number of factors and its value may change over time.
  
  **/
-public class Activity: Strava, StravaResourceState {
+public final class Activity: Strava, StravaResourceState {
     
     public typealias Speed = Double
     public typealias Count = Int

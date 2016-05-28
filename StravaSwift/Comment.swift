@@ -14,7 +14,7 @@ import SwiftyJSON
  
  Comment posting can be enabled on a per application basis, email developers@strava.com for more information.
  **/
-public class Comment: Strava, StravaResourceState {
+public final class Comment: Strava, StravaResourceState {
     public var id: Int?
     public var resourceState: ResourceState?
     public var activityId: Int?

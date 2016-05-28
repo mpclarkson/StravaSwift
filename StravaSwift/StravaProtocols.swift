@@ -43,7 +43,7 @@ extension StravaProfile {
 }
 
 internal protocol StravaResourceState: class {
-    var resourceState:ResourceState? { get set }
+    var resourceState: ResourceState? { get set }
 }
 
 extension StravaResourceState {

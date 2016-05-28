@@ -18,7 +18,7 @@ import SwiftyJSON
  
  - Warning: Not yet implemented
  **/
-public class Upload: Strava {
+public final class Upload: Strava {
     public var id: Int?
     
     /**

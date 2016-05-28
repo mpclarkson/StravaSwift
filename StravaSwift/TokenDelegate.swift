@@ -6,7 +6,9 @@
 //  Copyright © 2016 Matthew Clarkson. All rights reserved.
 //
 
-//Token Delegate protocol
+/**
+ Token Delegate protocol - responsible for storing and retrieving the OAuth token
+ **/
 public protocol TokenDelegate {
     
     /**

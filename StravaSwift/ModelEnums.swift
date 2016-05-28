@@ -266,5 +266,17 @@ public enum AchievementType: String {
 }
 
 
+/** Route type enum **/
+public enum RouteType: Int {
+    case Ride = 1, Run = 2
+}
+
+/** Route sub type enum **/
+public enum RouteSubType: Int {
+    case Road = 1, MTB = 2, CX = 3, Trail = 4, Mixed = 5
+}
+
+
+
 
 

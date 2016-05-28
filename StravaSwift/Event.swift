@@ -12,7 +12,7 @@ import SwiftyJSON
 /**
  Group Events are optionally recurring events for club members. Only club members can access private club events. The objects are returned in summary representation.
  **/
-public class Event: Strava, StravaResourceState {
+public final class Event: Strava, StravaResourceState {
     public var id: Int?
     public var resourceState: ResourceState?
     public var title: String?

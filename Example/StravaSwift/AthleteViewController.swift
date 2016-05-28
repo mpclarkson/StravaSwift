@@ -23,24 +23,19 @@ extension UIImageView {
 
 class AthleteViewController: UIViewController {
     
+    @IBOutlet weak var name: UILabel?
+    @IBOutlet weak var avatar: UIImageView?
+    
     var athlete: Athlete? {
         didSet {
             name?.text = "\(athlete?.firstname ?? "") \(athlete?.lastname ?? "")"
             avatar?.from(url: athlete?.profileMedium)
         }
     }
-    
-    @IBOutlet weak var name: UILabel?
-    @IBOutlet weak var avatar: UIImageView?
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         update()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }
 
