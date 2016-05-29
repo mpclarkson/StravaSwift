@@ -276,6 +276,13 @@ public enum RouteSubType: Int {
     case Road = 1, MTB = 2, CX = 3, Trail = 4, Mixed = 5
 }
 
+/**
+ Data type enum for uploaded activities
+ **/
+public enum DataType: String {
+    case Fit = "fit", FitGz = "fit.gz", Tcx = "tcx", TcxGz = "tcx.gz", Gpx = "gpx", GxpGz = "gpx.gz"
+}
+
 
 
 

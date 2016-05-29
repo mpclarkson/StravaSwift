@@ -21,11 +21,10 @@ public protocol Strava: CustomStringConvertible {
 extension Strava {
     public var description: String {
         let mirror = Mirror(reflecting: self)
-        var desc: String = ""
+        var desc = ""
         for child in mirror.children {
             desc += "\(child.label!): \(child.value) \n"
         }
-        
         return desc
     }
 }
@@ -48,7 +47,7 @@ internal protocol StravaResourceState: class {
 
 extension StravaResourceState {
     func setResourceState(json: JSON) {
-        resourceState = ResourceState(optionalRawValue: json["resource_state"].int)
+        resourceState = json["resource_state"].strava(ResourceState)
     }
 }
 

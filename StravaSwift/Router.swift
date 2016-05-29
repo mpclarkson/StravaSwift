@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 /**
  Router enum for type safe routing. For information on how this is used please [see here](https://github.com/Alamofire/Alamofire#api-parameter-abstraction).
@@ -341,7 +342,9 @@ public enum Router {
     case EffortStreams(id: Id, types: String)
 
     /**
-     Retrieve segment streams. Only distance, altitude and latlng stream types are available.
+     Retrieve segment streams
+     
+     Only distance, altitude and latlng stream types are available.
      
      - parameter id: the effort id
      - parameter params: a [String: String] dictionary of acceptable parameters
@@ -349,14 +352,34 @@ public enum Router {
     case SegmentStreams(id: Id, types: String)
     
     /**
-     Retrieve route streams. Distance, altitude and latlng stream types are always returned.
+     Retrieve route streams
+     
+     Distance, altitude and latlng stream types are always returned.
      
      - parameter id: the activity id
      **/
     case RouteStreams(id: Id)
 
-    //TODO: To be implemented
-    //case Uploads
+    /**
+     Upload an activity
+     
+     Requires write permissions, as requested during the authorization process.
+     
+     Posting a file for upload will enqueue it for processing. Initial checks will be done for malformed data and duplicates.     
+     
+     - parameter upload: an upload object
+     **/
+    case Upload(upload: StravaSwift.Upload)
+    
+    /**
+     Check upload status
+     
+     Upon upload, Strava will respond with an upload ID. You may use this ID to poll the status of your upload. Strava recommends polling no more than once a second. Polling more frequently is unnecessary. The mean processing time is around 8 seconds.
+    
+     - parameter id: the upload id
+     **/
+    case Uploads(id: Id)
+
 
 }
 
@@ -377,7 +400,6 @@ extension Router: URLRequestConvertible  {
      The Url Request
     **/
     public var URLRequest: NSMutableURLRequest {
-
         let config = self.requestConfig
         
         var baseURL: NSURL {
@@ -406,6 +428,7 @@ extension Router {
     
     private var requestConfig: (path: String, params:[String: AnyObject]?, method: Alamofire.Method) {
         switch self {
+        
         case .Token(let code):
             return ("/token", StravaClient.sharedInstance.tokenParams(code), .POST)
         case .Deauthorize(let token):
@@ -485,7 +508,6 @@ extension Router {
             return ("/segments/\(id)/leaderboard", params, .GET)
         case SegmentsExplore(let id, let params):
             return ("/segments/\(id)/explore", params, .GET)
-        
         case SegmentsStarred:
             return ("/segments/starred", nil, .GET)
             
@@ -509,9 +531,10 @@ extension Router {
         case RouteStreams(let id):
             return ("/routes/\(id)/streams", nil, .GET)
             
-            //        case .Uploads:
-            //            return ("/uploads/", nil, .GET)
-            
+        case .Upload(let upload):
+            return ("/uploads", upload.params, .POST)
+        case .Uploads(let id):
+            return ("/uploads", nil, .POST)
         }
     }
 }

@@ -125,10 +125,18 @@ extension StravaClient {
      - Parameter result: a closure to handle the returned object
      **/
     public func request<T: Strava>(route: Router, result: ((T)? -> Void)) {
-        oauthRequest(route)?.responseStrava { (response: Response<T, NSError>) in
-            result(response.result.value)
+        switch route {
+        case .Upload(let upload):
+            oauthRequest(route)?.responseStrava { (response: Response<T, NSError>) in
+                result(response.result.value)
+            }
+        default:
+            oauthRequest(route)?.responseStrava { (response: Response<T, NSError>) in
+                result(response.result.value)
+            }
+
         }
-    }
+   }
     
     /**
      Request an array of objects from the Strava Api
@@ -141,6 +149,41 @@ extension StravaClient {
             result(response.result.value)
         }
     }
+    
+//    /**
+//     Upload an activity
+//     
+//     - Parameter route: a Router enum case which may require parameters (must be Router.Upload)
+//     - Parameter result: a closure to handle the returned objects
+//     **/
+//    public func upload(route: Router, result: ((Upload.Status)? -> Void)) {
+////        oauthUpload(route)?.responseStrava{ (response: Response<Upload.Status, NSError>) in
+////            result(response.result.value)
+////        }
+//        
+//        let upload =
+//        
+//        Alamofire.Manager.upload(
+//            .POST,
+//            "https://httpbin.org/post",
+//            multipartFormData: { multipartFormData in
+//                multipartFormData.appendBodyPart(data: upload.file, name: "file.gpx")
+//            },
+//            encodingCompletion: { encodingResult in
+//                switch encodingResult {
+//                case .Success(let upload, _, _):
+//                    upload.responseJSON { response in
+//                        debugPrint(response)
+//                    }
+//                case .Failure(let encodingError):
+//                    print(encodingError)
+//                }
+//            }
+//        )
+//
+//    }
+    
+
 }
 
 extension StravaClient {
