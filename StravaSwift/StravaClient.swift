@@ -127,14 +127,13 @@ extension StravaClient {
     public func request<T: Strava>(route: Router, result: ((T)? -> Void)) {
         switch route {
         case .Upload(let upload):
-            oauthRequest(route)?.responseStrava { (response: Response<T, NSError>) in
+            oauthUpload(route.URLRequest, upload: upload)?.responseStrava { (response: Response<T, NSError>) in
                 result(response.result.value)
             }
         default:
             oauthRequest(route)?.responseStrava { (response: Response<T, NSError>) in
                 result(response.result.value)
             }
-
         }
    }
     
@@ -150,40 +149,6 @@ extension StravaClient {
         }
     }
     
-//    /**
-//     Upload an activity
-//     
-//     - Parameter route: a Router enum case which may require parameters (must be Router.Upload)
-//     - Parameter result: a closure to handle the returned objects
-//     **/
-//    public func upload(route: Router, result: ((Upload.Status)? -> Void)) {
-////        oauthUpload(route)?.responseStrava{ (response: Response<Upload.Status, NSError>) in
-////            result(response.result.value)
-////        }
-//        
-//        let upload =
-//        
-//        Alamofire.Manager.upload(
-//            .POST,
-//            "https://httpbin.org/post",
-//            multipartFormData: { multipartFormData in
-//                multipartFormData.appendBodyPart(data: upload.file, name: "file.gpx")
-//            },
-//            encodingCompletion: { encodingResult in
-//                switch encodingResult {
-//                case .Success(let upload, _, _):
-//                    upload.responseJSON { response in
-//                        debugPrint(response)
-//                    }
-//                case .Failure(let encodingError):
-//                    print(encodingError)
-//                }
-//            }
-//        )
-//
-//    }
-    
-
 }
 
 extension StravaClient {
@@ -196,13 +161,46 @@ extension StravaClient {
         return (true, nil)
     }
     
-    private func oauthRequest(URLRequest: URLRequestConvertible) -> Request? {
+    private func checkConfiguration() {
         let (_, error) = StravaClient.sharedInstance.isConfigured()
         
         if let _ = error {
             fatalError("Strava client is not configured")
         }
+
+    }
+    
+    private func oauthRequest(URLRequest: URLRequestConvertible) -> Request? {
+        checkConfiguration()
         
         return Alamofire.Manager.sharedInstance.request(URLRequest.URLRequest)
     }
+    
+    private func oauthUpload(URLRequest: URLRequestConvertible, upload: Upload) -> Request? {
+        checkConfiguration()
+        
+                guard let url = URLRequest.URLRequest.URL else { return nil }
+        
+                return Alamofire.Manager.sharedInstance.upload(.POST, url,
+                    headers: URLRequest.URLRequest.allHTTPHeaderFields,
+                    multipartFormData: { multipartFormData in
+        
+                        multipartFormData.appendBodyPart(data: upload.file, name: "file.gpx")
+                        for (key, value) in upload.params {
+                            multipartFormData.appendBodyPart(data: value.dataUsingEncoding(NSUTF8StringEncoding)!, name: key)
+                        }
+                    },
+                    encodingMemoryThreshold: Manager.MultipartFormDataEncodingMemoryThreshold,
+                    encodingCompletion: { encodingResult in
+                        switch encodingResult {
+                        case .Success(let upload, _, _):
+                            upload.responseJSON { response in
+                                debugPrint(response)
+                            }
+                        case .Failure(let encodingError):
+                            print(encodingError)
+                        }
+                })
+    }
+
 }

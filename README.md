@@ -58,8 +58,10 @@ func application(application: UIApplication, openURL url: NSURL, sourceApplicati
 }
 ```
 
-* Now you can start requesting resources (note the Router implementation is based on this 
-Alamofire [example](https://github.com/Alamofire/Alamofire#api-parameter-abstraction). For example:
+* Now you can start requesting resources. 
+
+> The Router implementation is based on this
+Alamofire [example](https://github.com/Alamofire/Alamofire#api-parameter-abstraction):
 
 ```swift
 
@@ -81,8 +83,8 @@ strava.request(Router.AthleteActivities(params: params) { (activities: [Activity
 
 ## Todos
 
-- [ ] 100% API coverage (about 90% now) 
-- [ ] Documentation 
+- [ ] 100% API coverage (about 90% now)
+- [ ] Documentation
 - [ ] Tests
 - [ ] Better example app
 
