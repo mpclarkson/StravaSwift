@@ -12,20 +12,20 @@ import SwiftyJSON
 /**
  Photos are objects associated with an activity. Currently, the only external photo source is Instagram. Photos can also be stored on Strava - these photos are referred to as “native”.
  **/
-public final class Photo: Strava, StravaResourceState {
-    public var id: Int?
-    public var uniqueId: String?
-    public var activityId: Int?
-    public var resourceState: ResourceState?
-    public var urls: [NSURL]?
-    public var caption: String?
-    public var source: PhotoSource?
-    public var uploadedAt: NSDate?
-    public var createdAt: NSDate?
-    public var location: Location?
-    public var refs: String?
-    public var uuid: String?
-    public var type: String?
+public final class Photo: Strava {
+    public let id: Int?
+    public let uniqueId: String?
+    public let activityId: Int?
+    public let resourceState: ResourceState?
+    public let urls: [NSURL]?
+    public let caption: String?
+    public let source: PhotoSource?
+    public let uploadedAt: NSDate?
+    public let createdAt: NSDate?
+    public let location: Location?
+    public let refs: String?
+    public let uuid: String?
+    public let type: String?
     
     /**
      Initializer
@@ -34,8 +34,8 @@ public final class Photo: Strava, StravaResourceState {
      - Internal
      **/
     required public init(_ json: JSON) {
-        setResourceState(json)
         id = json["id"].int
+        resourceState = json["resource_state"].strava(ResourceState)
         uniqueId = json["unique_id"].string
         activityId = json["activity_id"].int
         urls = json["urls"].dictionary?.flatMap { NSURL(optionalString: $0.1.string) }

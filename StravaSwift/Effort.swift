@@ -12,28 +12,28 @@ import SwiftyJSON
 /**
  A segment effort represents an athlete’s attempt at a segment. It can also be thought of as a portion of a ride that covers a segment. The object is returned in summary or detailed representations. They are currently the same.
  **/
-public final class Effort: Strava, StravaResourceState {
-    public var id: Int?
-    public var resourceState: ResourceState?
-    public var name: String?
-    public var activity: Activity?
-    public var athlete: Athlete?
-    public var elapsedTime: Int?
-    public var movingTime: Int?
-    public var startDate: NSDate?
-    public var startDateLocal: NSDate?
-    public var distance: Double?
-    public var startIndex: Int?
-    public var endIndex: Int?
-    public var averageCadence: Double?
-    public var averageWatts: Double?
-    public var deviceWatts: Bool?
-    public var averageHeartRate: Double?
-    public var maxHeartRate: Int?
-    public var segment: Segment?
-    public var komRank: Int?
-    public var prRank: Int?
-    public var hidden: Bool?
+public final class Effort: Strava {
+    public let id: Int?
+    public let resourceState: ResourceState?
+    public let name: String?
+    public let activity: Activity?
+    public let athlete: Athlete?
+    public let elapsedTime: Int?
+    public let movingTime: Int?
+    public let startDate: NSDate?
+    public let startDateLocal: NSDate?
+    public let distance: Double?
+    public let startIndex: Int?
+    public let endIndex: Int?
+    public let averageCadence: Double?
+    public let averageWatts: Double?
+    public let deviceWatts: Bool?
+    public let averageHeartRate: Double?
+    public let maxHeartRate: Int?
+    public let segment: Segment?
+    public let komRank: Int?
+    public let prRank: Int?
+    public let hidden: Bool?
     
     /**
      Initializer
@@ -42,8 +42,8 @@ public final class Effort: Strava, StravaResourceState {
      - Internal
      **/
     required public init(_ json: JSON) {
-        setResourceState(json)
         id = json["id"].int
+        resourceState = json["resource_state"].strava(ResourceState)
         name = json["name"].string
         activity = json["activity_type"].strava(Activity)
         athlete = json["athlete"].strava(Athlete)

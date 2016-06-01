@@ -18,50 +18,50 @@ import SwiftyJSON
  By default, only “important” efforts are included. “Importance” is based on a number of factors and its value may change over time.
  
  **/
-public final class Activity: Strava, StravaResourceState {
+public final class Activity: Strava {
     
     public typealias Speed = Double
     public typealias Count = Int
     
-    public var id: Int?
-    public var resourceState: ResourceState?
-    public var externalId: String?
-    public var uploadId: Int?
-    public var athlete: Athlete?
-    public var name: String?
-    public var description: String?
-    public var distance: Double?
-    public var movingTime: NSTimeInterval?
-    public var elapsedTime: NSTimeInterval?
-    public var totalElevationGain: Double?
-    public var type: ActivityType?
-    public var startDate: NSDate?
-    public var startDateLocal: NSDate?
-    public var timeZone: NSTimeZone?
-    public var startLatLng: Location?
-    public var endLatLng: Location?
-    public var achievementCount: Count?
-    public var kudosCount: Count?
-    public var commentCount: Count?
-    public var athleteCount: Count?
-    public var photoCount: Count?
-    public var totalPhotoCount: Count?
-    public var photos: [Photo]?
-    public var trainer: Bool?
-    public var commute: Bool?
-    public var manual: Bool?
-    public var `private`: Bool?
-    public var flagged: Bool?
-    public var workoutType: WorkoutType?
-    public var gear: Gear?
-    public var averageSpeed: Speed?
-    public var maxSpeed: Speed?
-    public var calories: Double?
-    public var hasKudoed: Bool?
-    public var segmentEfforts: [Effort]?
-    public var splitsMetric: [Split]?
-    public var splitsStandard: [Split]?
-    public var bestEfforts: [Split]?
+    public let id: Int?
+    public let resourceState: ResourceState?
+    public let externalId: String?
+    public let uploadId: Int?
+    public let athlete: Athlete?
+    public let name: String?
+    public let description: String?
+    public let distance: Double?
+    public let movingTime: NSTimeInterval?
+    public let elapsedTime: NSTimeInterval?
+    public let totalElevationGain: Double?
+    public let type: ActivityType?
+    public let startDate: NSDate?
+    public let startDateLocal: NSDate?
+    public let timeZone: String?
+    public let startLatLng: Location?
+    public let endLatLng: Location?
+    public let achievementCount: Count?
+    public let kudosCount: Count?
+    public let commentCount: Count?
+    public let athleteCount: Count?
+    public let photoCount: Count?
+    public let totalPhotoCount: Count?
+    public let photos: [Photo]?
+    public let trainer: Bool?
+    public let commute: Bool?
+    public let manual: Bool?
+    public let `private`: Bool?
+    public let flagged: Bool?
+    public let workoutType: WorkoutType?
+    public let gear: Gear?
+    public let averageSpeed: Speed?
+    public let maxSpeed: Speed?
+    public let calories: Double?
+    public let hasKudoed: Bool?
+    public let segmentEfforts: [Effort]?
+    public let splitsMetric: [Split]?
+    public let splitsStandard: [Split]?
+    public let bestEfforts: [Split]?
 
     /**
      Initializer
@@ -70,8 +70,9 @@ public final class Activity: Strava, StravaResourceState {
      - Internal
      **/
     required public init(_ json: JSON) {
-        setResourceState(json)
+
         id = json["id"].int
+        resourceState = json["resource_state"].strava(ResourceState)
         externalId = json["external_id"].string
         uploadId = json["upload_id"].int
         athlete = json["athlete"].strava(Athlete)
@@ -108,5 +109,6 @@ public final class Activity: Strava, StravaResourceState {
         splitsMetric = json["splits_metric"].strava(Split)
         splitsStandard = json["splits_standard"].strava(Split)
         bestEfforts = json["best_efforts"].strava(Split)
+        timeZone = json["timezone"].string
     }
 }

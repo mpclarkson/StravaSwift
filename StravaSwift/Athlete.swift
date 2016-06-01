@@ -12,34 +12,34 @@ import SwiftyJSON
 /**
   Athletes are Strava users, Strava users are athletes. The object is returned in detailed, summary or meta representations.
  **/
-public final class Athlete: Strava, StravaProfile, StravaResourceState, StravaLocation {
-    public var id: Int?
-    public var resourceState: ResourceState?
-    public var firstname: String?
-    public var lastname: String?
-    public var profileMedium: NSURL?
-    public var profile: NSURL?
-    public var city: String?
-    public var state: String?
-    public var country: String?
-    public var sex: Sex?
-    public var friend: FollowingStatus?
-    public var follower: FollowingStatus?
-    public var premium:Bool?
-    public var createdAt: NSDate?
-    public var updatedAt: NSDate?
-    public var friendCount: Int?
-    public var followerCount: Int?
-    public var mutualFriendCount: Int?
-    public var athleteType: AthleteType?
-    public var datePreference: String?
-    public var measurementPreference: Units?
-    public var email: String?
-    public var FTP: Int?
-    public var weight: Double?
-    public var clubs: [Club]?
-    public var bikes: [Bike]?
-    public var shoes: [Shoe]?
+public final class Athlete: Strava {
+    public let id: Int?
+    public let resourceState: ResourceState?
+    public let firstname: String?
+    public let lastname: String?
+    public let profileMedium: NSURL?
+    public let profile: NSURL?
+    public let city: String?
+    public let state: String?
+    public let country: String?
+    public let sex: Sex?
+    public let friend: FollowingStatus?
+    public let follower: FollowingStatus?
+    public let premium:Bool?
+    public let createdAt: NSDate?
+    public let updatedAt: NSDate?
+    public let friendCount: Int?
+    public let followerCount: Int?
+    public let mutualFriendCount: Int?
+    public let athleteType: AthleteType?
+    public let datePreference: String?
+    public let measurementPreference: Units?
+    public let email: String?
+    public let FTP: Int?
+    public let weight: Double?
+    public let clubs: [Club]?
+    public let bikes: [Bike]?
+    public let shoes: [Shoe]?
     
     /**
      Initializer
@@ -48,15 +48,21 @@ public final class Athlete: Strava, StravaProfile, StravaResourceState, StravaLo
      - Internal
      **/
     required public init(_ json: JSON) {
-        setProfile(json)
-        setResourceState(json)
-        setLocation(json)
+        
+        
         id = json["id"].int
+        resourceState = json["resource_state"].strava(ResourceState)
+        city = json["city"].string
+        state = json["state"].string
+        country = json["country"].string
+        profileMedium = NSURL(optionalString: json["profile_medium"].string)
+        profile = NSURL(optionalString: json["profile"].string)
         firstname = json["firstname"].string
         lastname = json["lastname"].string
         sex = json["sex"].strava(Sex)
         friend = json["friend"].strava(FollowingStatus)
         follower = json["follower"].strava(FollowingStatus)
+        premium = json["premium"].bool
         createdAt = json["created_at"].string?.toDate()
         updatedAt = json["updated_at"].string?.toDate()
         followerCount = json["follower_count"].int
@@ -65,6 +71,7 @@ public final class Athlete: Strava, StravaProfile, StravaResourceState, StravaLo
         athleteType = json["athlete_type"].strava(AthleteType)
         datePreference = json["date_preference"].string
         measurementPreference = json["measurement_preference"].strava(Units)
+        email = json["email"].string
         FTP = json["ftp"].int
         weight = json["weight"].double
         clubs = json["clubs"].strava(Club)

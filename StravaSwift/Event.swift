@@ -12,21 +12,21 @@ import SwiftyJSON
 /**
  Group Events are optionally recurring events for club members. Only club members can access private club events. The objects are returned in summary representation.
  **/
-public final class Event: Strava, StravaResourceState {
-    public var id: Int?
-    public var resourceState: ResourceState?
-    public var title: String?
-    public var descr: String?
-    public var clubId: Int?
-    public var organizingAthlete: Athlete?
-    public var activityType: ActivityType?
-    public var createdAt: NSDate?
-    public var routeId: Int?
-    public var womenOnly: Bool?
-    public var `private`: Bool?
-    public var skillLevels: SkillLevel?
-    public var terrain: Terrain?
-    public var upcomingOccurrences: [NSDate]?
+public final class Event: Strava {
+    public let id: Int?
+    public let resourceState: ResourceState?
+    public let title: String?
+    public let descr: String?
+    public let clubId: Int?
+    public let organizingAthlete: Athlete?
+    public let activityType: ActivityType?
+    public let createdAt: NSDate?
+    public let routeId: Int?
+    public let womenOnly: Bool?
+    public let `private`: Bool?
+    public let skillLevels: SkillLevel?
+    public let terrain: Terrain?
+    public let upcomingOccurrences: [NSDate]?
     
     /**
      Initializer
@@ -35,7 +35,7 @@ public final class Event: Strava, StravaResourceState {
      - Internal
      **/
     required public init(_ json: JSON) {
-        setResourceState(json)
+        resourceState = json["resource_state"].strava(ResourceState)
         id = json["id"].int
         title = json["title"].string
         descr = json["description"].string

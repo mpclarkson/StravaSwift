@@ -12,11 +12,11 @@ import SwiftyJSON
 /**
   Represents a map of a ride or route
  **/
-public final class Map: Strava, StravaResourceState {
-    public var id: String?
-    public var resourceState: ResourceState?
-    public var polyline: String?
-    public var summaryPolyline: String?
+public final class Map: Strava {
+    public let id: String?
+    public let resourceState: ResourceState?
+    public let polyline: String?
+    public let summaryPolyline: String?
     
     /**
      Initializer
@@ -25,8 +25,8 @@ public final class Map: Strava, StravaResourceState {
      - Internal
      **/
     required public init(_ json: JSON) {
-        setResourceState(json)
         id = json["id"].string
+        resourceState = json["resource_state"].strava(ResourceState)
         polyline = json["polyline"].string
         summaryPolyline = json["summary_polyline"].string
     }

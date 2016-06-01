@@ -10,7 +10,6 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-
 /**
  StravaClient responsible for making all api requests
 */

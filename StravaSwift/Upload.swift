@@ -32,34 +32,17 @@ public struct Upload {
     public let dataType: DataType
     public let file: NSData
     
-    internal var params: [String: AnyObject] {
+    internal var params: [String: AnyObject?] {
         
-        var p:[String: AnyObject] = [
+        return [
             "data_type": dataType.rawValue,
-            "file": file
+            "file": file,
+            "name": name,
+            "description": description,
+            "private": `private`,
+            "trainer": trainer,
+            "external_id": externalId
         ]
-        
-        if let name = name {
-            p["name"] = name
-        }
-        
-        if let description = description {
-            p["description"] = description
-        }
-        
-        if let `private` = `private` {
-            p["private"] = `private`
-        }
-        
-        if let trainer = trainer {
-            p["trainer"] = trainer
-        }
-        
-        if let externalId = externalId {
-            p["external_id"] = externalId
-        }
-        
-        return p
     }
     
     /**

@@ -12,20 +12,20 @@ import SwiftyJSON
 /**
  Clubs represent groups of athletes on Strava. They can be public or private. The object is returned in summary or detailed representations.
  **/
-public final class Club: Strava, StravaProfile, StravaResourceState, StravaDescription, StravaLocation {
-    public var id: Int?
-    public var profileMedium: NSURL?
-    public var profile: NSURL?
-    public var name: String?
-    public var description: String?
-    public var city: String?
-    public var state: String?
-    public var country: String?
-    public var clubType: ClubType?
-    public var sportType: SportType?
-    public var isPrivate: Bool?
-    public var memberCount: Int?
-    public var resourceState: ResourceState?
+public final class Club: Strava {
+    public let id: Int?
+    public let profileMedium: NSURL?
+    public let profile: NSURL?
+    public let name: String?
+    public let description: String?
+    public let city: String?
+    public let state: String?
+    public let country: String?
+    public let clubType: ClubType?
+    public let sportType: SportType?
+    public let isPrivate: Bool?
+    public let memberCount: Int?
+    public let resourceState: ResourceState?
     
     /**
      Initializer
@@ -35,9 +35,16 @@ public final class Club: Strava, StravaProfile, StravaResourceState, StravaDescr
      **/
     required public init(_ json: JSON) {
         id = json["id"].int
-        setProfile(json)
-        setResourceState(json)
-        setDescription(json)
+        name = json["name"].string
+        description = json["description"].string
+        resourceState = json["resource_state"].strava(ResourceState)
+        city = json["city"].string
+        state = json["state"].string
+        country = json["country"].string
+        clubType = json["club_type"].strava(ClubType)
+        sportType = json["sport_type"].strava(SportType)
+        profileMedium = NSURL(optionalString: json["profile_medium"].string)
+        profile = NSURL(optionalString: json["profile"].string)
         isPrivate = json["private"].bool
         memberCount = json["member_count"].int
     }

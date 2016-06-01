@@ -14,10 +14,10 @@ import SwiftyJSON
  **/
 public struct Achievement: Strava {
     /** Achievement type enum **/
-    public var type: AchievementType?
+    public let type: AchievementType?
     
     /** Rank for the achievement **/
-    public var rank: Int?
+    public let rank: Int?
     
     /**
      Initializer

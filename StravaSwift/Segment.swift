@@ -12,33 +12,33 @@ import SwiftyJSON
 /**
   Segments are specific sections of road. Athletes’ times are compared on these segments and leaderboards are created.
  **/
-public final class Segment: Strava, StravaResourceState {
-    public var id: Int?
-    public var name: String?
-    public var descr: String?
-    public var resourceState: ResourceState?
-    public var activityType: ActivityType?
-    public var distance: Double?
-    public var averageGrade: Double?
-    public var maximumGrade: Double?
-    public var elevationHigh: Double?
-    public var elevationLow: Double?
-    public var startLatLng: Location?
-    public var endLatLng: Location?
-    public var climbCategory: Int?
-    public var city: String?
-    public var state: String?
-    public var country: String?
-    public var `private`: Bool?
-    public var starred: Bool?
-    public var createdAt: NSDate?
-    public var updateAt: NSDate?
-    public var totalElevationGain: Double?
-    public var map: Map?
-    public var effortCount: Int?
-    public var athleteCount: Int?
-    public var hazardous: Bool?
-    public var starCount: Int?
+public final class Segment: Strava {
+    public let id: Int?
+    public let name: String?
+    public let descr: String?
+    public let resourceState: ResourceState?
+    public let activityType: ActivityType?
+    public let distance: Double?
+    public let averageGrade: Double?
+    public let maximumGrade: Double?
+    public let elevationHigh: Double?
+    public let elevationLow: Double?
+    public let startLatLng: Location?
+    public let endLatLng: Location?
+    public let climbCategory: Int?
+    public let city: String?
+    public let state: String?
+    public let country: String?
+    public let `private`: Bool?
+    public let starred: Bool?
+    public let createdAt: NSDate?
+    public let updateAt: NSDate?
+    public let totalElevationGain: Double?
+    public let map: Map?
+    public let effortCount: Int?
+    public let athleteCount: Int?
+    public let hazardous: Bool?
+    public let starCount: Int?
     
     /**
      Initializer
@@ -47,8 +47,8 @@ public final class Segment: Strava, StravaResourceState {
      - Internal
      **/
     required public init(_ json: JSON) {
-        setResourceState(json)
         id = json["id"].int
+        resourceState = json["resource_state"].strava(ResourceState)
         name = json["name"].string
         descr = json["description"].string
         activityType = json["activity_type"].strava(ActivityType)

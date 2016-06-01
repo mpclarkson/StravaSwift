@@ -11,21 +11,21 @@ import SwiftyJSON
 /**
  Routes are manually-created paths made up of sections called legs.
  **/
-public final class Route: Strava, StravaResourceState {
-    public var id: Int?
-    public var resourceState: ResourceState?
-    public var name: String?
-    public var description: String?
-    public var athlete: Athlete?
-    public var distance: Double?
-    public var elevationGain: Double?
-    public var map: Map?
-    public var type: RouteType?
-    public var subType: RouteSubType?
-    public var `private`: Bool?
-    public var starred: Bool?
-    public var timeStamp: Int?
-    public var segments: [Segment]?
+public final class Route: Strava {
+    public let id: Int?
+    public let resourceState: ResourceState?
+    public let name: String?
+    public let description: String?
+    public let athlete: Athlete?
+    public let distance: Double?
+    public let elevationGain: Double?
+    public let map: Map?
+    public let type: RouteType?
+    public let subType: RouteSubType?
+    public let `private`: Bool?
+    public let starred: Bool?
+    public let timeStamp: Int?
+    public let segments: [Segment]?
       
     /**
      Initializer
@@ -35,6 +35,7 @@ public final class Route: Strava, StravaResourceState {
      **/
     required public init(_ json: JSON) {
         id = json["id"].int
+        resourceState = json["resource_state"].strava(ResourceState)
         name = json["name"].string
         description = json["description"].string
         athlete = json["athlete"].strava(Athlete)
@@ -47,6 +48,5 @@ public final class Route: Strava, StravaResourceState {
         starred = json["starred"].bool
         timeStamp = json["time_stamp"].int
         segments = json["segments"].strava(Segment)
-        setResourceState(json)
     }
 }

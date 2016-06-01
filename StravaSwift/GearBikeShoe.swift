@@ -12,15 +12,15 @@ import SwiftyJSON
 /**
  Gear represents equipment used during an activity. The object is returned in summary or detailed representations.
  **/
-public class Gear: Strava, StravaResourceState, StravaDescription {
-    public var id: String?
-    public var primary: Bool?
-    public var name: String?
-    public var description: String?
-    public var resourceState: ResourceState?
-    public var distance: Double?
-    public var brandName: String?
-    public var modelName: String?
+public class Gear: Strava {
+    public let id: String?
+    public let primary: Bool?
+    public let name: String?
+    public let description: String?
+    public let resourceState: ResourceState?
+    public let distance: Double?
+    public let brandName: String?
+    public let modelName: String?
 
     /**
      Initializer
@@ -29,10 +29,11 @@ public class Gear: Strava, StravaResourceState, StravaDescription {
      - Internal
      **/
     required public init(_ json: JSON) {
-        setResourceState(json)
-        setDescription(json)
         id = json["id"].string
         primary = json["primary"].bool
+        name = json["name"].string
+        description = json["description"].string
+        resourceState = json["resource_state"].strava(ResourceState)
         distance = json["distance"].double
         brandName = json["brand_name"].string
         modelName = json["model_name"].string
@@ -48,7 +49,7 @@ public final class Shoe: Gear {}
  Bike represents a... bike!  The object is returned in summary or detailed representations.
  **/
 public final class Bike: Gear {
-    public var frameType: FrameType?
+    public let frameType: FrameType?
     
     /**
      Initializer
@@ -57,8 +58,8 @@ public final class Bike: Gear {
      - Internal
      **/
     required public init(_ json: JSON) {
-        super.init(json)
         frameType = json["frame_type"].strava(FrameType)
+        super.init(json)
     }
 }
 

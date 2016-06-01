@@ -13,11 +13,11 @@ import SwiftyJSON
  Represents a summary of a split
  **/
 public struct Split: Strava {
-    public var distance: Double?
-    public var elapsedTime: Int?
-    public var movingTime: Int?
-    public var elevationDifference: Int?
-    public var split: Int?
+    public let distance: Double?
+    public let elapsedTime: Int?
+    public let movingTime: Int?
+    public let elevationDifference: Int?
+    public let split: Int?
     
     /**
      Initializer

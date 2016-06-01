@@ -14,13 +14,13 @@ import SwiftyJSON
  
  Comment posting can be enabled on a per application basis, email developers@strava.com for more information.
  **/
-public final class Comment: Strava, StravaResourceState {
-    public var id: Int?
-    public var resourceState: ResourceState?
-    public var activityId: Int?
-    public var text: String?
-    public var athlete: Athlete?
-    public var createdAt: NSDate?
+public final class Comment: Strava {
+    public let id: Int?
+    public let resourceState: ResourceState?
+    public let activityId: Int?
+    public let text: String?
+    public let athlete: Athlete?
+    public let createdAt: NSDate?
     
     /**
      Initializer
@@ -30,7 +30,7 @@ public final class Comment: Strava, StravaResourceState {
      **/
     required public init(_ json: JSON) {
         id = json["id"].int
-        setResourceState(json)
+        resourceState = json["resource_state"].strava(ResourceState)
         activityId = json["activity_id"].int
         text = json["text"].string
         athlete = json["athlete"].strava(Athlete)

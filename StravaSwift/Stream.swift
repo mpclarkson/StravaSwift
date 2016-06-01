@@ -13,11 +13,11 @@ import SwiftyJSON
  Streams is the Strava term for the raw data associated with an activity. All streams for a given activity or segment effort will be the same length and the values at a given index correspond to the same time.
  **/
 public struct Stream: Strava {
-    public var type: StreamType?
-    public var data: [AnyObject]?
-    public var seriesType: String?
-    public var originalSize: Int?
-    public var resolution: ResolutionType?
+    public let type: StreamType?
+    public let data: [AnyObject]?
+    public let seriesType: String?
+    public let originalSize: Int?
+    public let resolution: ResolutionType?
     
     /**
      Initializer
