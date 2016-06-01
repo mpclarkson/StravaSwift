@@ -1,6 +1,7 @@
 # StravaSwift
 
 [![CI Status](http://img.shields.io/travis/mpclarkson/StravaSwift.svg?style=flat)](https://travis-ci.org/mpclarkson/StravaSwift)
+[![codebeat badge](https://codebeat.co/badges/d58ef23f-b2c6-45df-83cb-35af96b6980d)](https://codebeat.co/projects/github-com-mpclarkson-stravaswift)
 [![Version](https://img.shields.io/cocoapods/v/StravaSwift.svg?style=flat)](http://cocoapods.org/pods/StravaSwift)
 [![License](https://img.shields.io/cocoapods/l/StravaSwift.svg?style=flat)](http://cocoapods.org/pods/StravaSwift)
 [![Platform](https://img.shields.io/cocoapods/p/StravaSwift.svg?style=flat)](http://cocoapods.org/pods/StravaSwift)
