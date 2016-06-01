@@ -12,7 +12,7 @@ import Foundation
  The default token delegate. You should replace this with something that persists the 
  token (e.g. to NSUserDefaults)
 **/
-public struct DefaultTokenDelegate: TokenDelegate {
+public class DefaultTokenDelegate: TokenDelegate {
     private var token: OAuthToken?
     
     /**
@@ -29,7 +29,7 @@ public struct DefaultTokenDelegate: TokenDelegate {
      
      - Parameter token: an optional OAuthToken
      **/
-    public mutating func set(token: OAuthToken?) {
+    public func set(token: OAuthToken?) {
         self.token = token
     }
 }

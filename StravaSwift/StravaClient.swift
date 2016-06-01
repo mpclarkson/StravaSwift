@@ -22,23 +22,18 @@ public class StravaClient {
     public static let sharedInstance = StravaClient()
     
     private init() {}
-    
-    private var clientId: Int?
-    private var clientSecret: String?
-    private var redirectUri: String?
-    private var scope: Scope?
-    private var delegage: TokenDelegate?
+    private var config: StravaConfig?
     
     /** 
       The OAuthToken returned by the delegate
      **/
-    public var token:  OAuthToken? { return delegage?.get() }
+    public var token:  OAuthToken? { return config?.delegate.get() }
     
     internal var authParams: [String: AnyObject] {
         return [
-            "client_id" : clientId ?? 0,
-            "redirect_uri" : redirectUri ?? "",
-            "scope" : scope?.rawValue ?? "",
+            "client_id" : config?.clientId ?? 0,
+            "redirect_uri" : config?.redirectUri ?? "",
+            "scope" : config?.scope.rawValue ?? "",
             "state" : "ios",
             "approval_prompt" : "force",
             "response_type" : "code"
@@ -47,14 +42,14 @@ public class StravaClient {
     
     internal func tokenParams(code: String) -> [String:AnyObject]  {
         return [
-            "client_id" : clientId ?? 0,
-            "client_secret" : clientSecret ?? "",
+            "client_id" : config?.clientId ?? 0,
+            "client_secret" : config?.clientSecret ?? "",
             "code" : code
         ]
     }
 }
 
-//MARK: - Config
+//MARK:varConfig
 
 extension StravaClient {
 
@@ -66,11 +61,7 @@ extension StravaClient {
      - Returns: An instance of self (i.e. StravaClient)
      */
     public func initWithConfig(config: StravaConfig) -> StravaClient {
-        clientId = config.clientId
-        clientSecret = config.clientSecret
-        redirectUri = config.redirectUri
-        scope = config.scope
-        delegage = config.delegate
+        self.config = config
         
         return self
     }
@@ -107,7 +98,7 @@ extension StravaClient {
         oauthRequest(Router.Token(code: code))?.responseStrava { [weak self] (response: Response<OAuthToken, NSError>) in
             guard let `self` = self else { return }
             let token = response.result.value
-            self.delegage?.set(token)
+            self.config?.delegate.set(token)
             result(token)
         }
     }
@@ -154,7 +145,7 @@ extension StravaClient {
 extension StravaClient {
     
     private func isConfigured() -> (Bool, StravaClientError?) {
-        if redirectUri == nil || clientSecret == nil || clientId == nil  {
+        if config == nil {
             return (false, StravaClientError.InvalidCredentials)
         }
         
