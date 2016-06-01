@@ -360,26 +360,26 @@ public enum Router {
      **/
     case RouteStreams(id: Id)
 
-    /**
-     Upload an activity
-     
-     Requires write permissions, as requested during the authorization process.
-     
-     Posting a file for upload will enqueue it for processing. Initial checks will be done for malformed data and duplicates.     
-     
-     - parameter upload: an upload object
-     **/
-    case Upload(upload: StravaSwift.Upload)
-    
-    /**
-     Check upload status
-     
-     Upon upload, Strava will respond with an upload ID. You may use this ID to poll the status of your upload. Strava recommends polling no more than once a second. Polling more frequently is unnecessary. The mean processing time is around 8 seconds.
-    
-     - parameter id: the upload id
-     **/
-    case Uploads(id: Id)
-
+//    /**
+//     Upload an activity
+//     
+//     Requires write permissions, as requested during the authorization process.
+//     
+//     Posting a file for upload will enqueue it for processing. Initial checks will be done for malformed data and duplicates.     
+//     
+//     - parameter upload: an upload object
+//     **/
+//    case Upload(upload: StravaSwift.Upload)
+//    
+//    /**
+//     Check upload status
+//     
+//     Upon upload, Strava will respond with an upload ID. You may use this ID to poll the status of your upload. Strava recommends polling no more than once a second. Polling more frequently is unnecessary. The mean processing time is around 8 seconds.
+//    
+//     - parameter id: the upload id
+//     **/
+//    case Uploads(id: Id)
+//
 
 }
 
@@ -530,11 +530,11 @@ extension Router {
             return ("/segments/\(id)/streams/\(type)", nil, .GET)
         case RouteStreams(let id):
             return ("/routes/\(id)/streams", nil, .GET)
-            
-        case .Upload(let upload):
-            return ("/uploads", upload.params, .POST)
-        case .Uploads(let id):
-            return ("/uploads", nil, .POST)
+//            
+//        case .Upload(let upload):
+//            return ("/uploads", upload.params, .POST)
+//        case .Uploads(let id):
+//            return ("/uploads/\(id)", nil, .POST)
         }
     }
 }

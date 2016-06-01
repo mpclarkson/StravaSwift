@@ -126,10 +126,10 @@ extension StravaClient {
      **/
     public func request<T: Strava>(route: Router, result: ((T)? -> Void)) {
         switch route {
-        case .Upload(let upload):
-            oauthUpload(route.URLRequest, upload: upload)?.responseStrava { (response: Response<T, NSError>) in
-                result(response.result.value)
-            }
+//        case .Upload(let upload):
+//            oauthUpload(route.URLRequest, upload: upload)?.responseStrava { (response: Response<T, NSError>) in
+//                result(response.result.value)
+//            }
         default:
             oauthRequest(route)?.responseStrava { (response: Response<T, NSError>) in
                 result(response.result.value)
@@ -175,32 +175,32 @@ extension StravaClient {
         
         return Alamofire.Manager.sharedInstance.request(URLRequest.URLRequest)
     }
-    
-    private func oauthUpload(URLRequest: URLRequestConvertible, upload: Upload) -> Request? {
-        checkConfiguration()
-        
-                guard let url = URLRequest.URLRequest.URL else { return nil }
-        
-                return Alamofire.Manager.sharedInstance.upload(.POST, url,
-                    headers: URLRequest.URLRequest.allHTTPHeaderFields,
-                    multipartFormData: { multipartFormData in
-        
-                        multipartFormData.appendBodyPart(data: upload.file, name: "file.gpx")
-                        for (key, value) in upload.params {
-                            multipartFormData.appendBodyPart(data: value.dataUsingEncoding(NSUTF8StringEncoding)!, name: key)
-                        }
-                    },
-                    encodingMemoryThreshold: Manager.MultipartFormDataEncodingMemoryThreshold,
-                    encodingCompletion: { encodingResult in
-                        switch encodingResult {
-                        case .Success(let upload, _, _):
-                            upload.responseJSON { response in
-                                debugPrint(response)
-                            }
-                        case .Failure(let encodingError):
-                            print(encodingError)
-                        }
-                })
-    }
+//    
+//    private func oauthUpload(URLRequest: URLRequestConvertible, upload: Upload) -> Request? {
+//        checkConfiguration()
+//        
+//                guard let url = URLRequest.URLRequest.URL else { return nil }
+//        
+//                return Alamofire.Manager.sharedInstance.upload(.POST, url,
+//                    headers: URLRequest.URLRequest.allHTTPHeaderFields,
+//                    multipartFormData: { multipartFormData in
+//        
+//                        multipartFormData.appendBodyPart(data: upload.file, name: "file.gpx")
+//                        for (key, value) in upload.params {
+//                            multipartFormData.appendBodyPart(data: value.dataUsingEncoding(NSUTF8StringEncoding)!, name: key)
+//                        }
+//                    },
+//                    encodingMemoryThreshold: Manager.MultipartFormDataEncodingMemoryThreshold,
+//                    encodingCompletion: { encodingResult in
+//                        switch encodingResult {
+//                        case .Success(let upload, _, _):
+//                            upload.responseJSON { response in
+//                                debugPrint(response)
+//                            }
+//                        case .Failure(let encodingError):
+//                            print(encodingError)
+//                        }
+//                })
+//    }
 
 }
