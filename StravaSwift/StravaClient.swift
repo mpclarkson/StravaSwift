@@ -39,11 +39,11 @@ open class StravaClient {
         ]
     }
     
-    internal func tokenParams(_ code: String) -> [String:AnyObject]  {
+    internal func tokenParams(_ code: String) -> [String: Any]  {
         return [
-            "client_id" : config?.clientId as AnyObject? ?? 0 as AnyObject,
-            "client_secret" : config?.clientSecret as AnyObject? ?? "" as AnyObject,
-            "code" : code as AnyObject
+            "client_id" : config?.clientId ?? 0,
+            "client_secret" : config?.clientSecret ?? "",
+            "code" : code
         ]
     }
 }
@@ -157,7 +157,6 @@ extension StravaClient {
         if let _ = error {
             fatalError("Strava client is not configured")
         }
-
     }
     
     fileprivate func oauthRequest(_ urlRequest: URLRequestConvertible) throws -> DataRequest? {
