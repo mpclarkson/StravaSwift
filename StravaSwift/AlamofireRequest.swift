@@ -12,34 +12,41 @@ import SwiftyJSON
 
 //MARK: - Methods
 
-extension Request {
+extension DataRequest {
     
-    func responseStrava<T: Strava>(completionHandler: Response<T, NSError> -> Void) -> Self {
+    @discardableResult
+    func responseStrava<T: Strava>(_ completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
         return responseStrava(nil, keyPath: nil, completionHandler: completionHandler)
     }
     
-    func responseStrava<T: Strava>(keyPath: String, completionHandler: Response<T, NSError> -> Void) -> Self {
+    @discardableResult
+    func responseStrava<T: Strava>(_ keyPath: String, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
         return responseStrava(nil, keyPath: keyPath, completionHandler: completionHandler)
     }
     
-    func responseStrava<T: Strava>(queue: dispatch_queue_t?, keyPath: String?, completionHandler: Response<T, NSError> -> Void) -> Self {
-        return response(queue: queue, responseSerializer: Request.StravaSerializer(keyPath), completionHandler: completionHandler)
+    @discardableResult
+    func responseStrava<T: Strava>(_ queue: DispatchQueue?, keyPath: String?, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
+        return response(queue: queue, responseSerializer: DataRequest.StravaSerializer(keyPath), completionHandler: completionHandler)
     }
     
-    func responseStravaArray<T: Strava>(completionHandler: Response<[T], NSError> -> Void) -> Self {
+    @discardableResult
+    func responseStravaArray<T: Strava>(_ completionHandler: @escaping(DataResponse<[T]>) -> Void) -> Self {
         return responseStravaArray(nil, keyPath: nil, completionHandler: completionHandler)
     }
     
-    func responseStravaArray<T: Strava>(keyPath: String, completionHandler: Response<[T], NSError> -> Void) -> Self {
+    @discardableResult
+    func responseStravaArray<T: Strava>(_ keyPath: String, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
         return responseStravaArray(nil, keyPath: keyPath, completionHandler: completionHandler)
     }
     
-    func responseStravaArray<T: Strava>(queue: dispatch_queue_t?, completionHandler: Response<[T], NSError> -> Void) -> Self {
+    @discardableResult
+    func responseStravaArray<T: Strava>(_ queue: DispatchQueue?, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
         return responseStravaArray(queue, keyPath: nil, completionHandler: completionHandler)
     }
     
-    func responseStravaArray<T: Strava>(queue: dispatch_queue_t?, keyPath: String?, completionHandler: Response<[T], NSError> -> Void) -> Self {
-        return response(queue: queue, responseSerializer: Request.StravaArraySerializer(keyPath), completionHandler: completionHandler)
+    @discardableResult
+    func responseStravaArray<T: Strava>(_ queue: DispatchQueue?, keyPath: String?, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
+        return response(queue: queue, responseSerializer: DataRequest.StravaArraySerializer(keyPath), completionHandler: completionHandler)
     }
 }
 
@@ -47,52 +54,56 @@ extension Request {
 
 //TODO: Clean these up so there is no duplication
 
-extension Request {
+extension DataRequest {
     
-    typealias SerializeResponse = (NSURLRequest?, NSHTTPURLResponse?, NSData?, NSError?)
+    typealias SerializeResponse = (URLRequest?, HTTPURLResponse?, Data?, Error?)
     
-    private static func parseResponse(info: SerializeResponse) -> (Result<AnyObject,NSError>?, NSError?) {
+    fileprivate static func parseResponse(_ info: SerializeResponse) -> (Result<Any>?, Error?) {
         let (request, response, data, error) = info
         
         guard let _ = data else {
-            let error = generateError("Data could not be serialized. Input data was nil.")
+            let error = generateError(failureReason: "Data could not be serialized. Input data was nil.")
             return (nil, error)
         }
         
-        let JSONResponseSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
+        let JSONResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
         let result = JSONResponseSerializer.serializeResponse(request, response, data, error)
         
         return (result, nil)
     }
     
-    private static func generateError(string: String) -> NSError {
-        return Error.errorWithCode(.DataSerializationFailed, failureReason: string)
+    fileprivate static func generateError(failureReason: String) -> NSError {
+        let errorDomain = "com.stravaswift.error"
+        let userInfo = [NSLocalizedFailureReasonErrorKey: failureReason]
+        let returnError = NSError(domain: errorDomain, code: 1, userInfo: userInfo)
+        
+        return returnError
     }
     
-    static func StravaSerializer<T: Strava>(keyPath: String?) -> ResponseSerializer<T, NSError> {
-        return ResponseSerializer { request, response, data, error in
+    static func StravaSerializer<T: Strava>(_ keyPath: String?) -> DataResponseSerializer<T> {
+        return DataResponseSerializer { request, response, data, error in
             let (result, e) = parseResponse(request, response, data, error)
             
             if let e = e {
-                return .Failure(e)
+                return .failure(e)
             }
             
             if let json = result?.value {
                 let object = T.init(JSON(json))
-                return .Success(object)
+                return .success(object)
             }
 
-            return .Failure(generateError("StravaSerializer failed to serialize response."))
+            return .failure(generateError(failureReason: "StravaSerializer failed to serialize response."))
         }
     }
     
-    static func StravaArraySerializer<T: Strava>(keyPath: String?) -> ResponseSerializer<[T], NSError> {
-        return ResponseSerializer { request, response, data, error in
+    static func StravaArraySerializer<T: Strava>(_ keyPath: String?) -> DataResponseSerializer<[T]> {
+        return DataResponseSerializer { request, response, data, error in
             
             let (result, e) = parseResponse(request, response, data, error)
             
             if let e = e {
-                return .Failure(e)
+                return .failure(e)
             }
             
             if let json = result?.value {
@@ -101,10 +112,10 @@ extension Request {
                     results.append(T.init($0))
                 }
                 
-                return .Success(results)
+                return .success(results)
             }
 
-            return .Failure(generateError("StravaSerializer failed to serialize response."))
+            return .failure(generateError(failureReason: "StravaSerializer failed to serialize response."))
         }
     }
 }

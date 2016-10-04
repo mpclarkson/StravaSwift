@@ -20,8 +20,8 @@ public final class Effort: Strava {
     public let athlete: Athlete?
     public let elapsedTime: Int?
     public let movingTime: Int?
-    public let startDate: NSDate?
-    public let startDateLocal: NSDate?
+    public let startDate: Date?
+    public let startDateLocal: Date?
     public let distance: Double?
     public let startIndex: Int?
     public let endIndex: Int?

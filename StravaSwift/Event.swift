@@ -20,13 +20,13 @@ public final class Event: Strava {
     public let clubId: Int?
     public let organizingAthlete: Athlete?
     public let activityType: ActivityType?
-    public let createdAt: NSDate?
+    public let createdAt: Date?
     public let routeId: Int?
     public let womenOnly: Bool?
     public let `private`: Bool?
     public let skillLevels: SkillLevel?
     public let terrain: Terrain?
-    public let upcomingOccurrences: [NSDate]?
+    public let upcomingOccurrences: [Date]?
     
     /**
      Initializer

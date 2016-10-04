@@ -35,7 +35,7 @@ public enum FollowingStatus: String {
  - Runner
  **/
 public enum AthleteType: Int {
-    case Cyclist, Runner
+    case cyclist, runner
 }
 
 /**
@@ -56,7 +56,7 @@ public enum Units: String {
  - Detailed
  **/
 public enum ResourceState: Int {
-    case Meta = 1, Summary = 2, Detailed = 3
+    case meta = 1, summary = 2, detailed = 3
 }
 
 /**
@@ -72,8 +72,8 @@ public enum ResourceState: Int {
  
  **/
 public enum WorkoutType: Int {
-    case Run = 0, RaceRun = 1, LongRun = 3, WorkoutRun = 4
-    case Ride = 10, RaceRide = 11, WorkoutRide = 12
+    case run = 0, raceRun = 1, longRun = 3, workoutRun = 4
+    case ride = 10, raceRide = 11, workoutRide = 12
 }
 
 /**
@@ -151,7 +151,7 @@ public enum ClubType: String {
  - TimeTrial
  **/
 public enum FrameType: Int {
-    case MTB = 1, Cross = 2, Road = 3, TimeTrial = 4
+    case mtb = 1, cross = 2, road = 3, timeTrial = 4
 }
 
 /**
@@ -196,27 +196,27 @@ public enum StreamType: String {
     //Description of the units associated with the stream
     var unit: String {
         switch self {
-        case Time:
+        case .Time:
             return "integer seconds"
-        case LatLng:
+        case .LatLng:
             return	"floats [latitude, longitude]"
-        case Distance:
+        case .Distance:
             return	"float meters"
-        case Altitude:
+        case .Altitude:
             return "float meters"
-        case VelocitySmooth:
+        case .VelocitySmooth:
             return "float meters per second"
-        case HeartRate:
+        case .HeartRate:
             return "integer BPM"
-        case Cadence:
+        case .Cadence:
             return "integer RPM"
-        case Watts:
+        case .Watts:
             return "integer watts"
-        case Temp:
+        case .Temp:
             return "integer degrees Celsius"
-        case Moving:
+        case .Moving:
             return "boolean"
-        case GradeSmooth:
+        case .GradeSmooth:
             return "float percent"
         }
     }
@@ -230,7 +230,7 @@ public enum StreamType: String {
  - Hammerfest
  **/
 public enum SkillLevel: Int {
-    case Casual = 1, Tempo = 2, Hammerfest = 4
+    case casual = 1, tempo = 2, hammerfest = 4
 }
 
 /**
@@ -241,7 +241,7 @@ public enum SkillLevel: Int {
  - KillerClimbs
  **/
 public enum Terrain: Int {
-    case MostlyFlat = 0, RollingHills = 1, KillerClimbs = 2
+    case mostlyFlat = 0, rollingHills = 1, killerClimbs = 2
 }
 
 /**
@@ -251,7 +251,7 @@ public enum Terrain: Int {
  - Instagram
  **/
 public enum PhotoSource: Int {
-    case Strava = 1, Instagram = 2
+    case strava = 1, instagram = 2
 }
 
 /**
@@ -268,12 +268,12 @@ public enum AchievementType: String {
 
 /** Route type enum **/
 public enum RouteType: Int {
-    case Ride = 1, Run = 2
+    case ride = 1, run = 2
 }
 
 /** Route sub type enum **/
 public enum RouteSubType: Int {
-    case Road = 1, MTB = 2, CX = 3, Trail = 4, Mixed = 5
+    case road = 1, mtb = 2, cx = 3, trail = 4, mixed = 5
 }
 
 /**

@@ -23,5 +23,5 @@ public protocol TokenDelegate {
      
      - Parameter token: an optional OAuthToken
      **/
-    func set(token: OAuthToken?)
+    func set(_ token: OAuthToken?)
 }

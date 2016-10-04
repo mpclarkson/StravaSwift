@@ -13,37 +13,37 @@ import SwiftyJSON
 /**
  StravaClient responsible for making all api requests
 */
-public class StravaClient {
+open class StravaClient {
     
     /**
      Access the shared instance
      */
-    public static let sharedInstance = StravaClient()
+    open static let sharedInstance = StravaClient()
     
-    private init() {}
-    private var config: StravaConfig?
+    fileprivate init() {}
+    fileprivate var config: StravaConfig?
     
     /** 
       The OAuthToken returned by the delegate
      **/
-    public var token:  OAuthToken? { return config?.delegate.get() }
+    open var token:  OAuthToken? { return config?.delegate.get() }
     
-    internal var authParams: [String: AnyObject] {
+    internal var authParams: [String: Any] {
         return [
             "client_id" : config?.clientId ?? 0,
             "redirect_uri" : config?.redirectUri ?? "",
             "scope" : config?.scope.rawValue ?? "",
-            "state" : "ios",
+            "state" : "ios" as AnyObject,
             "approval_prompt" : "force",
             "response_type" : "code"
         ]
     }
     
-    internal func tokenParams(code: String) -> [String:AnyObject]  {
+    internal func tokenParams(_ code: String) -> [String:AnyObject]  {
         return [
-            "client_id" : config?.clientId ?? 0,
-            "client_secret" : config?.clientSecret ?? "",
-            "code" : code
+            "client_id" : config?.clientId as AnyObject? ?? 0 as AnyObject,
+            "client_secret" : config?.clientSecret as AnyObject? ?? "" as AnyObject,
+            "code" : code as AnyObject
         ]
     }
 }
@@ -59,7 +59,7 @@ extension StravaClient {
      - Parameter config: a StravaConfig struct
      - Returns: An instance of self (i.e. StravaClient)
      */
-    public func initWithConfig(config: StravaConfig) -> StravaClient {
+    public func initWithConfig(_ config: StravaConfig) -> StravaClient {
         self.config = config
         
         return self
@@ -74,7 +74,7 @@ extension StravaClient {
      Opens the Strava OAuth web page in mobile Safari for the user to authorize the application.
      **/
     public func authorize() {
-        UIApplication.sharedApplication().openURL(Router.authorizationUrl)
+        UIApplication.shared.openURL(Router.authorizationUrl)
     }
     
     /**
@@ -83,7 +83,7 @@ extension StravaClient {
      - Parameter: url
      - Returns: the OAuth code
      **/
-    public func handleAuthorizationRedirect(url: NSURL) -> String?  {
+    public func handleAuthorizationRedirect(_ url: URL) -> String?  {
         return url.getQueryParameters()?["code"]
     }
     
@@ -93,8 +93,8 @@ extension StravaClient {
      - Parameter code: the code (string) returned from strava
      - Parameter result: a closure to handle the OAuthToken
      **/
-    public func getAccessToken(code: String, result: ((OAuthToken)? -> Void)) {
-        oauthRequest(Router.Token(code: code))?.responseStrava { [weak self] (response: Response<OAuthToken, NSError>) in
+    public func getAccessToken(_ code: String, result: @escaping (((OAuthToken)?) -> Void)) throws {
+        try oauthRequest(Router.token(code: code))?.responseStrava { [weak self] (response: DataResponse<OAuthToken>) in
             guard let `self` = self else { return }
             let token = response.result.value
             self.config?.delegate.set(token)
@@ -114,14 +114,14 @@ extension StravaClient {
      - Parameter route: a Router enum case which may require parameters
      - Parameter result: a closure to handle the returned object
      **/
-    public func request<T: Strava>(route: Router, result: ((T)? -> Void)) {
+    public func request<T: Strava>(_ route: Router, result: @escaping (((T)?) -> Void)) throws {
         switch route {
 //        case .Upload(let upload):
 //            oauthUpload(route.URLRequest, upload: upload)?.responseStrava { (response: Response<T, NSError>) in
 //                result(response.result.value)
 //            }
         default:
-            oauthRequest(route)?.responseStrava { (response: Response<T, NSError>) in
+            try oauthRequest(route)?.responseStrava { (response: DataResponse<T>) in
                 result(response.result.value)
             }
         }
@@ -133,8 +133,8 @@ extension StravaClient {
      - Parameter route: a Router enum case which may require parameters
      - Parameter result: a closure to handle the returned objects
      **/
-    public func request<T: Strava>(route: Router, result: (([T])? -> Void)) {
-        oauthRequest(route)?.responseStravaArray { (response: Response<[T], NSError>) in
+    public func request<T: Strava>(_ route: Router, result: @escaping ((([T])?) -> Void)) throws {
+        try oauthRequest(route)?.responseStravaArray { (response: DataResponse<[T]>) in
             result(response.result.value)
         }
     }
@@ -143,15 +143,15 @@ extension StravaClient {
 
 extension StravaClient {
     
-    private func isConfigured() -> (Bool, StravaClientError?) {
+    fileprivate func isConfigured() -> (Bool, StravaClientError?) {
         if config == nil {
-            return (false, StravaClientError.InvalidCredentials)
+            return (false, StravaClientError.invalidCredentials)
         }
         
         return (true, nil)
     }
     
-    private func checkConfiguration() {
+    fileprivate func checkConfiguration() {
         let (_, error) = StravaClient.sharedInstance.isConfigured()
         
         if let _ = error {
@@ -160,12 +160,12 @@ extension StravaClient {
 
     }
     
-    private func oauthRequest(URLRequest: URLRequestConvertible) -> Request? {
+    fileprivate func oauthRequest(_ urlRequest: URLRequestConvertible) throws -> DataRequest? {
         checkConfiguration()
         
-        return Alamofire.Manager.sharedInstance.request(URLRequest.URLRequest)
+        return try Alamofire.request(urlRequest)
     }
-//    
+//
 //    private func oauthUpload(URLRequest: URLRequestConvertible, upload: Upload) -> Request? {
 //        checkConfiguration()
 //        

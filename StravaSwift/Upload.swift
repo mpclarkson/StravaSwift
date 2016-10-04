@@ -30,18 +30,18 @@ public struct Upload {
     public let externalId: String?
 
     public let dataType: DataType
-    public let file: NSData
+    public let file: Data
     
     internal var params: [String: AnyObject?] {
         
         return [
-            "data_type": dataType.rawValue,
-            "file": file,
-            "name": name,
-            "description": description,
-            "private": `private`,
-            "trainer": trainer,
-            "external_id": externalId
+            "data_type": dataType.rawValue as Optional<AnyObject>,
+            "file": file as Optional<AnyObject>,
+            "name": name as Optional<AnyObject>,
+            "description": description as Optional<AnyObject>,
+            "private": `private` as Optional<AnyObject>,
+            "trainer": trainer as Optional<AnyObject>,
+            "external_id": externalId as Optional<AnyObject>
         ]
     }
     

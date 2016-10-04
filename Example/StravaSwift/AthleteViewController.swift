@@ -10,13 +10,15 @@ import UIKit
 import StravaSwift
 
 extension UIImageView {
-    func from(url url: NSURL?) {
-        guard let
-            url = url,
-            data = NSData(contentsOfURL: url)
-            else { return }
-        
-        self.image = UIImage(data: data)
+    func from(url: URL?) {
+        guard let u = url else { return }
+        do {
+            let data = try Data(contentsOf: u)
+            self.image = UIImage(data: data)
+        }
+        catch {
+            return
+        }
     }
 }
 
@@ -42,8 +44,8 @@ class AthleteViewController: UIViewController {
 extension AthleteViewController {
     
     func update() {
-        StravaClient.sharedInstance.request(Router.Athlete) { [weak self] (athlete: Athlete?) in
-            guard let `self` = self, athlete = athlete else { return }
+        try? StravaClient.sharedInstance.request(Router.athlete) { [weak self] (athlete: Athlete?) in
+            guard let `self` = self, let athlete = athlete else { return }
             self.athlete = athlete
         }
     }

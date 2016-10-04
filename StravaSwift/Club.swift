@@ -14,8 +14,8 @@ import SwiftyJSON
  **/
 public final class Club: Strava {
     public let id: Int?
-    public let profileMedium: NSURL?
-    public let profile: NSURL?
+    public let profileMedium: URL?
+    public let profile: URL?
     public let name: String?
     public let description: String?
     public let city: String?
@@ -43,8 +43,8 @@ public final class Club: Strava {
         country = json["country"].string
         clubType = json["club_type"].strava(ClubType)
         sportType = json["sport_type"].strava(SportType)
-        profileMedium = NSURL(optionalString: json["profile_medium"].string)
-        profile = NSURL(optionalString: json["profile"].string)
+        profileMedium = URL(optionalString: json["profile_medium"].string)
+        profile = URL(optionalString: json["profile"].string)
         isPrivate = json["private"].bool
         memberCount = json["member_count"].int
     }

@@ -10,65 +10,66 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
+
 /**
  Router enum for type safe routing. For information on how this is used please [see here](https://github.com/Alamofire/Alamofire#api-parameter-abstraction).
  **/
 public enum Router {
     
     public typealias Id = Int
-    public typealias Params = [String: AnyObject]?
+    public typealias Params = [String: Any]?
     
     /**
      Requests a Strava OAuth token
      
      - parameter code: the code returned from Strava after granting access to the application
      **/
-    case Token(code: String)
+    case token(code: String)
     
     /**
      Allows an application to revoke its access to an athlete’s data. This will invalidate all access tokens associated with the ‘athlete,application’ pair used to create the token. The application will be removed from the Athlete Settings page on Strava. All requests made using invalidated tokens will receive a 401 Unauthorized response.
      
      - parameter token: the access token to deauthorize
      **/
-    case Deauthorize(accessToken: String)
+    case deauthorize(accessToken: String)
     
     /**
      Gets the current user/athlete
      **/
-    case Athlete
+    case athlete
     
     /**
      Updates the current user/athlete
      **/
-    case UpdateAthlete
+    case updateAthlete
     
     /**
      Lists the current user/athlete's activities
      
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case AthleteActivities(params: Params)
+    case athleteActivities(params: Params)
     
     /**
      Lists the current user/athlete's friends
      
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case AthleteFriends(params:Params)
+    case athleteFriends(params: Params)
     
     /**
      Lists the current user/athlete's followers
      
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case AthleteFollowers(params: Params)
+    case athleteFollowers(params: Params)
     
     /**
      Lists the current user/athlete's clubs
      
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case AthleteClubs(params: Params)
+    case athleteClubs(params: Params)
     
     /**
      Gets a specific athlete
@@ -76,7 +77,7 @@ public enum Router {
      - parameter id: the athlete id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case Athletes(id: Id, params: Params)
+    case athletes(id: Id, params: Params)
     
     /**
      Lists a specific athlete's friends
@@ -84,7 +85,7 @@ public enum Router {
      - parameter id: the athlete id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case AthletesFriends(id: Id, params: Params)
+    case athletesFriends(id: Id, params: Params)
     
     /**
      Lists a specific athlete's followers
@@ -92,7 +93,7 @@ public enum Router {
      - parameter id: the athlete id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case AthletesFollowers(id: Id, params: Params)
+    case athletesFollowers(id: Id, params: Params)
     
     /**
      Lists athletes the current user and the requested athlete are both following
@@ -100,7 +101,7 @@ public enum Router {
      - parameter id: the athlete id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case AthletesBothFollowing(id: Id, params: Params)
+    case athletesBothFollowing(id: Id, params: Params)
     
     /**
      Gets the statistics for a specific athlete
@@ -108,7 +109,7 @@ public enum Router {
      - parameter id: the athlete id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case AthletesStats(id: Id, params: Params)
+    case athletesStats(id: Id, params: Params)
     
     /**
      Lists the specific athlete's KOMS
@@ -116,27 +117,27 @@ public enum Router {
      - parameter id: the athlete id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case AthletesKoms(id: Id, params: Params)
+    case athletesKoms(id: Id, params: Params)
     
     /**
      Creates a new manual activity in Strava for the athlete (not for uploading files)
      
      - parameter params: a [String: String] dictionary representing the activity
      **/
-    case CreateActivity(params: Params)
+    case createActivity(params: Params)
     
     /**
      Updates an activity, requires write permissions
      - parameter activity: an Activity object
      **/
-    case UpdateActivity(activity: Activity)
+    case updateActivity(activity: Activity)
     
     /**
      Deletes an activity, requires write permissions
      
      - parameter activity: an Activity object
      **/
-    case DeleteActivity(activity: Activity)
+    case deleteActivity(activity: Activity)
     
     /**
      Gets an activity
@@ -144,7 +145,7 @@ public enum Router {
      - parameter id: the activity id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case Activities(id: Id, params: Params)
+    case activities(id: Id, params: Params)
     
     /**
      Lists kudos for an activity
@@ -152,7 +153,7 @@ public enum Router {
      - parameter id: the activity id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case ActivitiesKudos(id: Id, params: Params)
+    case activitiesKudos(id: Id, params: Params)
     
     /**
      Lists comments for an activity
@@ -160,7 +161,7 @@ public enum Router {
      - parameter id: the activity id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case ActivitiesComments(id: Id, params: Params)
+    case activitiesComments(id: Id, params: Params)
     
     /**
      Lists photos for an activity
@@ -168,7 +169,7 @@ public enum Router {
      - parameter id: the activity id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case ActivitiesPhotos(id: Id, params: Params)
+    case activitiesPhotos(id: Id, params: Params)
     
     /**
      Lists related activities
@@ -176,7 +177,7 @@ public enum Router {
      - parameter id: the activity id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case ActivitiesRelated(id: Id, params: Params)
+    case activitiesRelated(id: Id, params: Params)
     
     /**
      List the recent activities performed by the current athlete and those they are following. Pagination is supported. However, results are limited to the last 200 total activities.
@@ -184,7 +185,7 @@ public enum Router {
      - parameter id: the activity id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case ActivitiesFriends(id: Id, params: Params)
+    case activitiesFriends(id: Id, params: Params)
     
     /**
      Heartrate and power zones are set by the athlete. This endpoint returns the time (seconds) in each zone. The distribution is not customizable. Requires an access token associated with the owner of the activity and the owner must be a premium user.
@@ -192,7 +193,7 @@ public enum Router {
      - parameter id: the activity id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case ActivitiesZones(id: Id, params: Params)
+    case activitiesZones(id: Id, params: Params)
     
     /**
      Lists all laps associated with an activity
@@ -200,7 +201,7 @@ public enum Router {
      - parameter id: the activity id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case ActivitiesLaps(id: Id, params: Params)
+    case activitiesLaps(id: Id, params: Params)
     
     /**
      Retrieves a club
@@ -208,7 +209,7 @@ public enum Router {
      - parameter id: the club id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case Clubs(id: Id, params: Params)
+    case clubs(id: Id, params: Params)
     
     /**
      Lists announcments for a club
@@ -216,7 +217,7 @@ public enum Router {
      - parameter id: the club id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case ClubsAnnouncements(id: Id, params: Params)
+    case clubsAnnouncements(id: Id, params: Params)
     
     /**
      Lists events for a club
@@ -224,7 +225,7 @@ public enum Router {
      - parameter id: the club id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case ClubsEvents(id: Id, params: Params)
+    case clubsEvents(id: Id, params: Params)
     
     /**
      Lists members of a club
@@ -232,7 +233,7 @@ public enum Router {
      - parameter id: the club id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case ClubsMembers(id: Id, params: Params)
+    case clubsMembers(id: Id, params: Params)
     
     /**
      Lists activities by club members
@@ -240,28 +241,28 @@ public enum Router {
      - parameter id: the club id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case ClubsActivities(id: Id, params: Params)
+    case clubsActivities(id: Id, params: Params)
     
     /**
      Join a club (ie the current athlete)
      
      - parameter id: the club id
      **/
-    case ClubsJoin(id: Id)
+    case clubsJoin(id: Id)
     
     /**
      Leave a club (ie the current athlete)
      
      - parameter id: the club id
      **/
-    case ClubsLeave(id: Id)
+    case clubsLeave(id: Id)
     
     /**
      Retrieves a gear object
      
      - parameter id: the gear id
      **/
-    case Gear(id: Id, params: Params)
+    case gear(id: Id, params: Params)
     
     /**
      Retrieves a segment
@@ -269,14 +270,14 @@ public enum Router {
      - parameter id: the segment id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case Segments(id: Id, params: Params)
+    case segments(id: Id, params: Params)
     
     /**
      Lists segments the current athlete has starred
      
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case SegmentsStarred(params: Params)
+    case segmentsStarred(params: Params)
     
     /**
      Lists efforts for a segment
@@ -284,7 +285,7 @@ public enum Router {
      - parameter id: the segment id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case SegmentsEfforts(id: Id, params: Params)
+    case segmentsEfforts(id: Id, params: Params)
     
     /**
      Lists the leaderboards for a segment
@@ -292,7 +293,7 @@ public enum Router {
      - parameter id: the segment id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case SegmentsLeaderboards(id: Id, params: Params)
+    case segmentsLeaderboards(id: Id, params: Params)
     
     /**
     Find popular segments within a given area.
@@ -300,7 +301,7 @@ public enum Router {
      - parameter id: the segment id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case SegmentsExplore(id: Id, params: Params)
+    case segmentsExplore(id: Id, params: Params)
  
     /**
      Retrieve details about a specific segment effort. The effort must be public or it must correspond to the current athlete.
@@ -308,14 +309,14 @@ public enum Router {
      - parameter id: the segment efforr id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case SegmentEfforts(id: Id, params: Params)
+    case segmentEfforts(id: Id, params: Params)
 
     /**
     Retrieves details about a route. Private routes can only be accessed if owned by the authenticating user and the token has view_private permissions. For raw data associated with a route see route streams.
      
      - parameter id: the route id
      **/
-    case Routes(id: Id)
+    case routes(id: Id)
     
     /**
      Lists a specific athlete’s routes. Private routes will only be included if the authenticating user is viewing their own routes and the token has view_private permissions.
@@ -323,7 +324,7 @@ public enum Router {
      - parameter id: the route id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case AthleteRoutes(id: Id, params: Params)
+    case athleteRoutes(id: Id, params: Params)
     
     /**
      Streams represent the raw data of the uploaded file. External applications may only access this information for activities owned by the authenticated athlete.
@@ -331,7 +332,7 @@ public enum Router {
      - parameter id: the activity id
      - parameter types: single stream type or comma-separated list of types, if the activity does not have that stream it will not be included in the response
      **/
-    case ActivityStreams(id: Id, types: String)
+    case activityStreams(id: Id, types: String)
     
     /**
      A segment effort represents an attempt on a segment. This resource returns a subset of the activity streams that correspond to that effort.
@@ -339,7 +340,7 @@ public enum Router {
      - parameter id: the effort id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case EffortStreams(id: Id, types: String)
+    case effortStreams(id: Id, types: String)
 
     /**
      Retrieve segment streams
@@ -349,7 +350,7 @@ public enum Router {
      - parameter id: the effort id
      - parameter params: a [String: String] dictionary of acceptable parameters
      **/
-    case SegmentStreams(id: Id, types: String)
+    case segmentStreams(id: Id, types: String)
     
     /**
      Retrieve route streams
@@ -358,7 +359,7 @@ public enum Router {
      
      - parameter id: the activity id
      **/
-    case RouteStreams(id: Id)
+    case routeStreams(id: Id)
 
 //    /**
 //     Upload an activity
@@ -388,148 +389,147 @@ extension Router: URLRequestConvertible  {
     /**
       The Strava authorization url including the oauth query parameters
      **/
-    static var authorizationUrl: NSURL {
+    static var authorizationUrl: URL {
         var url = "https://www.strava.com/oauth/authorize?"
         StravaClient.sharedInstance.authParams.forEach {
-            url.appendContentsOf("\($0)=\($1)&")
+            url.append("\($0)=\($1)&")
         }
-        return NSURL(string: url)!
+        return URL(string: url)!
     }
   
     /**
      The Url Request
     **/
-    public var URLRequest: NSMutableURLRequest {
+    public func asURLRequest () throws -> URLRequest {
         let config = self.requestConfig
         
-        var baseURL: NSURL {
+        var baseURL: URL {
             switch self {
-            case .Token, .Deauthorize:
-                return NSURL(string: "https://www.strava.com/oauth")!
+            case .token, .deauthorize:
+                return URL(string: "https://www.strava.com/oauth")!
             default:
-                return NSURL(string: "https://www.strava.com/api/v3")!
+                return URL(string: "https://www.strava.com/api/v3")!
             }
         }
         
-        let URLRequest = NSMutableURLRequest(URL: baseURL.URLByAppendingPathComponent(config.path))
-        URLRequest.HTTPMethod = config.method.rawValue
+        var urlRequest = URLRequest(url: baseURL.appendingPathComponent(config.path))
+        urlRequest.httpMethod = config.method.rawValue
         
         if let token = StravaClient.sharedInstance.token?.accessToken {
-            URLRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        let parameters = config.params
-        let encoding = Alamofire.ParameterEncoding.JSON
-        return encoding.encode(URLRequest, parameters: parameters).0
+        let params: [String: Any] = config.params ?? [:]
+        return try JSONEncoding.default.encode(urlRequest, with: params)
     }
 }
 
 extension Router {
     
-    private var requestConfig: (path: String, params:[String: AnyObject]?, method: Alamofire.Method) {
+    fileprivate var requestConfig: (path: String, params: Params, method: Alamofire.HTTPMethod) {
         switch self {
         
-        case .Token(let code):
-            return ("/token", StravaClient.sharedInstance.tokenParams(code), .POST)
-        case .Deauthorize(let token):
+        case .token(let code):
+            return ("/token", StravaClient.sharedInstance.tokenParams(code), .post)
+        case .deauthorize(let token):
             let params = ["access_token" : token]
-            return ("/deauthorize", params, .POST)
+            return ("/deauthorize", params, .post)
             
-        case .Athlete:
-            return ("/athlete", nil, .GET)
-        case .UpdateAthlete:
-            return ("/athlete", nil, .PUT)
-        case .AthleteFriends(let params):
-            return ("/athlete/friends", params, .GET)
-        case .AthleteFollowers(let params):
-            return ("/athlete/followers", params, .GET)
-        case .AthleteClubs(let params):
-            return ("/athlete/clubs", params, .GET)
-        case .AthleteActivities(let params):
-            return ("/athlete/activities", params, .GET)
+        case .athlete:
+            return ("/athlete", nil, .get)
+        case .updateAthlete:
+            return ("/athlete", nil, .put)
+        case .athleteFriends(let params):
+            return ("/athlete/friends", params, .get)
+        case .athleteFollowers(let params):
+            return ("/athlete/followers", params, .get)
+        case .athleteClubs(let params):
+            return ("/athlete/clubs", params, .get)
+        case .athleteActivities(let params):
+            return ("/athlete/activities", params, .get)
             
-        case .Athletes(let id, let params):
-            return ("/athletes/\(id)", params, .GET)
-        case .AthletesFriends(let id, let params):
-            return ("/athletes/\(id)/friends", params, .GET)
-        case .AthletesFollowers(let id, let params):
-            return ("/athletes/\(id)/friends", params, .GET)
-        case .AthletesBothFollowing(let id, let params):
-            return ("/athletes/\(id)/both-following", params, .GET)
-        case .AthletesStats(let id, let params):
-            return ("/athletes/\(id)/stats", params, .GET)
-        case .AthletesKoms(let id, let params):
-            return ("/athletes/\(id)/koms", params, .GET)
+        case .athletes(let id, let params):
+            return ("/athletes/\(id)", params, .get)
+        case .athletesFriends(let id, let params):
+            return ("/athletes/\(id)/friends", params, .get)
+        case .athletesFollowers(let id, let params):
+            return ("/athletes/\(id)/friends", params, .get)
+        case .athletesBothFollowing(let id, let params):
+            return ("/athletes/\(id)/both-following", params, .get)
+        case .athletesStats(let id, let params):
+            return ("/athletes/\(id)/stats", params, .get)
+        case .athletesKoms(let id, let params):
+            return ("/athletes/\(id)/koms", params, .get)
             
-        case .CreateActivity(let params):
-            return ("/activities", params, .POST)
-        case .UpdateActivity(let activity):
-            return ("/activities/\(activity.id)", nil, .PUT)
-        case .DeleteActivity(let activity):
-            return ("/activities/\(activity.id)", nil, .DELETE)
+        case .createActivity(let params):
+            return ("/activities", params, .post)
+        case .updateActivity(let activity):
+            return ("/activities/\(activity.id)", nil, .put)
+        case .deleteActivity(let activity):
+            return ("/activities/\(activity.id)", nil, .delete)
             
-        case .Activities(let id, let params):
-            return ("/activities/\(id)", params, .GET)
-        case .ActivitiesKudos(let id, let params):
-            return ("/activities/\(id)/kudos", params, .GET)
-        case .ActivitiesComments(let id, let params):
-            return ("/activities/\(id)/comments", params, .GET)
-        case .ActivitiesPhotos(let id, let params):
-            return ("/activities/\(id)/photos/photo_sources=true", params, .GET)
-        case .ActivitiesRelated(let id, let params):
-            return ("/activities/\(id)/related", params, .GET)
-        case .ActivitiesFriends(let id, let params):
-            return ("/activities/\(id)/following", params, .GET)
-        case .ActivitiesZones(let id, let params):
-            return ("/activities/\(id)/zones", params, .GET)
-        case .ActivitiesLaps(let id, let params):
-            return ("/activities/\(id)/laps", params, .GET)
+        case .activities(let id, let params):
+            return ("/activities/\(id)", params, .get)
+        case .activitiesKudos(let id, let params):
+            return ("/activities/\(id)/kudos", params, .get)
+        case .activitiesComments(let id, let params):
+            return ("/activities/\(id)/comments", params, .get)
+        case .activitiesPhotos(let id, let params):
+            return ("/activities/\(id)/photos/photo_sources=true", params, .get)
+        case .activitiesRelated(let id, let params):
+            return ("/activities/\(id)/related", params, .get)
+        case .activitiesFriends(let id, let params):
+            return ("/activities/\(id)/following", params, .get)
+        case .activitiesZones(let id, let params):
+            return ("/activities/\(id)/zones", params, .get)
+        case .activitiesLaps(let id, let params):
+            return ("/activities/\(id)/laps", params, .get)
             
-        case .Clubs(let id, let params):
-            return ("/clubs/\(id)", params, .GET)
-        case .ClubsAnnouncements(let id, let params):
-            return ("/clubs/\(id)/announcements", params, .GET)
-        case .ClubsEvents(let id, let params):
-            return ("/clubs/\(id)/events", params, .GET)
-        case ClubsMembers(let id, let params):
-            return ("/clubs/\(id)/members", params, .GET)
-        case ClubsActivities(let id, let params):
-            return ("/clubs/\(id)/activities", params, .GET)
-        case ClubsJoin(let id):
-            return ("/clubs/\(id)/join", nil, .POST)
-        case ClubsLeave(let id):
-            return ("/clubs/\(id)/leave", nil, .POST)
+        case .clubs(let id, let params):
+            return ("/clubs/\(id)", params, .get)
+        case .clubsAnnouncements(let id, let params):
+            return ("/clubs/\(id)/announcements", params, .get)
+        case .clubsEvents(let id, let params):
+            return ("/clubs/\(id)/events", params, .get)
+        case .clubsMembers(let id, let params):
+            return ("/clubs/\(id)/members", params, .get)
+        case .clubsActivities(let id, let params):
+            return ("/clubs/\(id)/activities", params, .get)
+        case .clubsJoin(let id):
+            return ("/clubs/\(id)/join", nil, .post)
+        case .clubsLeave(let id):
+            return ("/clubs/\(id)/leave", nil, .post)
             
-        case .Segments(let id, let params):
-            return ("/segments/\(id)", params, .GET)
-        case SegmentsEfforts(let id, let params):
-            return ("/segments/\(id)/efforts", params, .GET)
-        case SegmentsLeaderboards(let id, let params):
-            return ("/segments/\(id)/leaderboard", params, .GET)
-        case SegmentsExplore(let id, let params):
-            return ("/segments/\(id)/explore", params, .GET)
-        case SegmentsStarred:
-            return ("/segments/starred", nil, .GET)
+        case .segments(let id, let params):
+            return ("/segments/\(id)", params, .get)
+        case .segmentsEfforts(let id, let params):
+            return ("/segments/\(id)/efforts", params, .get)
+        case .segmentsLeaderboards(let id, let params):
+            return ("/segments/\(id)/leaderboard", params, .get)
+        case .segmentsExplore(let id, let params):
+            return ("/segments/\(id)/explore", params, .get)
+        case .segmentsStarred:
+            return ("/segments/starred", nil, .get)
             
-        case SegmentEfforts(let id, let params):
-            return ("/segment_efforts/\(id)", params, .GET)
+        case .segmentEfforts(let id, let params):
+            return ("/segment_efforts/\(id)", params, .get)
             
-        case Gear(let id, let params):
-            return ("/gear/\(id)", params, .GET)
+        case .gear(let id, let params):
+            return ("/gear/\(id)", params, .get)
             
-        case Routes(let id):
-            return ("/routes/\(id)", nil, .GET)
-        case AthleteRoutes(let id, let params):
-            return ("/athletes/\(id)/routes", params, .GET)
+        case .routes(let id):
+            return ("/routes/\(id)", nil, .get)
+        case .athleteRoutes(let id, let params):
+            return ("/athletes/\(id)/routes", params, .get)
             
-        case ActivityStreams(let id, let type):
-              return ("/activities/\(id)/streams/\(type)", nil, .GET)
-        case EffortStreams(let id, let type):
-            return ("/efforts/\(id)/streams/\(type)", nil, .GET)
-        case SegmentStreams(let id, let type):
-            return ("/segments/\(id)/streams/\(type)", nil, .GET)
-        case RouteStreams(let id):
-            return ("/routes/\(id)/streams", nil, .GET)
+        case .activityStreams(let id, let type):
+              return ("/activities/\(id)/streams/\(type)", nil, .get)
+        case .effortStreams(let id, let type):
+            return ("/efforts/\(id)/streams/\(type)", nil, .get)
+        case .segmentStreams(let id, let type):
+            return ("/segments/\(id)/streams/\(type)", nil, .get)
+        case .routeStreams(let id):
+            return ("/routes/\(id)/streams", nil, .get)
 //            
 //        case .Upload(let upload):
 //            return ("/uploads", upload.params, .POST)
