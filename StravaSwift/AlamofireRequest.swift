@@ -30,7 +30,7 @@ extension DataRequest {
     }
     
     @discardableResult
-    func responseStravaArray<T: Strava>(_ completionHandler: @escaping(DataResponse<[T]>) -> Void) -> Self {
+    func responseStravaArray<T: Strava>(_ completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
         return responseStravaArray(nil, keyPath: nil, completionHandler: completionHandler)
     }
     
@@ -62,7 +62,7 @@ extension DataRequest {
         let (request, response, data, error) = info
         
         guard let _ = data else {
-            let error = generateError(failureReason: "Data could not be serialized. Input data was nil.")
+            let error = generateError(failureReason: "Data could not be serialized. Input data was nil.", response: response)
             return (nil, error)
         }
         
@@ -72,10 +72,11 @@ extension DataRequest {
         return (result, nil)
     }
     
-    fileprivate static func generateError(failureReason: String) -> NSError {
+    fileprivate static func generateError(failureReason: String, response: HTTPURLResponse?) -> NSError {
         let errorDomain = "com.stravaswift.error"
         let userInfo = [NSLocalizedFailureReasonErrorKey: failureReason]
-        let returnError = NSError(domain: errorDomain, code: 1, userInfo: userInfo)
+        let code = response?.statusCode ?? 0
+        let returnError = NSError(domain: errorDomain, code: code, userInfo: userInfo)
         
         return returnError
     }
@@ -93,7 +94,7 @@ extension DataRequest {
                 return .success(object)
             }
 
-            return .failure(generateError(failureReason: "StravaSerializer failed to serialize response."))
+            return .failure(generateError(failureReason: "StravaSerializer failed to serialize response.", response: response))
         }
     }
     
@@ -107,7 +108,7 @@ extension DataRequest {
             }
             
             if let json = result?.value {
-                var results:[T] = []
+                var results: [T] = []
                 JSON(json).array?.forEach {
                     results.append(T.init($0))
                 }
@@ -115,7 +116,7 @@ extension DataRequest {
                 return .success(results)
             }
 
-            return .failure(generateError(failureReason: "StravaSerializer failed to serialize response."))
+            return .failure(generateError(failureReason: "StravaSerializer failed to serialize response.", response: response))
         }
     }
 }
