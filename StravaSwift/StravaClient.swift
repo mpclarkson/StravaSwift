@@ -114,18 +114,20 @@ extension StravaClient {
      - Parameter route: a Router enum case which may require parameters
      - Parameter result: a closure to handle the returned object
      **/
-    public func request<T: Strava>(_ route: Router, result: @escaping (((T)?) -> Void)) throws {
-        switch route {
-//        case .Upload(let upload):
-//            oauthUpload(route.URLRequest, upload: upload)?.responseStrava { (response: Response<T, NSError>) in
-//                result(response.result.value)
-//            }
-        default:
+    public func request<T: Strava>(_ route: Router, result: @escaping (((T)?) -> Void), failure: @escaping (NSError) -> Void) throws {
+        do {
             try oauthRequest(route)?.responseStrava { (response: DataResponse<T>) in
-                result(response.result.value)
+                // HTTP Status codes above 400 are errors
+                if let statusCode = response.response?.statusCode, statusCode < 400 {
+                    result(response.result.value)
+                } else {
+                    failure(self.generateError(failureReason: "Strava API Error", response: response.response))
+                }
             }
+        } catch let error as NSError {
+            failure(error)
         }
-   }
+    }
     
     /**
      Request an array of objects from the Strava Api
@@ -133,10 +135,28 @@ extension StravaClient {
      - Parameter route: a Router enum case which may require parameters
      - Parameter result: a closure to handle the returned objects
      **/
-    public func request<T: Strava>(_ route: Router, result: @escaping ((([T])?) -> Void)) throws {
-        try oauthRequest(route)?.responseStravaArray { (response: DataResponse<[T]>) in
-            result(response.result.value)
+    public func request<T: Strava>(_ route: Router, result: @escaping ((([T])?) -> Void), failure: @escaping (NSError) -> Void) throws {
+        do {
+            try oauthRequest(route)?.responseStravaArray { (response: DataResponse<[T]>) in
+                // HTTP Status codes above 400 are errors
+                if let statusCode = response.response?.statusCode, statusCode < 400 {
+                    result(response.result.value)
+                } else {
+                    failure(self.generateError(failureReason: "Strava API Error", response: response.response))
+                }
+            }
+        } catch let error as NSError {
+            failure(error)
         }
+    }
+    
+    fileprivate func generateError(failureReason: String, response: HTTPURLResponse?) -> NSError {
+        let errorDomain = "com.stravaswift.error"
+        let userInfo = [NSLocalizedFailureReasonErrorKey: failureReason]
+        let code = response?.statusCode ?? 0
+        let returnError = NSError(domain: errorDomain, code: code, userInfo: userInfo)
+        
+        return returnError
     }
     
 }
@@ -164,32 +184,6 @@ extension StravaClient {
         
         return try Alamofire.request(urlRequest)
     }
-//
-//    private func oauthUpload(URLRequest: URLRequestConvertible, upload: Upload) -> Request? {
-//        checkConfiguration()
-//        
-//                guard let url = URLRequest.URLRequest.URL else { return nil }
-//        
-//                return Alamofire.Manager.sharedInstance.upload(.POST, url,
-//                    headers: URLRequest.URLRequest.allHTTPHeaderFields,
-//                    multipartFormData: { multipartFormData in
-//        
-//                        multipartFormData.appendBodyPart(data: upload.file, name: "file.gpx")
-//                        for (key, value) in upload.params {
-//                            multipartFormData.appendBodyPart(data: value.dataUsingEncoding(NSUTF8StringEncoding)!, name: key)
-//                        }
-//                    },
-//                    encodingMemoryThreshold: Manager.MultipartFormDataEncodingMemoryThreshold,
-//                    encodingCompletion: { encodingResult in
-//                        switch encodingResult {
-//                        case .Success(let upload, _, _):
-//                            upload.responseJSON { response in
-//                                debugPrint(response)
-//                            }
-//                        case .Failure(let encodingError):
-//                            print(encodingError)
-//                        }
-//                })
-//    }
+    
 
 }
