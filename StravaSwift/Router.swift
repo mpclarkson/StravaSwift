@@ -419,8 +419,10 @@ extension Router: URLRequestConvertible  {
             urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        let params: [String: Any] = config.params ?? [:]
-        return try JSONEncoding.default.encode(urlRequest, with: params)
+        if let params = config.params {
+            return try JSONEncoding.default.encode(urlRequest, with: params)
+        }
+        return try JSONEncoding.default.encode(urlRequest)
     }
 }
 
