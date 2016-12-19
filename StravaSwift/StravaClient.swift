@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import SafariServices
 
 /**
  StravaClient responsible for making all api requests
@@ -46,6 +47,8 @@ open class StravaClient {
             "code" : code
         ]
     }
+    
+    internal var safariViewController: SFSafariViewController?
 }
 
 //MARK:varConfig
@@ -70,11 +73,16 @@ extension StravaClient {
 
 extension StravaClient {
     
+    var currentViewController : UIViewController? { return UIApplication.shared.keyWindow?.rootViewController }
+    
     /**
      Opens the Strava OAuth web page in mobile Safari for the user to authorize the application.
      **/
     public func authorize() {
-        UIApplication.shared.openURL(Router.authorizationUrl)
+        safariViewController = SFSafariViewController(url: Router.authorizationUrl)
+        if let safariViewController = safariViewController {
+            currentViewController?.present(safariViewController, animated: true, completion: nil)
+        }
     }
     
     /**
@@ -84,6 +92,8 @@ extension StravaClient {
      - Returns: the OAuth code
      **/
     public func handleAuthorizationRedirect(_ url: URL) -> String?  {
+        safariViewController?.dismiss(animated: true, completion: nil)
+        safariViewController = nil
         return url.getQueryParameters()?["code"]
     }
     
