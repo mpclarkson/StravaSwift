@@ -78,10 +78,10 @@ extension StravaClient {
     /**
      Opens the Strava OAuth web page in mobile Safari for the user to authorize the application.
      **/
-    public func authorize() {
+    public func authorize(sender: UIViewController? = nil) {
         safariViewController = SFSafariViewController(url: Router.authorizationUrl)
         if let safariViewController = safariViewController {
-            currentViewController?.present(safariViewController, animated: true, completion: nil)
+            (sender ?? currentViewController)?.present(safariViewController, animated: true, completion: nil)
         }
     }
     
