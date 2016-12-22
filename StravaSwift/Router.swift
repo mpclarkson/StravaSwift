@@ -370,7 +370,7 @@ public enum Router {
 //     
 //     - parameter upload: an upload object
 //     **/
-//    case Upload(upload: StravaSwift.Upload)
+    case UploadFile(upload: StravaSwift.UploadData)
 //    
 //    /**
 //     Check upload status
@@ -419,8 +419,10 @@ extension Router: URLRequestConvertible  {
             urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        let params: [String: Any] = config.params ?? [:]
-        return try JSONEncoding.default.encode(urlRequest, with: params)
+        if let params = config.params {
+            return try JSONEncoding.default.encode(urlRequest, with: params)
+        }
+        return try JSONEncoding.default.encode(urlRequest)
     }
 }
 
@@ -530,9 +532,9 @@ extension Router {
             return ("/segments/\(id)/streams/\(type)", nil, .get)
         case .routeStreams(let id):
             return ("/routes/\(id)/streams", nil, .get)
-//            
-//        case .Upload(let upload):
-//            return ("/uploads", upload.params, .POST)
+
+        case .UploadFile(let upload):
+            return ("/uploads", upload.params, .post)
 //        case .Uploads(let id):
 //            return ("/uploads/\(id)", nil, .POST)
         }

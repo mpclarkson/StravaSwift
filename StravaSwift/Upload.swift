@@ -21,22 +21,41 @@ import SwiftyJSON
  - warning: Not yet tested
  
  **/
-public struct Upload {
-    public let activityType: ActivityType?
-    public let name: String?
-    public let description: String?
-    public let `private`: Bool?
-    public let trainer: Bool?
-    public let externalId: String?
-
-    public let dataType: DataType
-    public let file: Data
+public struct UploadData {
+    public var activityType: ActivityType?
+    public var name: String?
+    public var description: String?
+    public var `private`: Bool?
+    public var trainer: Bool?
+    public var externalId: String?
+    
+    public var dataType: DataType
+    public var file: Data
+    
+    public init(name: String, dataType: DataType, file: Data) {
+        self.name = name
+        self.dataType = dataType
+        self.file = file
+    }
+    
+    public init(activityType: ActivityType?, name: String?, description: String?,
+                `private`: Bool?, trainer: Bool?, externalId: String?, dataType: DataType, file: Data) {
+        self.activityType = activityType
+        
+        self.description = description
+        self.`private` = `private`
+        self.trainer = trainer
+        self.externalId = externalId
+        self.name = name
+        self.dataType = dataType
+        self.file = file
+    }
     
     internal var params: [String: AnyObject?] {
         
         return [
             "data_type": dataType.rawValue as Optional<AnyObject>,
-            "file": file as Optional<AnyObject>,
+            "file": file.base64EncodedString() as Optional<AnyObject>,
             "name": name as Optional<AnyObject>,
             "description": description as Optional<AnyObject>,
             "private": `private` as Optional<AnyObject>,
@@ -46,7 +65,7 @@ public struct Upload {
     }
     
     /**
-       Upload status
+     Upload status
      **/
     public final class Status: Strava {
         let id: Int?
