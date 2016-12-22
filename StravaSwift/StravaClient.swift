@@ -118,6 +118,21 @@ extension StravaClient {
 
 extension StravaClient {
 
+    public func upload<T: Strava>(_ route: Router, upload: UploadData, result: @escaping (((T)?) -> Void), failure: @escaping (NSError) -> Void) {
+        do {
+            try oauthUpload(URLRequest: route.asURLRequest(), upload: upload) { (response: DataResponse<T>) in
+                if let statusCode = response.response?.statusCode, (400..<500).contains(statusCode) {
+                    failure(self.generateError(failureReason: "Strava API Error", response: response.response))
+                } else {
+                    result(response.result.value)
+                }
+                result(response.result.value)
+            }
+        } catch let error as NSError {
+            failure(error)
+        }
+    }
+
     /**
      Request a single object from the Strava Api
      
@@ -128,10 +143,10 @@ extension StravaClient {
         do {
             try oauthRequest(route)?.responseStrava { (response: DataResponse<T>) in
                 // HTTP Status codes above 400 are errors
-                if let statusCode = response.response?.statusCode, statusCode < 400 {
-                    result(response.result.value)
-                } else {
+                if let statusCode = response.response?.statusCode, (400..<500).contains(statusCode) {
                     failure(self.generateError(failureReason: "Strava API Error", response: response.response))
+                } else {
+                    result(response.result.value)
                 }
             }
         } catch let error as NSError {
@@ -149,10 +164,10 @@ extension StravaClient {
         do {
             try oauthRequest(route)?.responseStravaArray { (response: DataResponse<[T]>) in
                 // HTTP Status codes above 400 are errors
-                if let statusCode = response.response?.statusCode, statusCode < 400 {
-                    result(response.result.value)
-                } else {
+                if let statusCode = response.response?.statusCode, (400..<500).contains(statusCode) {
                     failure(self.generateError(failureReason: "Strava API Error", response: response.response))
+                } else {
+                    result(response.result.value)
                 }
             }
         } catch let error as NSError {
@@ -195,5 +210,28 @@ extension StravaClient {
         return try Alamofire.request(urlRequest)
     }
     
+    fileprivate func oauthUpload<T: Strava>(URLRequest: URLRequestConvertible, upload: UploadData, completion: @escaping (DataResponse<T>) -> ()) {
+        checkConfiguration()
+        
+        guard let url = try? URLRequest.asURLRequest() else { return }
+        
+        Alamofire.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(upload.file, withName: "\(upload.name ?? "default").\(upload.dataType)")
+            for (key, value) in upload.params {
+                if let v = value {
+                    multipartFormData.append(v.data(using: String.Encoding.utf8.rawValue)!, withName: key)
+                }
+            }
+        }, usingThreshold: SessionManager.multipartFormDataEncodingMemoryThreshold, with: url) { encodingResult in
+            switch encodingResult {
+            case .success(let upload, _, _):
+                upload.responseStrava { (response: DataResponse<T>) in
+                    completion(response)
+                }
+            case .failure(let encodingError):
+                print(encodingError)
+            }
+        }
+    }
 
 }
