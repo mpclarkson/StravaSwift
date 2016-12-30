@@ -32,8 +32,7 @@ class ConnectViewController: UIViewController {
                                                object: nil)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
