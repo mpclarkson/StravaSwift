@@ -14,7 +14,7 @@ import SwiftyJSON
  **/
 public struct Stream: Strava {
     public let type: StreamType?
-    public let data: [AnyObject]?
+    public let data: [Any]?
     public let seriesType: String?
     public let originalSize: Int?
     public let resolution: ResolutionType?

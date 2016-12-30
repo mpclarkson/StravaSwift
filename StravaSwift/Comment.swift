@@ -20,7 +20,7 @@ public final class Comment: Strava {
     public let activityId: Int?
     public let text: String?
     public let athlete: Athlete?
-    public let createdAt: NSDate?
+    public let createdAt: Date?
     
     /**
      Initializer

@@ -31,12 +31,12 @@ public final class Activity: Strava {
     public let name: String?
     public let description: String?
     public let distance: Double?
-    public let movingTime: NSTimeInterval?
-    public let elapsedTime: NSTimeInterval?
+    public let movingTime: TimeInterval?
+    public let elapsedTime: TimeInterval?
     public let totalElevationGain: Double?
     public let type: ActivityType?
-    public let startDate: NSDate?
-    public let startDateLocal: NSDate?
+    public let startDate: Date?
+    public let startDateLocal: Date?
     public let timeZone: String?
     public let startLatLng: Location?
     public let endLatLng: Location?

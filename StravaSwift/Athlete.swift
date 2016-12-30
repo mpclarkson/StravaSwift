@@ -17,8 +17,8 @@ public final class Athlete: Strava {
     public let resourceState: ResourceState?
     public let firstname: String?
     public let lastname: String?
-    public let profileMedium: NSURL?
-    public let profile: NSURL?
+    public let profileMedium: URL?
+    public let profile: URL?
     public let city: String?
     public let state: String?
     public let country: String?
@@ -26,8 +26,8 @@ public final class Athlete: Strava {
     public let friend: FollowingStatus?
     public let follower: FollowingStatus?
     public let premium:Bool?
-    public let createdAt: NSDate?
-    public let updatedAt: NSDate?
+    public let createdAt: Date?
+    public let updatedAt: Date?
     public let friendCount: Int?
     public let followerCount: Int?
     public let mutualFriendCount: Int?
@@ -55,8 +55,8 @@ public final class Athlete: Strava {
         city = json["city"].string
         state = json["state"].string
         country = json["country"].string
-        profileMedium = NSURL(optionalString: json["profile_medium"].string)
-        profile = NSURL(optionalString: json["profile"].string)
+        profileMedium = URL(optionalString: json["profile_medium"].string)
+        profile = URL(optionalString: json["profile"].string)
         firstname = json["firstname"].string
         lastname = json["lastname"].string
         sex = json["sex"].strava(Sex)

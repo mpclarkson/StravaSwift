@@ -8,12 +8,12 @@
 
 import Foundation
 
-extension NSURL {
+extension URL {
     func getQueryParameters() -> Dictionary<String, String>? {
         var results = [String:String]()
-        let keyValues = self.query?.componentsSeparatedByString("&")
+        let keyValues = self.query?.components(separatedBy: "&")
         keyValues?.forEach {
-            let kv = $0.componentsSeparatedByString("=")
+            let kv = $0.components(separatedBy: "=")
             if kv.count > 1 {
                 results[kv[0]] = kv[1]
             }

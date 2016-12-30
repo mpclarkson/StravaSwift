@@ -31,8 +31,8 @@ public final class Segment: Strava {
     public let country: String?
     public let `private`: Bool?
     public let starred: Bool?
-    public let createdAt: NSDate?
-    public let updateAt: NSDate?
+    public let createdAt: Date?
+    public let updateAt: Date?
     public let totalElevationGain: Double?
     public let map: Map?
     public let effortCount: Int?

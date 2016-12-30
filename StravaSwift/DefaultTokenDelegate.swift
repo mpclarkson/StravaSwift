@@ -12,15 +12,15 @@ import Foundation
  The default token delegate. You should replace this with something that persists the 
  token (e.g. to NSUserDefaults)
 **/
-public class DefaultTokenDelegate: TokenDelegate {
-    private var token: OAuthToken?
+open class DefaultTokenDelegate: TokenDelegate {
+    fileprivate var token: OAuthToken?
     
     /**
      Retrieves the token
      
      - Returns: a optional OAuthToken
      **/
-    public func get() -> OAuthToken? {
+    open func get() -> OAuthToken? {
         return token
     }
     
@@ -29,7 +29,7 @@ public class DefaultTokenDelegate: TokenDelegate {
      
      - Parameter token: an optional OAuthToken
      **/
-    public func set(token: OAuthToken?) {
+    open func set(_ token: OAuthToken?) {
         self.token = token
     }
 }

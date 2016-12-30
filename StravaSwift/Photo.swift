@@ -17,11 +17,11 @@ public final class Photo: Strava {
     public let uniqueId: String?
     public let activityId: Int?
     public let resourceState: ResourceState?
-    public let urls: [NSURL]?
+    public let urls: [URL]?
     public let caption: String?
     public let source: PhotoSource?
-    public let uploadedAt: NSDate?
-    public let createdAt: NSDate?
+    public let uploadedAt: Date?
+    public let createdAt: Date?
     public let location: Location?
     public let refs: String?
     public let uuid: String?
@@ -38,7 +38,7 @@ public final class Photo: Strava {
         resourceState = json["resource_state"].strava(ResourceState)
         uniqueId = json["unique_id"].string
         activityId = json["activity_id"].int
-        urls = json["urls"].dictionary?.flatMap { NSURL(optionalString: $0.1.string) }
+        urls = json["urls"].dictionary?.flatMap { URL(optionalString: $0.1.string) }
         caption = json["caption"].string
         source = json["source"].strava(PhotoSource)
         uploadedAt = json["uploaded_at"].string?.toDate()

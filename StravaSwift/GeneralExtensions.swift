@@ -10,21 +10,21 @@ import Foundation
 
 extension RawRepresentable {
     init?(optionalRawValue rawValue: RawValue?) {
-        guard let rawValue = rawValue, value = Self(rawValue: rawValue) else { return nil }
+        guard let rawValue = rawValue, let value = Self(rawValue: rawValue) else { return nil }
         self = value
     }
 }
 
-extension NSDateFormatter {
-    func dateFromString(optional string: String?)  -> NSDate? {
+extension DateFormatter {
+    func dateFromString(optional string: String?)  -> Date? {
         guard let string = string else { return nil }
-        return dateFromString(string)
+        return date(from: string)
     }
 }
 
-extension NSURL {
+extension URL {
 
-    convenience init?(optionalString string: String?) {
+    init?(optionalString string: String?) {
         guard let string = string else { return nil }
         self.init(string: string)
     }

@@ -18,7 +18,7 @@ class ConnectViewController: UIViewController {
     var code: String?
     private var token: OAuthToken?
     
-    @IBAction func login(sender: AnyObject) {
+    @IBAction func login(_ sender: AnyObject) {
         strava.authorize()
     }
     
@@ -26,48 +26,47 @@ class ConnectViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        NSNotificationCenter.defaultCenter().addObserver(self,
-                                                         selector: #selector(self.performAuth(_:)),
-                                                         name: "code",
-                                                         object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.performAuth(notification:)),
+                                               name: NSNotification.Name("code"),
+                                               object: nil)
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
-    func performAuth(notification: NSNotification) {
+    func performAuth( notification: NSNotification) {
         
         guard let code = notification.object as? String else { return }
         
-        loginButton.hidden = true
-        strava.getAccessToken(code) { [weak self] token in
-        if let `self` = self, token = token {
-            self.token = token
-            self.performSegueWithIdentifier("navigation", sender: self)
+        loginButton.isHidden = true
+        try? strava.getAccessToken(code) { [weak self] token in
+            if let `self` = self, let token = token {
+                self.token = token
+                self.performSegue(withIdentifier: "navigation", sender: self)
+                }
+                else {
+                //async
+                    self?.loginButton.isHidden = false
+                }
             }
-            else {
-            //async
-                self?.loginButton.hidden = false
-            }
-        }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "navigation" {
-            let barViewControllers = segue.destinationViewController as! UITabBarController
+            let barViewControllers = segue.destination as! UITabBarController
             let vc = barViewControllers.viewControllers![0] as! AthleteViewController
             vc.athlete = self.token?.athlete
         }
     }
    
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
     }

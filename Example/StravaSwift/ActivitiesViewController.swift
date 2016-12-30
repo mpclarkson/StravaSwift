@@ -10,7 +10,7 @@ import UIKit
 import StravaSwift
 
 class ActivitiesViewController: UITableViewController {
-    private var activities: [Activity] = []
+    fileprivate var activities: [Activity] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,24 +20,28 @@ class ActivitiesViewController: UITableViewController {
 }
 
 extension ActivitiesViewController {
-    private func update(params: [String: String]? = nil) {
-        StravaClient.sharedInstance.request(Router.AthleteActivities(params: params)) { [weak self] (activities: [Activity]?) in
-            guard let `self` = self, activities = activities else { return }
+    
+    fileprivate func update(params: Router.Params = nil) {
+        try? StravaClient.sharedInstance.request(Router.athleteActivities(params: params), result: { [weak self] (activities: [Activity]?) in
+            guard let `self` = self, let activities = activities else { return }
             self.activities = activities
             self.tableView?.reloadData()
-        }
+        }, failure: { (error: NSError) in
+            debugPrint(error)
+        })
+
     }
 }
 
 extension ActivitiesViewController {
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return activities.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("activity", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "activity", for: indexPath)
         let activity = activities[indexPath.row]
   
         cell.textLabel?.text = activity.name
