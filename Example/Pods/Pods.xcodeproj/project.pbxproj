@@ -14,6 +14,7 @@
 		10EB23E9ECC4B33E16933BB1EA560B6A /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D182500FF4918391F97385DAE996449 /* Timeline.swift */; };
 		16DF4454F41F03A4D4352F4F4FDDE380 /* Split.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C18ABE0B055C6F329560ED87F9D917 /* Split.swift */; };
 		1B9EDEDC964E6B08F78920B4F4B9DB84 /* Alamofire-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 94276CF887593FC21A638F4E2F1F4A42 /* Alamofire-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EE4302F1E35254A00176A67 /* AthleteStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4302D1E3524CE00176A67 /* AthleteStats.swift */; };
 		2C95A29577A32188CFF9B1FE541B14BA /* AlamofireRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0F811FEE264703774B46226E186555 /* AlamofireRequest.swift */; };
 		2CA58254B9A49B22A0A819F96D0D49C5 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6761FA9306B6BAF16CADAFFBE1B71E /* Photo.swift */; };
 		2F6BAF1F15AAF524A84A057C5238A428 /* StravaSwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBA658556E5F32AB3A94D9F19920FD4 /* StravaSwift-dummy.m */; };
@@ -126,9 +127,10 @@
 		1634FA3E2F5577B752A2A95EF63B4B81 /* Alamofire-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Alamofire-dummy.m"; sourceTree = "<group>"; };
 		17C7C311169F3CAF970644274FB0787A /* SwiftyJSON-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyJSON-dummy.m"; sourceTree = "<group>"; };
 		18C18ABE0B055C6F329560ED87F9D917 /* Split.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Split.swift; sourceTree = "<group>"; };
+		1EE4302D1E3524CE00176A67 /* AthleteStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AthleteStats.swift; sourceTree = "<group>"; };
 		23959CECBA9B14979F4E8F98B203AB8B /* Pods-StravaSwift_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-StravaSwift_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		23AD65392FD594D62778808DE4181ED6 /* Achievement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Achievement.swift; sourceTree = "<group>"; };
-		25645E3FF3A66A06B8B8E44E89AC4C53 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftyJSON.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		25645E3FF3A66A06B8B8E44E89AC4C53 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26CAD52242EA588B1B96F26480A7421C /* NSURLExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NSURLExtensions.swift; sourceTree = "<group>"; };
 		26EFF0A773A9B68F8036680922E55A8F /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
 		27057E27E95D2AA7799278794CE623EB /* GeneralExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GeneralExtensions.swift; sourceTree = "<group>"; };
@@ -154,20 +156,20 @@
 		6C6761FA9306B6BAF16CADAFFBE1B71E /* Photo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		739F0549348994469A74448CD0D26B9C /* Route.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		7857033CB003F852F367D6BC6CA97425 /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = NetworkReachabilityManager.swift; path = Source/NetworkReachabilityManager.swift; sourceTree = "<group>"; };
-		7BD1D581B483AF8736F68B34656AEA1F /* SwiftyJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SwiftyJSON.modulemap; sourceTree = "<group>"; };
-		7EA3EEF12CC4364CC2682114F1D21928 /* Pods_StravaSwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_StravaSwift_Example.framework; path = "Pods-StravaSwift_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BD1D581B483AF8736F68B34656AEA1F /* SwiftyJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftyJSON.modulemap; sourceTree = "<group>"; };
+		7EA3EEF12CC4364CC2682114F1D21928 /* Pods_StravaSwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StravaSwift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		861D8EAB8A6A00925142A443BE0D7D30 /* StravaClientError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StravaClientError.swift; sourceTree = "<group>"; };
 		892B2AD40288F3569A42D146BEEFF034 /* TokenDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TokenDelegate.swift; sourceTree = "<group>"; };
-		8B163AF1539AF7DE49AB6611683442D6 /* Pods-StravaSwift_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-StravaSwift_Example.modulemap"; sourceTree = "<group>"; };
+		8B163AF1539AF7DE49AB6611683442D6 /* Pods-StravaSwift_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-StravaSwift_Example.modulemap"; sourceTree = "<group>"; };
 		8F03809326666A0674F21BBADB1BB09D /* ParameterEncoding.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ParameterEncoding.swift; path = Source/ParameterEncoding.swift; sourceTree = "<group>"; };
-		90488BD1A28FAA1E21D98C95AD8064F5 /* Pods_StravaSwift_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_StravaSwift_Tests.framework; path = "Pods-StravaSwift_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		90488BD1A28FAA1E21D98C95AD8064F5 /* Pods_StravaSwift_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StravaSwift_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91256896D1C87CF6417EDC46E235072F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		927159AC28B562B9F78B38834A07F0DA /* Alamofire.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.xcconfig; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		94276CF887593FC21A638F4E2F1F4A42 /* Alamofire-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Alamofire-umbrella.h"; sourceTree = "<group>"; };
 		9B1D7625565D853B056F5FFC7FE3AB18 /* Segment.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
 		9D2F76C59C82FE7C44BA4AFA8C251EFB /* Pods-StravaSwift_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-StravaSwift_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		AB74C2A5D521F992966311EB7B60C270 /* Pods-StravaSwift_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-StravaSwift_Tests.modulemap"; sourceTree = "<group>"; };
+		AB74C2A5D521F992966311EB7B60C270 /* Pods-StravaSwift_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-StravaSwift_Tests.modulemap"; sourceTree = "<group>"; };
 		AC97AB96072E6CFB3B8C07A2ECD02ED4 /* Pods-StravaSwift_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-StravaSwift_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		AEBEB670658597FB7864005ED913ECB6 /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Request.swift; sourceTree = "<group>"; };
 		AF748B9E1848C5D6DD73C0C1A7A36AE2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -182,7 +184,7 @@
 		C7CEE212E5DFDA20EA3A0324CAA0F4A3 /* Club.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Club.swift; sourceTree = "<group>"; };
 		C99A3311C6F16074B7F8E3DD44197BEC /* StravaSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "StravaSwift-prefix.pch"; sourceTree = "<group>"; };
 		CACC9C4968CB78232BAC32B0A4DC75C0 /* StringExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
-		CD95BD8615C32C2A97478A5C1773A716 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD95BD8615C32C2A97478A5C1773A716 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF6FA20699EAC0AB72A507BB66B191F8 /* AFError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AFError.swift; path = Source/AFError.swift; sourceTree = "<group>"; };
 		CFBFF681209D4E5030FF4116EFD41362 /* SwiftyJSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = Source/SwiftyJSON.swift; sourceTree = "<group>"; };
 		D1FCCDF45EBF15783FA6111399C4B109 /* Pods-StravaSwift_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-StravaSwift_Example-umbrella.h"; sourceTree = "<group>"; };
@@ -194,11 +196,11 @@
 		E42F49FBA20BC96954B56110A1FB0535 /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
 		E5A52CA37C782BAA1501A0089E8D1E31 /* ModelEnums.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ModelEnums.swift; sourceTree = "<group>"; };
 		E605073D85A9369908BC6DA9AB2F31FA /* Upload.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Upload.swift; sourceTree = "<group>"; };
-		E6AA273B7674415ACF02C01A6F480218 /* StravaSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = StravaSwift.framework; path = StravaSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6AF5ED757E65C7F308475279782D1BF /* StravaSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = StravaSwift.modulemap; sourceTree = "<group>"; };
+		E6AA273B7674415ACF02C01A6F480218 /* StravaSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StravaSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6AF5ED757E65C7F308475279782D1BF /* StravaSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = StravaSwift.modulemap; sourceTree = "<group>"; };
 		E70CCB623AD226BD9CC627ACAA1D2A05 /* Pods-StravaSwift_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-StravaSwift_Example.release.xcconfig"; sourceTree = "<group>"; };
 		E8202EA65D7F9777D78833FBE8F42BF1 /* SwiftyJSON-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-prefix.pch"; sourceTree = "<group>"; };
-		EEF1DD17D00D8B108483FE2FEE2ED4DA /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Alamofire.modulemap; sourceTree = "<group>"; };
+		EEF1DD17D00D8B108483FE2FEE2ED4DA /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Alamofire.modulemap; sourceTree = "<group>"; };
 		F05B506A540FE042146EA8265DD35585 /* SessionManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionManager.swift; path = Source/SessionManager.swift; sourceTree = "<group>"; };
 		F26FB4343C43368E1D119B6871123AF1 /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
 		F382C5721F36A8CF08DA36032E8FF2C1 /* Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Validation.swift; path = Source/Validation.swift; sourceTree = "<group>"; };
@@ -383,7 +385,6 @@
 				CFBFF681209D4E5030FF4116EFD41362 /* SwiftyJSON.swift */,
 				F847E694BA44D7153C3E16A02FE345D4 /* Support Files */,
 			);
-			name = SwiftyJSON;
 			path = SwiftyJSON;
 			sourceTree = "<group>";
 		};
@@ -430,7 +431,6 @@
 				F382C5721F36A8CF08DA36032E8FF2C1 /* Validation.swift */,
 				75817F13FD582AA366F3A28BAEAFD135 /* Support Files */,
 			);
-			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -455,6 +455,7 @@
 				0E835EACBCA4D2E070DABBCED4F89B5E /* Activity.swift */,
 				DE0F811FEE264703774B46226E186555 /* AlamofireRequest.swift */,
 				C685380737963A862A5B240B1E61F7C1 /* Athlete.swift */,
+				1EE4302D1E3524CE00176A67 /* AthleteStats.swift */,
 				C7CEE212E5DFDA20EA3A0324CAA0F4A3 /* Club.swift */,
 				39B114BD38D78E1556CEC33A1E2A0874 /* Comment.swift */,
 				C01E70179A366CF9C4B8C52882CB5997 /* DefaultTokenDelegate.swift */,
@@ -482,7 +483,6 @@
 				892B2AD40288F3569A42D146BEEFF034 /* TokenDelegate.swift */,
 				E605073D85A9369908BC6DA9AB2F31FA /* Upload.swift */,
 			);
-			name = StravaSwift;
 			path = StravaSwift;
 			sourceTree = "<group>";
 		};
@@ -693,6 +693,7 @@
 				32A785591D68CEB09E20B38584751DF5 /* Achievement.swift in Sources */,
 				0AF1F145AFC909FA15D6E890C270075C /* Activity.swift in Sources */,
 				2C95A29577A32188CFF9B1FE541B14BA /* AlamofireRequest.swift in Sources */,
+				1EE4302F1E35254A00176A67 /* AthleteStats.swift in Sources */,
 				8AD060013734C3AAB8BEEF1B0A9CD52E /* Athlete.swift in Sources */,
 				64068450C8F034414B6BED24DCDBD7AA /* Club.swift in Sources */,
 				C06F165D3139221A9FDBF8CAC3FA5011 /* Comment.swift in Sources */,
