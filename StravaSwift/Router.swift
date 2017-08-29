@@ -370,7 +370,7 @@ public enum Router {
 //     
 //     - parameter upload: an upload object
 //     **/
-    case UploadFile(upload: StravaSwift.UploadData)
+    case uploadFile(upload: StravaSwift.UploadData)
 //    
 //    /**
 //     Check upload status
@@ -379,7 +379,7 @@ public enum Router {
 //    
 //     - parameter id: the upload id
 //     **/
-//    case Uploads(id: Id)
+//    case uploads(id: Id)
 //
 
 }
@@ -533,10 +533,10 @@ extension Router {
         case .routeStreams(let id):
             return ("/routes/\(id)/streams", nil, .get)
 
-        case .UploadFile(let upload):
+        case .uploadFile(let upload):
             return ("/uploads", upload.params, .post)
-//        case .Uploads(let id):
-//            return ("/uploads/\(id)", nil, .POST)
+//        case .uploads(let id):
+//            return ("/uploads/\(id)", nil, .post)
         }
     }
 }

@@ -11,13 +11,13 @@
  */
 public enum Scope: String {
     /** Default, private activities are not returned, privacy zones are respected in stream requests **/
-    case Public = "public"
+    case `public` = "public"
     /** Modify activities, upload on the user’s behalf **/
-    case Write = "write"
+    case write = "write"
     /** View private activities and data within privacy zones **/
-    case ViewPrivate = "view_private"
+    case viewPrivate = "view_private"
     /** Both .ViewPrivate and .Write access  **/
-    case ViewPrivateWrite = "view_private,write"
+    case viewPrivateWrite = "view_private,write"
 }
 
 /**
@@ -49,7 +49,7 @@ public struct StravaConfig {
     public init(clientId: Int,
                 clientSecret: String,
                 redirectUri: String,
-                scope: Scope = .ViewPrivateWrite,
+                scope: Scope = .viewPrivateWrite,
                 delegate: TokenDelegate? = nil ) {
         self.clientId = clientId
         self.clientSecret = clientSecret
