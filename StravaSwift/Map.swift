@@ -26,7 +26,7 @@ public final class Map: Strava {
      **/
     required public init(_ json: JSON) {
         id = json["id"].string
-        resourceState = json["resource_state"].strava(ResourceState)
+        resourceState = json["resource_state"].strava(ResourceState.self)
         polyline = json["polyline"].string
         summaryPolyline = json["summary_polyline"].string
     }

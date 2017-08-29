@@ -35,18 +35,18 @@ public final class Route: Strava {
      **/
     required public init(_ json: JSON) {
         id = json["id"].int
-        resourceState = json["resource_state"].strava(ResourceState)
+        resourceState = json["resource_state"].strava(ResourceState.self)
         name = json["name"].string
         description = json["description"].string
-        athlete = json["athlete"].strava(Athlete)
+        athlete = json["athlete"].strava(Athlete.self)
         distance = json["distance"].double
         elevationGain = json["elevation_gain"].double
-        map = json["map"].strava(Map)
-        type = json["type"].strava(RouteType)
-        subType = json["sub_type"].strava(RouteSubType)
+        map = json["map"].strava(Map.self)
+        type = json["type"].strava(RouteType.self)
+        subType = json["sub_type"].strava(RouteSubType.self)
         `private` = json["private"].bool
         starred = json["starred"].bool
         timeStamp = json["time_stamp"].int
-        segments = json["segments"].strava(Segment)
+        segments = json["segments"].strava(Segment.self)
     }
 }

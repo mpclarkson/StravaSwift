@@ -30,10 +30,10 @@ public final class Comment: Strava {
      **/
     required public init(_ json: JSON) {
         id = json["id"].int
-        resourceState = json["resource_state"].strava(ResourceState)
+        resourceState = json["resource_state"].strava(ResourceState.self)
         activityId = json["activity_id"].int
         text = json["text"].string
-        athlete = json["athlete"].strava(Athlete)
+        athlete = json["athlete"].strava(Athlete.self)
         createdAt = json["created_at"].string?.toDate()
     }
 }

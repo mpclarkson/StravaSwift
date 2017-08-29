@@ -72,43 +72,43 @@ public final class Activity: Strava {
     required public init(_ json: JSON) {
 
         id = json["id"].int
-        resourceState = json["resource_state"].strava(ResourceState)
+        resourceState = json["resource_state"].strava(ResourceState.self)
         externalId = json["external_id"].string
         uploadId = json["upload_id"].int
-        athlete = json["athlete"].strava(Athlete)
+        athlete = json["athlete"].strava(Athlete.self)
         name = json["name"].string
         description = json["description"].string
         distance = json["distance"].double
         movingTime = json["moving_time"].double
         elapsedTime = json["elapsed_time"].double
         totalElevationGain = json["total_elevation_gain"].double
-        type = json["type"].strava(ActivityType)
+        type = json["type"].strava(ActivityType.self)
         startDate = json["start_date"].string?.toDate()
         startDateLocal = json["start_date_local"].string?.toDate()
-        startLatLng = json["start_latlng"].strava(Location)
-        endLatLng = json["end_latlng"].strava(Location)
+        startLatLng = json["start_latlng"].strava(Location.self)
+        endLatLng = json["end_latlng"].strava(Location.self)
         achievementCount = json["achievement_count"].int
         kudosCount = json["kudos_count"].int
         commentCount = json["comment_count"].int
         athleteCount = json["athlete_count"].int
         photoCount = json["php_count"].int
         totalPhotoCount = json["total_photo_count"].int
-        photos = json["photos"].strava(Photo)
+        photos = json["photos"].strava(Photo.self)
         trainer = json["trainer"].bool
         commute = json["commute"].bool
         manual = json["manual"].bool
         `private` = json["private"].bool
         flagged = json["flagged"].bool
-        workoutType = json["workout_type"].strava(WorkoutType)
-        gear = json["gear"].strava(Gear)
+        workoutType = json["workout_type"].strava(WorkoutType.self)
+        gear = json["gear"].strava(Gear.self)
         averageSpeed = json["average_speed"].double
         maxSpeed = json["max_speed"].double
         calories = json["calories"].double
         hasKudoed = json["has_kudoed"].bool
-        segmentEfforts = json["segment_efforts"].strava(Effort)
-        splitsMetric = json["splits_metric"].strava(Split)
-        splitsStandard = json["splits_standard"].strava(Split)
-        bestEfforts = json["best_efforts"].strava(Split)
+        segmentEfforts = json["segment_efforts"].strava(Effort.self)
+        splitsMetric = json["splits_metric"].strava(Split.self)
+        splitsStandard = json["splits_standard"].strava(Split.self)
+        bestEfforts = json["best_efforts"].strava(Split.self)
         timeZone = json["timezone"].string
     }
 }

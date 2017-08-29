@@ -210,7 +210,7 @@ extension StravaClient {
     fileprivate func oauthRequest(_ urlRequest: URLRequestConvertible) throws -> DataRequest? {
         checkConfiguration()
         
-        return try Alamofire.request(urlRequest)
+        return Alamofire.request(urlRequest)
     }
     
     fileprivate func oauthUpload<T: Strava>(URLRequest: URLRequestConvertible, upload: UploadData, completion: @escaping (DataResponse<T>) -> ()) {
@@ -221,8 +221,8 @@ extension StravaClient {
         Alamofire.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(upload.file, withName: "\(upload.name ?? "default").\(upload.dataType)")
             for (key, value) in upload.params {
-                if let v = value {
-                    multipartFormData.append(v.data(using: String.Encoding.utf8.rawValue)!, withName: key)
+                if let value = value as? String {
+                    multipartFormData.append(value.data(using: .utf8)!, withName: key)
                 }
             }
         }, usingThreshold: SessionManager.multipartFormDataEncodingMemoryThreshold, with: url) { encodingResult in

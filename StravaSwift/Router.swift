@@ -466,9 +466,9 @@ extension Router {
         case .createActivity(let params):
             return ("/activities", params, .post)
         case .updateActivity(let activity):
-            return ("/activities/\(activity.id)", nil, .put)
+            return ("/activities/\(activity.id!)", nil, .put)
         case .deleteActivity(let activity):
-            return ("/activities/\(activity.id)", nil, .delete)
+            return ("/activities/\(activity.id!)", nil, .delete)
             
         case .activities(let id, let params):
             return ("/activities/\(id)", params, .get)

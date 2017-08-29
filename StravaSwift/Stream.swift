@@ -26,11 +26,11 @@ public struct Stream: Strava {
      - Internal
      **/
     public init(_ json: JSON) {
-        type = json["type"].strava(StreamType)
+        type = json["type"].strava(StreamType.self)
         data = json["data"].arrayObject
         seriesType = json["series_type"].string
         originalSize = json["original_size"].int
-        resolution  = json["resolution"].strava(ResolutionType)
+        resolution  = json["resolution"].strava(ResolutionType.self)
     }
 }
 
