@@ -33,7 +33,7 @@ open class Gear: Strava {
         primary = json["primary"].bool
         name = json["name"].string
         description = json["description"].string
-        resourceState = json["resource_state"].strava(ResourceState)
+        resourceState = json["resource_state"].strava(ResourceState.self)
         distance = json["distance"].double
         brandName = json["brand_name"].string
         modelName = json["model_name"].string
@@ -58,7 +58,7 @@ public final class Bike: Gear {
      - Internal
      **/
     required public init(_ json: JSON) {
-        frameType = json["frame_type"].strava(FrameType)
+        frameType = json["frame_type"].strava(FrameType.self)
         super.init(json)
     }
 }

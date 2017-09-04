@@ -14,7 +14,7 @@
  - Female
 **/
 public enum Sex: String {
-    case Male = "M", Female = "F"
+    case male = "M", female = "F"
 }
 
 /**
@@ -25,7 +25,7 @@ public enum Sex: String {
  - Blocked
  **/
 public enum FollowingStatus: String {
-    case Pending = "pending", Accepted = "accepted", Blocked = "Blocked"
+    case pending = "pending", accepted = "accepted", blocked = "Blocked"
 }
 
 /**
@@ -45,7 +45,7 @@ public enum AthleteType: Int {
  - Meters
  **/
 public enum Units: String {
-    case Feet = "feet", Meters = "meters"
+    case feet = "feet", meters = "meters"
 }
 
 /**
@@ -111,9 +111,9 @@ public enum WorkoutType: Int {
  **/
 public enum ActivityType: String {
     case
-    Ride, Run, Swim, Hike, Walk, AlpineSki, BackcountrySki, Canoeing, Crossfit, EBikeRide, Elliptical,
-    IceSkate, InlineSkate, Kayaking, Yoga, Kitesurf, NordicSki, RockClimbing, RollerSki, Rowing,
-    Snowboard, Snowshoe, StairStepper, StandUpPaddling, Surfing, VirtualRide, WeightTraining, Windsurf, Workout
+    ride, run, swim, hike, walk, alpineSki, backcountrySki, canoeing, crossfit, eBikeRide, elliptical,
+    iceSkate, inlineSkate, kayaking, yoga, kitesurf, nordicSki, rockClimbing, rollerSki, rowing,
+    snowboard, snowshoe, stairStepper, standUpPaddling, surfing, virtualRide, weightTraining, windsurf, workout
 }
 
 /**
@@ -125,7 +125,7 @@ public enum ActivityType: String {
  - Other
  **/
 public enum SportType: String {
-    case Cycling = "cycling", Running = "running", Triathlon = "triathlon", Other = "other"
+    case cycling = "cycling", running = "running", triathlon = "triathlon", other = "other"
 }
 
 /**
@@ -139,7 +139,7 @@ public enum SportType: String {
 
  **/
 public enum ClubType: String {
-    case CasualClub = "casual_club", RacingTeam = "racing_team", Shop = "shop", Company = "company", Other = "other"
+    case casualClub = "casual_club", racingTeam = "racing_team", shop = "shop", company = "company", other = "other"
 }
 
 /**
@@ -162,7 +162,7 @@ public enum FrameType: Int {
  - High
  **/
 public enum ResolutionType: String {
-    case Low = "low", Medium = "medium", High = "High"
+    case low = "low", medium = "medium", high = "High"
 }
 
 /**
@@ -181,42 +181,42 @@ public enum ResolutionType: String {
  - GradeSmooth
  **/
 public enum StreamType: String {
-    case Time = "time",
-    LatLng = "latlng",
-    Distance = "distance",
-    Altitude = "altitude",
-    VelocitySmooth = "velocity_smooth",
-    HeartRate = "heartrate",
-    Cadence = "cadence",
-    Watts = "watts",
-    Temp = "temp",
-    Moving = "moving",
-    GradeSmooth = "grade_smooth"
+    case time = "time",
+    latLng = "latlng",
+    distance = "distance",
+    altitude = "altitude",
+    velocitySmooth = "velocity_smooth",
+    heartRate = "heartrate",
+    cadence = "cadence",
+    watts = "watts",
+    temp = "temp",
+    moving = "moving",
+    gradeSmooth = "grade_smooth"
     
     //Description of the units associated with the stream
     var unit: String {
         switch self {
-        case .Time:
+        case .time:
             return "integer seconds"
-        case .LatLng:
+        case .latLng:
             return	"floats [latitude, longitude]"
-        case .Distance:
+        case .distance:
             return	"float meters"
-        case .Altitude:
+        case .altitude:
             return "float meters"
-        case .VelocitySmooth:
+        case .velocitySmooth:
             return "float meters per second"
-        case .HeartRate:
+        case .heartRate:
             return "integer BPM"
-        case .Cadence:
+        case .cadence:
             return "integer RPM"
-        case .Watts:
+        case .watts:
             return "integer watts"
-        case .Temp:
+        case .temp:
             return "integer degrees Celsius"
-        case .Moving:
+        case .moving:
             return "boolean"
-        case .GradeSmooth:
+        case .gradeSmooth:
             return "float percent"
         }
     }
@@ -262,7 +262,7 @@ public enum PhotoSource: Int {
  - YearOverall
  **/
 public enum AchievementType: String {
-    case Overall = "overall", PR = "pr", YearOverall = "year_overall"
+    case overall = "overall", pr = "pr", yearOverall = "year_overall"
 }
 
 
@@ -280,7 +280,7 @@ public enum RouteSubType: Int {
  Data type enum for uploaded activities
  **/
 public enum DataType: String {
-    case Fit = "fit", FitGz = "fit.gz", Tcx = "tcx", TcxGz = "tcx.gz", Gpx = "gpx", GxpGz = "gpx.gz"
+    case fit = "fit", fitGz = "fit.gz", tcx = "tcx", tcxGz = "tcx.gz", gpx = "gpx", gpxGz = "gpx.gz"
 }
 
 

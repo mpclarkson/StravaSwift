@@ -43,10 +43,10 @@ public final class Effort: Strava {
      **/
     required public init(_ json: JSON) {
         id = json["id"].int
-        resourceState = json["resource_state"].strava(ResourceState)
+        resourceState = json["resource_state"].strava(ResourceState.self)
         name = json["name"].string
-        activity = json["activity_type"].strava(Activity)
-        athlete = json["athlete"].strava(Athlete)
+        activity = json["activity_type"].strava(Activity.self)
+        athlete = json["athlete"].strava(Athlete.self)
         elapsedTime = json["elapsed_time"].int
         movingTime = json["moving_time"].int
         startDate = json["start_date"].string?.toDate()
@@ -59,7 +59,7 @@ public final class Effort: Strava {
         deviceWatts = json["device_watts"].bool
         averageHeartRate = json["average_heartrate"].double
         maxHeartRate = json["max_heartrate"].int
-        segment = json["segment"].strava(Segment)
+        segment = json["segment"].strava(Segment.self)
         komRank = json["kom_rank"].int
         prRank = json["pr_rank"].int
         hidden = json["hidden"].bool

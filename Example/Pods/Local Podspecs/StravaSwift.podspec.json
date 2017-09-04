@@ -1,6 +1,6 @@
 {
   "name": "StravaSwift",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "summary": "A Swift library for the Strava API v3",
   "description": "A Swift library for the Strava API v3. For complete details visit the Strava developer site.",
   "homepage": "https://github.com/mpclarkson/StravaSwift",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/mpclarkson/StravaSwift.git",
-    "tag": "0.6.0"
+    "tag": "0.7.0"
   },
   "social_media_url": "https://twitter.com/matt_pc",
   "platforms": {

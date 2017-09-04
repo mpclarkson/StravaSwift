@@ -36,7 +36,7 @@ class ConnectViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func performAuth( notification: NSNotification) {
+    @objc func performAuth( notification: NSNotification) {
         
         guard let code = notification.object as? String else { return }
         

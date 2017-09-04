@@ -26,7 +26,7 @@ public struct Achievement: Strava {
      - Internal
      **/
     public init(_ json: JSON) {
-        type = json["type"].strava(AchievementType)
+        type = json["type"].strava(AchievementType.self)
         rank = json["rank"].int
     }
 }

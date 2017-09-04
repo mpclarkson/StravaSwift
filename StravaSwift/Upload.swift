@@ -51,17 +51,20 @@ public struct UploadData {
         self.file = file
     }
     
-    internal var params: [String: AnyObject?] {
+    internal var params: [String: Any] {
         
-        return [
-            "data_type": dataType.rawValue as Optional<AnyObject>,
-            "file": file.base64EncodedString() as Optional<AnyObject>,
-            "name": name as Optional<AnyObject>,
-            "description": description as Optional<AnyObject>,
-            "private": `private` as Optional<AnyObject>,
-            "trainer": trainer as Optional<AnyObject>,
-            "external_id": externalId as Optional<AnyObject>
-        ]
+        var params: [String: Any] = [:]
+        params["data_type"] = dataType.rawValue
+        params["name"] = name
+        params["description"] = description
+        if let `private` = `private` {
+            params["private"] = (`private` as NSNumber).stringValue
+        }
+        if let trainer = trainer {
+            params["trainer"] = (trainer as NSNumber).stringValue
+        }
+        params["external_id"] = externalId
+        return params
     }
     
     /**

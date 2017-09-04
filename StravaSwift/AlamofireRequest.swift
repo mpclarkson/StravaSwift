@@ -83,7 +83,7 @@ extension DataRequest {
     
     static func StravaSerializer<T: Strava>(_ keyPath: String?) -> DataResponseSerializer<T> {
         return DataResponseSerializer { request, response, data, error in
-            let (result, e) = parseResponse(request, response, data, error)
+            let (result, e) = parseResponse((request, response, data, error))
             
             if let e = e {
                 return .failure(e)
@@ -101,7 +101,7 @@ extension DataRequest {
     static func StravaArraySerializer<T: Strava>(_ keyPath: String?) -> DataResponseSerializer<[T]> {
         return DataResponseSerializer { request, response, data, error in
             
-            let (result, e) = parseResponse(request, response, data, error)
+            let (result, e) = parseResponse((request, response, data, error))
             
             if let e = e {
                 return .failure(e)

@@ -35,15 +35,15 @@ public final class Photo: Strava {
      **/
     required public init(_ json: JSON) {
         id = json["id"].int
-        resourceState = json["resource_state"].strava(ResourceState)
+        resourceState = json["resource_state"].strava(ResourceState.self)
         uniqueId = json["unique_id"].string
         activityId = json["activity_id"].int
         urls = json["urls"].dictionary?.flatMap { URL(optionalString: $0.1.string) }
         caption = json["caption"].string
-        source = json["source"].strava(PhotoSource)
+        source = json["source"].strava(PhotoSource.self)
         uploadedAt = json["uploaded_at"].string?.toDate()
         createdAt = json["created_at"].string?.toDate()
-        location = json["location"].strava(Location)
+        location = json["location"].strava(Location.self)
         refs = json["refs"].string
         uuid = json["uuid"].string
         type = json["type"].string

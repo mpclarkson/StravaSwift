@@ -35,19 +35,19 @@ public final class Event: Strava {
      - Internal
      **/
     required public init(_ json: JSON) {
-        resourceState = json["resource_state"].strava(ResourceState)
+        resourceState = json["resource_state"].strava(ResourceState.self)
         id = json["id"].int
         title = json["title"].string
         descr = json["description"].string
         clubId = json["club_id"].int
-        organizingAthlete = json["organizing_athlete"].strava(Athlete)
-        activityType = json["activity_type"].strava(ActivityType)
+        organizingAthlete = json["organizing_athlete"].strava(Athlete.self)
+        activityType = json["activity_type"].strava(ActivityType.self)
         createdAt = json["created_at"].string?.toDate()
         routeId = json["route_id"].int
         womenOnly = json["women_only"].bool
         `private` =  json["private"].bool
-        skillLevels = json["skill_level"].strava(SkillLevel)
-        terrain = json["terrain"].strava(Terrain)
+        skillLevels = json["skill_level"].strava(SkillLevel.self)
+        terrain = json["terrain"].strava(Terrain.self)
         upcomingOccurrences = json["terrain"].arrayValue.flatMap { $0.string?.toDate() }
     }
 }

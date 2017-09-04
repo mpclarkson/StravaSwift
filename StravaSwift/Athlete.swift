@@ -51,7 +51,7 @@ public final class Athlete: Strava {
         
         
         id = json["id"].int
-        resourceState = json["resource_state"].strava(ResourceState)
+        resourceState = json["resource_state"].strava(ResourceState.self)
         city = json["city"].string
         state = json["state"].string
         country = json["country"].string
@@ -59,23 +59,23 @@ public final class Athlete: Strava {
         profile = URL(optionalString: json["profile"].string)
         firstname = json["firstname"].string
         lastname = json["lastname"].string
-        sex = json["sex"].strava(Sex)
-        friend = json["friend"].strava(FollowingStatus)
-        follower = json["follower"].strava(FollowingStatus)
+        sex = json["sex"].strava(Sex.self)
+        friend = json["friend"].strava(FollowingStatus.self)
+        follower = json["follower"].strava(FollowingStatus.self)
         premium = json["premium"].bool
         createdAt = json["created_at"].string?.toDate()
         updatedAt = json["updated_at"].string?.toDate()
         followerCount = json["follower_count"].int
         friendCount = json["friend_count"].int
         mutualFriendCount = json["mutual_friend_count"].int
-        athleteType = json["athlete_type"].strava(AthleteType)
+        athleteType = json["athlete_type"].strava(AthleteType.self)
         datePreference = json["date_preference"].string
-        measurementPreference = json["measurement_preference"].strava(Units)
+        measurementPreference = json["measurement_preference"].strava(Units.self)
         email = json["email"].string
         FTP = json["ftp"].int
         weight = json["weight"].double
-        clubs = json["clubs"].strava(Club)
-        bikes = json["bikes"].strava(Bike)
-        shoes = json["shoes"].strava(Shoe)
+        clubs = json["clubs"].strava(Club.self)
+        bikes = json["bikes"].strava(Bike.self)
+        shoes = json["shoes"].strava(Shoe.self)
     }
 }

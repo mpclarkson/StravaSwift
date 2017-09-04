@@ -37,12 +37,12 @@ public final class Club: Strava {
         id = json["id"].int
         name = json["name"].string
         description = json["description"].string
-        resourceState = json["resource_state"].strava(ResourceState)
+        resourceState = json["resource_state"].strava(ResourceState.self)
         city = json["city"].string
         state = json["state"].string
         country = json["country"].string
-        clubType = json["club_type"].strava(ClubType)
-        sportType = json["sport_type"].strava(SportType)
+        clubType = json["club_type"].strava(ClubType.self)
+        sportType = json["sport_type"].strava(SportType.self)
         profileMedium = URL(optionalString: json["profile_medium"].string)
         profile = URL(optionalString: json["profile"].string)
         isPrivate = json["private"].bool
