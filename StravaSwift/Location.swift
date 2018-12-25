@@ -13,8 +13,8 @@ import SwiftyJSON
     Represents the latitude and longitude of a point
  **/
 public struct Location: Strava {
-    let lat: Double?
-    let lng: Double?
+    public let lat: Double?
+    public let lng: Double?
     
     /**
      Initializer (failable)
