@@ -47,6 +47,7 @@ public final class Activity: Strava {
     public let photoCount: Count?
     public let totalPhotoCount: Count?
     public let photos: [Photo]?
+    public let map: Map?
     public let trainer: Bool?
     public let commute: Bool?
     public let manual: Bool?
@@ -62,6 +63,8 @@ public final class Activity: Strava {
     public let splitsMetric: [Split]?
     public let splitsStandard: [Split]?
     public let bestEfforts: [Split]?
+    public let kiloJoules: Double?
+    public let deviceWatts : Bool?
 
     /**
      Initializer
@@ -94,6 +97,7 @@ public final class Activity: Strava {
         photoCount = json["php_count"].int
         totalPhotoCount = json["total_photo_count"].int
         photos = json["photos"].strava(Photo.self)
+        map = json["map"].strava(Map.self)
         trainer = json["trainer"].bool
         commute = json["commute"].bool
         manual = json["manual"].bool
@@ -109,6 +113,8 @@ public final class Activity: Strava {
         splitsMetric = json["splits_metric"].strava(Split.self)
         splitsStandard = json["splits_standard"].strava(Split.self)
         bestEfforts = json["best_efforts"].strava(Split.self)
-        timeZone = json["timezone"].string
+        timeZone = json["timezone"].string 
+        kiloJoules = json["kilojoules"].double
+        deviceWatts = json["device_watts"].bool
     }
 }
