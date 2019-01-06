@@ -505,7 +505,7 @@ extension Router {
         case .segments(let id, let params):
             return ("/segments/\(id)", params, .get)
         case .segmentsEfforts(let id, let params):
-            return ("/segments/\(id)/efforts", params, .get)
+            return ("/segments/\(id)/all_efforts", params, .get)
         case .segmentsLeaderboards(let id, let params):
             return ("/segments/\(id)/leaderboard", params, .get)
         case .segmentsExplore(let id, let params):
