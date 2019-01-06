@@ -33,6 +33,8 @@ public final class Activity: Strava {
     public let distance: Double?
     public let movingTime: TimeInterval?
     public let elapsedTime: TimeInterval?
+	public let highElevation : Double?
+	public let lowElevation : Double?
     public let totalElevationGain: Double?
     public let type: ActivityType?
     public let startDate: Date?
@@ -63,8 +65,10 @@ public final class Activity: Strava {
     public let splitsMetric: [Split]?
     public let splitsStandard: [Split]?
     public let bestEfforts: [Split]?
-    public let kiloJoules: Double?
-    public let deviceWatts : Bool?
+	public let kiloJoules: Double?
+	public let averagePower : Double?
+	public let maxPower : Double?
+	public let deviceWatts : Bool?
 
     /**
      Initializer
@@ -84,6 +88,8 @@ public final class Activity: Strava {
         distance = json["distance"].double
         movingTime = json["moving_time"].double
         elapsedTime = json["elapsed_time"].double
+		lowElevation = json["elev_low"].double
+		highElevation = json["elev_high"].double
         totalElevationGain = json["total_elevation_gain"].double
         type = json["type"].strava(ActivityType.self)
         startDate = json["start_date"].string?.toDate()
@@ -113,8 +119,22 @@ public final class Activity: Strava {
         splitsMetric = json["splits_metric"].strava(Split.self)
         splitsStandard = json["splits_standard"].strava(Split.self)
         bestEfforts = json["best_efforts"].strava(Split.self)
-        timeZone = json["timezone"].string 
-        kiloJoules = json["kilojoules"].double
-        deviceWatts = json["device_watts"].bool
+        timeZone = json["timezone"].string
+		kiloJoules = json["kilojoules"].double
+		averagePower = json["average_watts"].double
+		maxPower = json["max_watts"].double
+		deviceWatts = json["device_watts"].bool
     }
 }
+
+// MetaActivity is used by Effort to hold unique Activity ID
+public final class MetaActivity: Strava {
+	public let id: Int?
+	
+	required public init(_ json: JSON) {
+		id = json["id"].int
+	}
+}
+
+
+
