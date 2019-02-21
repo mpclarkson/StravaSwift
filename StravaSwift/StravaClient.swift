@@ -19,7 +19,7 @@ open class StravaClient {
     /**
      Access the shared instance
      */
-    open static let sharedInstance = StravaClient()
+    public static let sharedInstance = StravaClient()
     
     fileprivate init() {}
     fileprivate var config: StravaConfig?
