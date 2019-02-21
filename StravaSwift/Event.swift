@@ -48,6 +48,6 @@ public final class Event: Strava {
         `private` =  json["private"].bool
         skillLevels = json["skill_level"].strava(SkillLevel.self)
         terrain = json["terrain"].strava(Terrain.self)
-        upcomingOccurrences = json["terrain"].arrayValue.flatMap { $0.string?.toDate() }
+        upcomingOccurrences = json["terrain"].arrayValue.compactMap { $0.string?.toDate() }
     }
 }
