@@ -527,7 +527,7 @@ extension Router {
         case .activityStreams(let id, let type):
               return ("/activities/\(id)/streams/\(type)", nil, .get)
         case .effortStreams(let id, let type):
-            return ("/efforts/\(id)/streams/\(type)", nil, .get)
+            return ("/segment_efforts/\(id)/streams/\(type)", nil, .get)
         case .segmentStreams(let id, let type):
             return ("/segments/\(id)/streams/\(type)", nil, .get)
         case .routeStreams(let id):
