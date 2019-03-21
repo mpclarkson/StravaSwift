@@ -69,6 +69,10 @@ public final class Activity: Strava {
 	public let averagePower : Double?
 	public let maxPower : Double?
 	public let deviceWatts : Bool?
+	
+	public let hasHeartRate : Bool?
+	public let averageHeartRate : Double?
+	public let maxHeartRate : Double?
 
     /**
      Initializer
@@ -120,10 +124,16 @@ public final class Activity: Strava {
         splitsStandard = json["splits_standard"].strava(Split.self)
         bestEfforts = json["best_efforts"].strava(Split.self)
         timeZone = json["timezone"].string
+	
 		kiloJoules = json["kilojoules"].double
 		averagePower = json["average_watts"].double
 		maxPower = json["max_watts"].double
 		deviceWatts = json["device_watts"].bool
+	
+		hasHeartRate = json["has_heartrate"].bool
+		averageHeartRate = json["average_heartrate"].double
+		maxHeartRate = json["max_heartrate"].double
+	    
     }
 }
 
