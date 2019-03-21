@@ -10,6 +10,7 @@ A Swift library for the Strava API v3. For complete details visit the Strava dev
   s.author           = { 'Matthew Clarkson' => 'mpclarkson@gmail.com' }
   s.source           = { :git => 'https://github.com/mpclarkson/StravaSwift.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/matt_pc'
+  s.swift_version    = '4.0'
   s.ios.deployment_target = '9.0'
   s.source_files = 'StravaSwift/**/*'
   s.dependency 'Alamofire', '~> 4'
