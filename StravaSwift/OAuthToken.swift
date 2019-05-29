@@ -17,16 +17,27 @@ public struct OAuthToken: Strava {
     /** The access token **/
     public let accessToken: String?
     
+    /** The refresh token **/
+    public let refreshToken: String?
+    
     /** The athlete **/
     public let athlete: Athlete?
 
     /**
-     Initializer
+     Initializers
      
      - Parameter json: A SwiftyJSON object
      **/
     public init(_ json: JSON) {
         accessToken = json["access_token"].string
+        refreshToken = json["refresh_token"].string
         athlete = Athlete(json["athlete"])
     }
+    
+    public init(access: String?, refresh: String?) {
+        accessToken = access
+        refreshToken = refresh
+        athlete = nil
+    }
+
 }
