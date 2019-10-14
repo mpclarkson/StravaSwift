@@ -425,11 +425,23 @@ extension Router: URLRequestConvertible  {
         if let token = StravaClient.sharedInstance.token?.accessToken {
             urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
-        
+
+//        if let params = config.params {
+//            return try JSONEncoding.default.encode(urlRequest, with: params)
+//        }
+//        return try JSONEncoding.default.encode(urlRequest)
+
+        // MARK: Code added to stop httpBody being added to GET requests as this breaks iOS13 rules and throws error
+        var request : URLRequest!
         if let params = config.params {
-            return try JSONEncoding.default.encode(urlRequest, with: params)
+            request = try JSONEncoding.default.encode(urlRequest, with: params)
+        } else {
+            request = try JSONEncoding.default.encode(urlRequest)
         }
-        return try JSONEncoding.default.encode(urlRequest)
+        if config.method == .get {
+            request.httpBody = nil
+        }
+        return request
     }
 }
 
