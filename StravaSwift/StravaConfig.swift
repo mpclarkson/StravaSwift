@@ -18,6 +18,8 @@ public enum Scope: String {
     case viewPrivate = "view_private"
     /** Both .ViewPrivate and .Write access  **/
     case viewPrivateWrite = "view_private,write"
+    /** Read athlete and activities **/
+    case viewAll = "profile:read_all,activity:read_all"
 }
 
 /**
