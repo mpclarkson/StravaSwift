@@ -47,6 +47,16 @@ open class StravaClient {
             "code" : code
         ]
     }
+
+    internal func refreshParams(_ code: String) -> [String: Any]  {
+        return [
+            "client_id" : config?.clientId ?? 0,
+            "client_secret" : config?.clientSecret ?? "",
+            "grant_type" : "refresh_token",
+            "refresh_token" : code
+        ]
+    }
+
     
     internal var safariViewController: SFSafariViewController?
 }
@@ -108,6 +118,21 @@ extension StravaClient {
      **/
     public func getAccessToken(_ code: String, result: @escaping (((OAuthToken)?) -> Void)) throws {
         try oauthRequest(Router.token(code: code))?.responseStrava { [weak self] (response: DataResponse<OAuthToken>) in
+            guard let `self` = self else { return }
+            let token = response.result.value
+            self.config?.delegate.set(token)
+            result(token)
+        }
+    }
+    
+    /**
+     Refresh an OAuth token from Strava
+     
+     - Parameter refresh: the refresh token from Strava
+     - Parameter result: a closure to handle the OAuthToken
+     **/
+    public func refreshAccessToken(_ refresh: String, result: @escaping (((OAuthToken)?) -> Void)) throws {
+        try oauthRequest(Router.refresh(code: refresh))?.responseStrava { [weak self] (response: DataResponse<OAuthToken>) in
             guard let `self` = self else { return }
             let token = response.result.value
             self.config?.delegate.set(token)
@@ -191,18 +216,14 @@ extension StravaClient {
 
 extension StravaClient {
     
-    fileprivate func isConfigured() -> (Bool, StravaClientError?) {
-        if config == nil {
-            return (false, StravaClientError.invalidCredentials)
-        }
-        
-        return (true, nil)
+    
+    
+    fileprivate func isConfigured() -> (Bool) {
+        return config != nil
     }
     
     fileprivate func checkConfiguration() {
-        let (_, error) = StravaClient.sharedInstance.isConfigured()
-        
-        if let _ = error {
+        if !isConfigured() {
             fatalError("Strava client is not configured")
         }
     }
