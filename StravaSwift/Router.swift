@@ -25,7 +25,14 @@ public enum Router {
      - parameter code: the code returned from Strava after granting access to the application
      **/
     case token(code: String)
-    
+
+    /**
+     Requests a Strava OAuth token refresh
+     
+     - parameter refresh: the refresh token returned from Strava after granting access to the application
+     **/
+    case refresh(code: String)
+
     /**
      Allows an application to revoke its access to an athlete’s data. This will invalidate all access tokens associated with the ‘athlete,application’ pair used to create the token. The application will be removed from the Athlete Settings page on Strava. All requests made using invalidated tokens will receive a 401 Unauthorized response.
      
@@ -405,7 +412,7 @@ extension Router: URLRequestConvertible  {
         
         var baseURL: URL {
             switch self {
-            case .token, .deauthorize:
+            case .token, .deauthorize, .refresh:
                 return URL(string: "https://www.strava.com/oauth")!
             default:
                 return URL(string: "https://www.strava.com/api/v3")!
@@ -433,6 +440,9 @@ extension Router {
         
         case .token(let code):
             return ("/token", StravaClient.sharedInstance.tokenParams(code), .post)
+        case .refresh(let code):
+            return ("/token", StravaClient.sharedInstance.refreshParams(code), .post)
+
         case .deauthorize(let token):
             let params = ["access_token" : token]
             return ("/deauthorize", params, .post)
@@ -540,4 +550,5 @@ extension Router {
         }
     }
 }
+
 
