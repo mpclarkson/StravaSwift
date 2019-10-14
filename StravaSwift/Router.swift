@@ -426,22 +426,11 @@ extension Router: URLRequestConvertible  {
             urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
 
-//        if let params = config.params {
-//            return try JSONEncoding.default.encode(urlRequest, with: params)
-//        }
-//        return try JSONEncoding.default.encode(urlRequest)
-
-        // MARK: Code added to stop httpBody being added to GET requests as this breaks iOS13 rules and throws error
-        var request : URLRequest!
+        // Changed JSON to URL to encode parameters on header not body as this causes error in ios13
         if let params = config.params {
-            request = try JSONEncoding.default.encode(urlRequest, with: params)
-        } else {
-            request = try JSONEncoding.default.encode(urlRequest)
+            return try URLEncoding.default.encode(urlRequest, with: params)
         }
-        if config.method == .get {
-            request.httpBody = nil
-        }
-        return request
+        return try JSONEncoding.default.encode(urlRequest)
     }
 }
 
