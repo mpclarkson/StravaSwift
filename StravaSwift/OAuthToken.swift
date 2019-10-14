@@ -20,6 +20,9 @@ public struct OAuthToken: Strava {
     /** The refresh token **/
     public let refreshToken: String?
     
+    /** Expiry for the token in seconds since the epoch **/
+    public let expiresAt : Int?
+    
     /** The athlete **/
     public let athlete: Athlete?
 
@@ -31,13 +34,15 @@ public struct OAuthToken: Strava {
     public init(_ json: JSON) {
         accessToken = json["access_token"].string
         refreshToken = json["refresh_token"].string
+        expiresAt = json["expires_at"].int
         athlete = Athlete(json["athlete"])
     }
     
-    public init(access: String?, refresh: String?) {
-        accessToken = access
-        refreshToken = refresh
-        athlete = nil
+    public init(access: String?, refresh: String?, expiry: Int?) {
+        self.accessToken = access
+        self.refreshToken = refresh
+        self.expiresAt = expiry
+        self.athlete = nil
     }
 
 }
