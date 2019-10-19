@@ -19,61 +19,51 @@ class ConnectViewController: UIViewController {
     private var token: OAuthToken?
     
     @IBAction func login(_ sender: AnyObject) {
-        strava.authorize()
+        loginButton.isHidden = true
+        strava.authorize() { [weak self] (token, error) in
+            guard let self = self else { return }
+            self.loginButton.isHidden = false
+            self.didAuthenticate(token: token, error: error) // Called when running iOS 11 and above
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.performAuth(notification:)),
-                                               name: NSNotification.Name("code"),
-                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.willHandleToken(notification:)),
+                                               name: NSNotification.Name("willHandleToken"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.didHandleToken(notification:)),
+                                               name: NSNotification.Name("didHandleToken"), object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
-    @objc func performAuth( notification: NSNotification) {
-        
-        guard let code = notification.object as? String else { return }
-        
+
+    @objc func willHandleToken(notification: NSNotification) {
         loginButton.isHidden = true
-        try? strava.getAccessToken(code) { [weak self] token in
-            if let `self` = self, let token = token {
-                self.token = token
-                self.performSegue(withIdentifier: "navigation", sender: self)
-                }
-                else {
-                //async
-                    self?.loginButton.isHidden = false
-                }
-            }
     }
-    
+
+    @objc func didHandleToken(notification: NSNotification) {
+        loginButton.isHidden = false
+        guard let (token, error) = notification.object as? (OAuthToken?, NSError?) else { return }
+        didAuthenticate(token: token, error: error) // Called when running iOS 9 or 10
+    }
+
+    private func didAuthenticate(token: OAuthToken?, error: NSError?) {
+        if let token = token {
+            self.token = token
+            self.performSegue(withIdentifier: "navigation", sender: self)
+        } else if let error = error {
+            debugPrint(error)
+        }
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "navigation" {
             let barViewControllers = segue.destination as! UITabBarController
             let vc = barViewControllers.viewControllers![0] as! AthleteViewController
             vc.athlete = self.token?.athlete
         }
     }
-   
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 }
-

@@ -110,10 +110,9 @@ public enum WorkoutType: Int {
   - Workout
  **/
 public enum ActivityType: String {
-    case
-    ride, run, swim, hike, walk, alpineSki, backcountrySki, canoeing, crossfit, eBikeRide, elliptical,
-    iceSkate, inlineSkate, kayaking, yoga, kitesurf, nordicSki, rockClimbing, rollerSki, rowing,
-    snowboard, snowshoe, stairStepper, standUpPaddling, surfing, virtualRide, weightTraining, windsurf, workout
+    case ride, run, swim, hike, walk, alpineSki, backcountrySki, canoeing, crossfit, eBikeRide, elliptical, iceSkate,
+    inlineSkate, kayaking, yoga, kitesurf, nordicSki, rockClimbing, rollerSki, rowing, snowboard, snowshoe, stairStepper,
+    standUpPaddling, surfing, virtualRide, weightTraining, windsurf, workout, handcycle, virtualRun, wheelchair
 }
 
 /**
@@ -192,7 +191,7 @@ public enum StreamType: String {
     temp = "temp",
     moving = "moving",
     gradeSmooth = "grade_smooth"
-    
+
     //Description of the units associated with the stream
     var unit: String {
         switch self {
@@ -265,7 +264,6 @@ public enum AchievementType: String {
     case overall = "overall", pr = "pr", yearOverall = "year_overall"
 }
 
-
 /** Route type enum **/
 public enum RouteType: Int {
     case ride = 1, run = 2
@@ -282,8 +280,3 @@ public enum RouteSubType: Int {
 public enum DataType: String {
     case fit = "fit", fitGz = "fit.gz", tcx = "tcx", tcxGz = "tcx.gz", gpx = "gpx", gpxGz = "gpx.gz"
 }
-
-
-
-
-

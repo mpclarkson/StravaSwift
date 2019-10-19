@@ -61,14 +61,14 @@ class AthleteViewController: UIViewController {
 extension AthleteViewController {
     
     func update() {
-        try? StravaClient.sharedInstance.request(Router.athlete, result: { [weak self] (athlete: Athlete?) in
+        StravaClient.sharedInstance.request(Router.athlete, result: { [weak self] (athlete: Athlete?) in
             
-            guard let `self` = self, let athlete = athlete else { return }
+            guard let self = self, let athlete = athlete else { return }
             self.athlete = athlete
             
-            try? StravaClient.sharedInstance.request(Router.athletesStats(id: athlete.id!, params: nil), result: { [weak self] (stats: AthleteStats?) in
+            StravaClient.sharedInstance.request(Router.athletesStats(id: athlete.id!, params: nil), result: { [weak self] (stats: AthleteStats?) in
                 
-                guard let `self` = self else { return }
+                guard let self = self else { return }
                 self.stats = stats
             
             }, failure: { (error: NSError) in
