@@ -29,7 +29,7 @@ extension JSON  {
     }
 
     public func strava<T: Strava>(_ type: T.Type?) -> [T]? {
-        return self.arrayValue.flatMap  { T($0) }
+        return self.arrayValue.compactMap  { T($0) }
     }
  
 }

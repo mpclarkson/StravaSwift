@@ -13,14 +13,14 @@ import SwiftyJSON
  Gear represents equipment used during an activity. The object is returned in summary or detailed representations.
  **/
 open class Gear: Strava {
-    open let id: String?
-    open let primary: Bool?
-    open let name: String?
-    open let description: String?
-    open let resourceState: ResourceState?
-    open let distance: Double?
-    open let brandName: String?
-    open let modelName: String?
+    public let id: String?
+    public let primary: Bool?
+    public let name: String?
+    public let description: String?
+    public let resourceState: ResourceState?
+    public let distance: Double?
+    public let brandName: String?
+    public let modelName: String?
 
     /**
      Initializer
