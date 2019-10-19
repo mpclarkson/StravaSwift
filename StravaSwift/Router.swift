@@ -378,7 +378,7 @@ public enum Router {
 //     - parameter upload: an upload object
 //     **/
     case uploadFile(upload: StravaSwift.UploadData)
-//    
+//
 //    /**
 //     Check upload status
 //     
@@ -392,16 +392,27 @@ public enum Router {
 }
 
 extension Router: URLRequestConvertible  {
-    
+
     /**
-      The Strava authorization url including the oauth query parameters
+     The Strava app authorization deeplink url including the oauth query parameters
+    **/
+    static var appAuthorizationUrl: URL {
+        let baseUrl = "strava://oauth/mobile/authorize"
+        let authParams = StravaClient.sharedInstance.authParams
+            .map { "\($0.key)=\($0.value)" }
+            .joined(separator:"&")
+        return URL(string: "\(baseUrl)?\(authParams)")!
+    }
+
+    /**
+      The Strava web authorization url including the oauth query parameters
      **/
-    static var authorizationUrl: URL {
-        var url = "https://www.strava.com/oauth/authorize?"
-        StravaClient.sharedInstance.authParams.forEach {
-            url.append("\($0)=\($1)&")
-        }
-        return URL(string: url)!
+    static var webAuthorizationUrl: URL {
+        let baseUrl = "https://www.strava.com/oauth/authorize"
+        let authParams = StravaClient.sharedInstance.authParams
+            .map { "\($0.key)=\($0.value)" }
+            .joined(separator:"&")
+        return URL(string: "\(baseUrl)?\(authParams)")!
     }
   
     /**
@@ -425,10 +436,17 @@ extension Router: URLRequestConvertible  {
         if let token = StravaClient.sharedInstance.token?.accessToken {
             urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
-
-        // Changed JSON to URL to encode parameters on header not body as this causes error in ios13
-        if let params = config.params {
-            return try URLEncoding.default.encode(urlRequest, with: params)
+        
+        if let params = config.params, params.count > 0 {
+            switch config.method {
+                case .get:
+                    var urlComponents = URLComponents(url: urlRequest.url!, resolvingAgainstBaseURL: false)!
+                    urlComponents.queryItems = params.map { URLQueryItem(name: $0, value: "\($1)")}
+                    urlRequest.url = urlComponents.url!
+                    return urlRequest
+                default:
+                    return try JSONEncoding.default.encode(urlRequest, with: params)
+            }
         }
         return try JSONEncoding.default.encode(urlRequest)
     }

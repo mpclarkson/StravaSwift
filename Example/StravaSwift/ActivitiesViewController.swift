@@ -22,14 +22,13 @@ class ActivitiesViewController: UITableViewController {
 extension ActivitiesViewController {
     
     fileprivate func update(params: Router.Params = nil) {
-        try? StravaClient.sharedInstance.request(Router.athleteActivities(params: params), result: { [weak self] (activities: [Activity]?) in
-            guard let `self` = self, let activities = activities else { return }
+        StravaClient.sharedInstance.request(Router.athleteActivities(params: params), result: { [weak self] (activities: [Activity]?) in
+            guard let self = self, let activities = activities else { return }
             self.activities = activities
             self.tableView?.reloadData()
         }, failure: { (error: NSError) in
             debugPrint(error)
         })
-
     }
 }
 

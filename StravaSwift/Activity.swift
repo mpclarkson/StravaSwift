@@ -74,6 +74,7 @@ public final class Activity: Strava {
 	public let averageHeartRate : Double?
 	public let maxHeartRate : Double?
 
+
     /**
      Initializer
      
@@ -123,6 +124,7 @@ public final class Activity: Strava {
         splitsMetric = json["splits_metric"].strava(Split.self)
         splitsStandard = json["splits_standard"].strava(Split.self)
         bestEfforts = json["best_efforts"].strava(Split.self)
+        map = json["map"].strava(Map.self)
         timeZone = json["timezone"].string
 	
 		kiloJoules = json["kilojoules"].double

@@ -10,16 +10,20 @@
   OAuth scope
  */
 public enum Scope: String {
-    /** Default, private activities are not returned, privacy zones are respected in stream requests **/
-    case `public` = "public"
-    /** Modify activities, upload on the user’s behalf **/
-    case write = "write"
-    /** View private activities and data within privacy zones **/
-    case viewPrivate = "view_private"
-    /** Both .ViewPrivate and .Write access  **/
-    case viewPrivateWrite = "view_private,write"
-    /** Read athlete and activities **/
-    case viewAll = "profile:read_all,activity:read_all"
+    /** Read public segments, public routes, public profile data, public posts, public events, club feeds, and leaderboards */
+    case read = "read"
+    /** Read private routes, private segments, and private events for the user */
+    case readAll = "read_all"
+    /** Read all profile information even if the user has set their profile visibility to Followers or Only You */
+    case profileReadAll = "profile:read_all"
+    /** Update the user's weight and Functional Threshold Power (FTP), and access to star or unstar segments on their behalf */
+    case profileWrite = "profile:write"
+    /** Read the user's activity data for activities that are visible to Everyone and Followers, excluding privacy zone data */
+    case activityRead = "activity:read"
+    /** The same access as activity:read, plus privacy zone data and access to read the user's activities with visibility set to Only You **/
+    case activityReadAll = "activity:read_all"
+    /** Access to create manual activities and uploads, and access to edit any activities that are visible to the app, based on activity read access level */
+    case activityWrite = "activity:write"
 }
 
 /**
@@ -51,7 +55,7 @@ public struct StravaConfig {
     public init(clientId: Int,
                 clientSecret: String,
                 redirectUri: String,
-                scope: Scope = .viewPrivateWrite,
+                scope: Scope = .activityRead,
                 delegate: TokenDelegate? = nil ) {
         self.clientId = clientId
         self.clientSecret = clientSecret
