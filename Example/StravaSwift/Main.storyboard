@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,28 +19,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fn4-HB-sIb">
-                                <rect key="frame" x="52" y="352" width="311" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fn4-HB-sIb">
+                                <rect key="frame" x="102" y="318" width="171" height="31.5"/>
                                 <state key="normal" image="Strava"/>
                                 <connections>
                                     <action selector="login:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SY6-ut-Aph"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="I3g-m3-NBw">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="I3g-m3-NBw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="3H8-et-VW9"/>
                             <constraint firstItem="Fn4-HB-sIb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="FRb-hV-kj9"/>
+                            <constraint firstItem="I3g-m3-NBw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GI2-3A-xLT"/>
                             <constraint firstItem="Fn4-HB-sIb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bAW-TI-HIy"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="I3g-m3-NBw" id="GdX-g5-GwF"/>
                         <outlet property="loginButton" destination="Fn4-HB-sIb" id="EdJ-Kf-dYB"/>
                         <segue destination="hzD-wf-YbT" kind="show" identifier="navigation" id="opp-Er-HF9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1678" y="-374"/>
+            <point key="canvasLocation" x="-1679.2" y="-374.66266866566718"/>
         </scene>
         <!--Profile-->
         <scene sceneID="z0V-4Y-fyB">
@@ -53,18 +57,11 @@
                         <viewControllerLayoutGuide type="bottom" id="N0R-LU-rwF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hl8-Xg-8W1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZbO-xY-7Dz">
-                                <rect key="frame" x="142" y="57" width="130" height="130"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="130" id="YN0-lH-FwD"/>
-                                    <constraint firstAttribute="width" constant="130" id="fpc-9t-A2e"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeV-Er-v9n">
-                                <rect key="frame" x="20" y="28" width="374" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeV-Er-v9n">
+                                <rect key="frame" x="16" y="8" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -111,9 +108,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="THZ-bG-Dsl">
+                                <rect key="frame" x="169" y="83" width="37" height="37"/>
+                            </activityIndicatorView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZbO-xY-7Dz">
+                                <rect key="frame" x="122.5" y="36.5" width="130" height="130"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="130" id="YN0-lH-FwD"/>
+                                    <constraint firstAttribute="width" constant="130" id="fpc-9t-A2e"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="THZ-bG-Dsl" firstAttribute="centerX" secondItem="UeV-Er-v9n" secondAttribute="centerX" id="7Mc-08-fvt"/>
+                            <constraint firstItem="THZ-bG-Dsl" firstAttribute="centerY" secondItem="ZbO-xY-7Dz" secondAttribute="centerY" id="Mye-Ss-51k"/>
                             <constraint firstItem="UeV-Er-v9n" firstAttribute="leading" secondItem="hl8-Xg-8W1" secondAttribute="leadingMargin" id="NKi-FI-2Sd"/>
                             <constraint firstItem="UeV-Er-v9n" firstAttribute="trailing" secondItem="hl8-Xg-8W1" secondAttribute="trailingMargin" id="UUm-mE-NvU"/>
                             <constraint firstItem="UeV-Er-v9n" firstAttribute="top" secondItem="oPY-0G-yzW" secondAttribute="bottom" constant="8" id="d2F-Lz-UqS"/>
@@ -123,6 +132,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Athlete" id="4GX-Qp-bwu"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="THZ-bG-Dsl" id="DdQ-ME-DEY"/>
                         <outlet property="avatar" destination="ZbO-xY-7Dz" id="9wu-e6-f5t"/>
                         <outlet property="name" destination="UeV-Er-v9n" id="hjP-B7-Zmv"/>
                         <outlet property="rides" destination="icv-c9-4mZ" id="06K-T5-ga2"/>
@@ -139,7 +149,7 @@
             <objects>
                 <tableViewController id="v14-1O-Uzz" customClass="ActivitiesViewController" customModule="StravaSwift_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="D1a-sZ-6qz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -147,18 +157,18 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pGl-4m-Xe5" id="FAy-An-yoD">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dTK-k7-XAq">
-                                            <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
+                                            <rect key="frame" x="16" y="6" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8y9-s7-8My">
-                                            <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
+                                            <rect key="frame" x="16" y="25.5" width="40.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -199,6 +209,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Strava" width="171" height="31"/>
+        <image name="Strava" width="171" height="31.5"/>
     </resources>
 </document>

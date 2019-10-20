@@ -24,7 +24,7 @@ open class StravaClient: NSObject {
     
     fileprivate override init() {}
     fileprivate var config: StravaConfig?
-    fileprivate var authSession: NSObject?
+    fileprivate var authSession: NSObject?  // Holds a reference to ASWebAuthenticationSession / SFAuthenticationSession depending on iOS version
 
     /** 
       The OAuthToken returned by the delegate

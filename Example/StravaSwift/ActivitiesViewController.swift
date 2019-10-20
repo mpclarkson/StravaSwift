@@ -10,6 +10,9 @@ import UIKit
 import StravaSwift
 
 class ActivitiesViewController: UITableViewController {
+
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView?
+    
     fileprivate var activities: [Activity] = []
     
     override func viewDidLoad() {
@@ -22,11 +25,17 @@ class ActivitiesViewController: UITableViewController {
 extension ActivitiesViewController {
     
     fileprivate func update(params: Router.Params = nil) {
+        activityIndicator?.startAnimating()
         StravaClient.sharedInstance.request(Router.athleteActivities(params: params), result: { [weak self] (activities: [Activity]?) in
-            guard let self = self, let activities = activities else { return }
+            guard let self = self else { return }
+            self.activityIndicator?.stopAnimating()
+
+            guard let activities = activities else { return }
             self.activities = activities
+
             self.tableView?.reloadData()
         }, failure: { (error: NSError) in
+            self.activityIndicator?.stopAnimating()
             debugPrint(error)
         })
     }
