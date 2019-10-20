@@ -27,7 +27,7 @@ pod "StravaSwift"
 
 The full library documentation is available [here](http://cocoadocs.org/docsets/StravaSwift).
 
-* First, you must [register your app](http://labs.strava.com/developers/) with Strava and get an oAuth `client id` and `client secret`.
+* First, you must [register your app](http://labs.strava.com/developers/) with Strava and get an OAuth `client id` and `client secret`.
 
 * Initialize the Strava Client as follows, preferably in your `AppDelegate.swift` to ensure it is configured before you call it:
 
@@ -41,21 +41,33 @@ let config = StravaConfig(
 StravaClient.sharedInstance.initWithConfig(config)
 ```
 
-* Note, by default the oAuth token is only available while the app is running, which means you need to request a new token. You can implement custom token storage and retrieval behaviour by overriding the default token `delegate` in the `StravaConfig` initializer which must implement the `TokenDelegate` protocol.
+* Note, by default the OAuth token is only available while the app is running, which means you need to request a new token. You can implement custom token storage and retrieval behaviour by overriding the default token `delegate` in the `StravaConfig` initializer which must implement the `TokenDelegate` protocol.
 
-* Register your redirect URL scheme in your info.plist.
+* Register your redirect URL scheme in your `info.plist` file.
 
-* Implement the following method in your `AppDelegate.swift` to handle the oAuth redirection from Strava:
+* The authentication will use the Strava app be default if it is installed on the device. If the user does not have Strava installed, it will fallback on `SFAuthenticationSession` or `ASWebAuthenticationSession` depending on the iOS version. If your app is linked on or after iOS 9.0, you must add `strava` in you app’s `info.plist` file. It should be added as an entry fo the array under the `LSApplicationQueriesSchemes` key. Failure to do this will result in a crash when calling `canOpenUrl:`.
+
+```xml
+<key>LSApplicationQueriesSchemes</key>
+<array>
+    <string>strava</string>
+</array>
+```
+
+* Implement the following method in your `AppDelegate.swift` to handle the OAuth redirection from Strava:
 
 ```swift
-func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-    guard let code = strava?.handleAuthorizationRedirect(url) else { return false }
-    //Exchange the code for a token
-    strava.getAccessToken(code) { token in
-        //Do something if you want, but the token is already available to the
-        //StravaClient thanks to the TokenDelegate
+func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    let canHandle = strava.handleAuthorizationRedirect(url) { (token, error) in
+        // Implement didHandleToken if needed
+        // The token is already available to the StravaClient thanks to the TokenDelegate
     }
-    return true
+    if canHandle {
+        // Implement willHandleToken if needed
+        return true
+    } else {
+        return false
+    }
 }
 ```
 
