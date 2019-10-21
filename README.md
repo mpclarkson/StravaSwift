@@ -94,7 +94,7 @@ strava.authorize() { [weak self] (result: Result<OAuthToken>) in
 Alamofire [example](https://github.com/Alamofire/Alamofire#api-parameter-abstraction):
 
 ```swift
-strava.request(Router.Athletes(id: 9999999999)) { (athlete: Athlete?) in
+strava.request(Router.athletes(id: 9999999999)) { (athlete: Athlete?) in
     //do something with the athlete
 }
 
@@ -103,7 +103,7 @@ let params = [
     'per_page' = 25
 ]
 
-strava.request(Router.AthleteActivities(params: params) { (activities: [Activity]?) in
+strava.request(Router.athleteActivities(params: params) { (activities: [Activity]?) in
    //do something with the activities
 }
 ```
