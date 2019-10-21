@@ -25,7 +25,7 @@ open class StravaClient: NSObject {
     fileprivate override init() {}
     fileprivate var config: StravaConfig?
 
-    public typealias AuthorizationHandler = (Result<OAuthToken>) -> ()
+    public typealias AuthorizationHandler = (Swift.Result<OAuthToken, Error>) -> ()
     fileprivate var currentAuthorizationHandler: AuthorizationHandler?
     fileprivate var authSession: NSObject?  // Holds a reference to ASWebAuthenticationSession / SFAuthenticationSession depending on iOS version
 
@@ -146,7 +146,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
      **/
     public func handleAuthorizationRedirect(_ url: URL) -> Bool {
         if url.getQueryParameters()?["code"] != nil {
-            self.handleAuthorizationRedirect(url) { (result: Result<OAuthToken>) in
+            self.handleAuthorizationRedirect(url) { result in
                 if let currentAuthorizationHandler = self.currentAuthorizationHandler {
                     currentAuthorizationHandler(result)
                     self.currentAuthorizationHandler = nil

@@ -78,7 +78,7 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
 * After authorizing, you can start requesting resources:
 
 ```swift
-StravaClient.sharedInstance.authorize() { [weak self] (result: Alamofire.Result<OAuthToken>) in
+strava.authorize() { [weak self] (result: Result<OAuthToken>) in
     switch result {
         case .success(let token):
             //do something for success
@@ -92,8 +92,6 @@ StravaClient.sharedInstance.authorize() { [weak self] (result: Alamofire.Result<
 Alamofire [example](https://github.com/Alamofire/Alamofire#api-parameter-abstraction):
 
 ```swift
-let strava = StravaClient.sharedInstance
-
 strava.request(Router.Athletes(id: 9999999999)) { (athlete: Athlete?) in
     //do something with the athlete
 }

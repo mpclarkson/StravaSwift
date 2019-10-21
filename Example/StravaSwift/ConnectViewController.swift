@@ -6,7 +6,6 @@
 //  Copyright © 2015 Matthew Clarkson. All rights reserved.
 //
 
-import Alamofire
 import StravaSwift
 import UIKit
 
@@ -17,11 +16,11 @@ class ConnectViewController: UIViewController {
 
     var code: String?
     private var token: OAuthToken?
-    
+
     @IBAction func login(_ sender: AnyObject) {
         activityIndicator?.startAnimating()
         loginButton.isHidden = true
-        StravaClient.sharedInstance.authorize() { [weak self] (result: Alamofire.Result<OAuthToken>) in
+        StravaClient.sharedInstance.authorize() { [weak self] (result: Result<OAuthToken, Error>) in
             guard let self = self else { return }
             self.activityIndicator?.stopAnimating()
             self.loginButton.isHidden = false
@@ -29,7 +28,7 @@ class ConnectViewController: UIViewController {
         }
     }
 
-    private func didAuthenticate(result: Alamofire.Result<OAuthToken>) {
+    private func didAuthenticate(result: Result<OAuthToken, Error>) {
         switch result {
             case .success(let token):
                 self.token = token
