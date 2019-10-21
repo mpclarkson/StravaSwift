@@ -16,21 +16,21 @@ import SafariServices
  StravaClient responsible for making all api requests
 */
 open class StravaClient: NSObject {
-    
+
     /**
      Access the shared instance
      */
     public static let sharedInstance = StravaClient()
-    
+
     fileprivate override init() {}
     fileprivate var config: StravaConfig?
     fileprivate var authSession: NSObject?  // Holds a reference to ASWebAuthenticationSession / SFAuthenticationSession depending on iOS version
 
-    /** 
+    /**
       The OAuthToken returned by the delegate
      **/
     open var token:  OAuthToken? { return config?.delegate.get() }
-    
+
     internal var authParams: [String: Any] {
         return [
             "client_id" : config?.clientId ?? 0,
@@ -41,7 +41,7 @@ open class StravaClient: NSObject {
             "response_type" : "code"
         ]
     }
-    
+
     internal func tokenParams(_ code: String) -> [String: Any]  {
         return [
             "client_id" : config?.clientId ?? 0,
@@ -50,17 +50,14 @@ open class StravaClient: NSObject {
         ]
     }
 
-    internal func refreshParams(_ code: String) -> [String: Any]  {
+    internal func refreshParams(_ refreshToken: String) -> [String: Any]  {
         return [
             "client_id" : config?.clientId ?? 0,
             "client_secret" : config?.clientSecret ?? "",
             "grant_type" : "refresh_token",
-            "refresh_token" : code
+            "refresh_token" : refreshToken
         ]
     }
-
-    
-    internal var safariViewController: SFSafariViewController?
 }
 
 //MARK:varConfig
@@ -70,13 +67,13 @@ extension StravaClient {
     /**
      Initialize the shared instance with your credentials. You must use this otherwise fatal errors will be
      returned when making api requests.
-     
+
      - Parameter config: a StravaConfig struct
      - Returns: An instance of self (i.e. StravaClient)
      */
     public func initWithConfig(_ config: StravaConfig) -> StravaClient {
         self.config = config
-        
+
         return self
     }
 }
@@ -87,7 +84,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
 
     var currentWindow: UIWindow? { return UIApplication.shared.keyWindow }
     var currentViewController: UIViewController? { return currentWindow?.rootViewController }
-    
+
     /**
      Opens the Strava OAuth web page in mobile Safari for the user to authorize the application.
      **/
@@ -133,10 +130,10 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
             }
         }
     }
-    
+
     /**
     Helper method to get the code from the redirection from Strava after the user has authorized the application (useful in AppDelegate)
-     
+
      - Parameter url the url returned by Strava through the (ASWeb/SF)AuthenricationSession or application open options.
      - Parameter result a closure to handle the OAuthToken
      - Returns: a boolean that indicates if this url has a code and is been handled
@@ -150,10 +147,10 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
             return false
         }
     }
-    
+
     /**
      Get an OAuth token from Strava
-     
+
      - Parameter code: the code (string) returned from strava
      - Parameter result: a closure to handle the OAuthToken
      **/
@@ -171,17 +168,22 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
     }
     /**
      Refresh an OAuth token from Strava
-     
+
      - Parameter refresh: the refresh token from Strava
      - Parameter result: a closure to handle the OAuthToken
      **/
-    public func refreshAccessToken(_ refresh: String, result: @escaping (((OAuthToken)?) -> Void)) throws {
-        try oauthRequest(Router.refresh(code: refresh))?.responseStrava { [weak self] (response: DataResponse<OAuthToken>) in
-            guard let `self` = self else { return }
-            let token = response.result.value
-            self.config?.delegate.set(token)
-            result(token)
+    public func refreshAccessToken(_ refreshToken: String, result: @escaping ((OAuthToken?, NSError?) -> Void)) {
+        do {
+            try oauthRequest(Router.refresh(refreshToken: refreshToken))?.responseStrava { [weak self] (response: DataResponse<OAuthToken>) in
+                guard let self = self else { return }
+                let token = response.result.value
+                self.config?.delegate.set(token)
+                result(token, nil)
+            }
+        } catch let error as NSError {
+            result(nil, error)
         }
+    }
 
     // ASWebAuthenticationPresentationContextProviding
 
@@ -213,7 +215,7 @@ extension StravaClient {
 
     /**
      Request a single object from the Strava Api
-     
+
      - Parameter route: a Router enum case which may require parameters
      - Parameter result: a closure to handle the returned object
      **/
@@ -231,10 +233,10 @@ extension StravaClient {
             failure(error)
         }
     }
-    
+
     /**
      Request an array of objects from the Strava Api
-     
+
      - Parameter route: a Router enum case which may require parameters
      - Parameter result: a closure to handle the returned objects
      **/
@@ -252,43 +254,41 @@ extension StravaClient {
             failure(error)
         }
     }
-    
+
     fileprivate func generateError(failureReason: String, response: HTTPURLResponse?) -> NSError {
         let errorDomain = "com.stravaswift.error"
         let userInfo = [NSLocalizedFailureReasonErrorKey: failureReason]
         let code = response?.statusCode ?? 0
         let returnError = NSError(domain: errorDomain, code: code, userInfo: userInfo)
-        
+
         return returnError
     }
-    
+
 }
 
 extension StravaClient {
-    
-    
-    
+
     fileprivate func isConfigured() -> (Bool) {
         return config != nil
     }
-    
+
     fileprivate func checkConfiguration() {
         if !isConfigured() {
             fatalError("Strava client is not configured")
         }
     }
-    
+
     fileprivate func oauthRequest(_ urlRequest: URLRequestConvertible) throws -> DataRequest? {
         checkConfiguration()
-        
+
         return Alamofire.request(urlRequest)
     }
-    
+
     fileprivate func oauthUpload<T: Strava>(URLRequest: URLRequestConvertible, upload: UploadData, completion: @escaping (DataResponse<T>) -> ()) {
         checkConfiguration()
-        
+
         guard let url = try? URLRequest.asURLRequest() else { return }
-        
+
         Alamofire.upload(multipartFormData: { multipartFormData in
             multipartFormData.append(upload.file, withName: "\(upload.name ?? "default").\(upload.dataType)")
             for (key, value) in upload.params {

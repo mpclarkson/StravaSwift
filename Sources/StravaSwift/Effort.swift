@@ -34,10 +34,10 @@ public final class Effort: Strava {
     public let komRank: Int?
     public let prRank: Int?
     public let hidden: Bool?
-    
+
     /**
      Initializer
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/

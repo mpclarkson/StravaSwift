@@ -11,7 +11,7 @@ import SwiftyJSON
 
 /**
   Base protocol for Strava resources
- 
+
   - Internal
  **/
 public protocol Strava: CustomStringConvertible {
@@ -28,5 +28,3 @@ extension Strava {
         return desc
     }
 }
-
-

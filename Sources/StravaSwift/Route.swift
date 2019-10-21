@@ -26,10 +26,10 @@ public final class Route: Strava {
     public let starred: Bool?
     public let timeStamp: Int?
     public let segments: [Segment]?
-      
+
     /**
      Initializer
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/

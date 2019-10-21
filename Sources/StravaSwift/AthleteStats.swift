@@ -13,9 +13,9 @@ import SwiftyJSON
  Stats are aggregated data for an athlete
  **/
 public final class AthleteStats: Strava {
-    
+
     public final class Totals {
-        
+
         public let count: Int?
         public let distance: Double?
         public let movingTime: TimeInterval?
@@ -32,7 +32,7 @@ public final class AthleteStats: Strava {
             achievementCount = json["achievement_count"].int
         }
     }
-    
+
     public let biggestRideDistance: Double?
     public let biggestClimbElevationGain: Double?
     public let recentRideTotals: Totals?
@@ -44,10 +44,10 @@ public final class AthleteStats: Strava {
     public let allRideTotals: Totals?
     public let allRunTotals: Totals?
     public let allSwimTotals: Totals?
-    
+
     /**
      Initializer
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/

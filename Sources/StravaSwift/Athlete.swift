@@ -39,10 +39,10 @@ public final class Athlete: Strava {
     public let clubs: [Club]?
     public let bikes: [Bike]?
     public let shoes: [Shoe]?
-    
+
     /**
      Initializer
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/

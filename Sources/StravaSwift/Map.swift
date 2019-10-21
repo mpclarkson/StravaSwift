@@ -17,10 +17,10 @@ public final class Map: Strava {
     public let resourceState: ResourceState?
     public let polyline: String?
     public let summaryPolyline: String?
-    
+
     /**
      Initializer
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/

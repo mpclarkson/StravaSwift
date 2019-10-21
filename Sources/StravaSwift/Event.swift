@@ -27,10 +27,10 @@ public final class Event: Strava {
     public let skillLevels: SkillLevel?
     public let terrain: Terrain?
     public let upcomingOccurrences: [Date]?
-    
+
     /**
      Initializer
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/

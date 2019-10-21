@@ -39,10 +39,10 @@ public final class Segment: Strava {
     public let athleteCount: Int?
     public let hazardous: Bool?
     public let starCount: Int?
-    
+
     /**
      Initializer
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/

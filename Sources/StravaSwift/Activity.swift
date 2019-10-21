@@ -10,19 +10,19 @@ import Foundation
 import SwiftyJSON
 
 /**
- Achievement class - a detailed representation is returned if the activity is owned by the requesting athlete, otherwise 
+ Achievement class - a detailed representation is returned if the activity is owned by the requesting athlete, otherwise
  a summary representation is returned for all other requests.
- 
+
  Activity details, including segment efforts, splits and best efforts, are only available to the owner of the activity.
- 
+
  By default, only “important” efforts are included. “Importance” is based on a number of factors and its value may change over time.
- 
+
  **/
 public final class Activity: Strava {
-    
+
     public typealias Speed = Double
     public typealias Count = Int
-    
+
     public let id: Int?
     public let resourceState: ResourceState?
     public let externalId: String?
@@ -33,8 +33,8 @@ public final class Activity: Strava {
     public let distance: Double?
     public let movingTime: TimeInterval?
     public let elapsedTime: TimeInterval?
-	public let highElevation : Double?
-	public let lowElevation : Double?
+    public let highElevation : Double?
+    public let lowElevation : Double?
     public let totalElevationGain: Double?
     public let type: ActivityType?
     public let startDate: Date?
@@ -65,24 +65,22 @@ public final class Activity: Strava {
     public let splitsMetric: [Split]?
     public let splitsStandard: [Split]?
     public let bestEfforts: [Split]?
-	public let kiloJoules: Double?
-	public let averagePower : Double?
-	public let maxPower : Double?
-	public let deviceWatts : Bool?
-	
-	public let hasHeartRate : Bool?
-	public let averageHeartRate : Double?
-	public let maxHeartRate : Double?
+    public let kiloJoules: Double?
+    public let averagePower : Double?
+    public let maxPower : Double?
+    public let deviceWatts : Bool?
+    public let hasHeartRate : Bool?
+    public let averageHeartRate : Double?
+    public let maxHeartRate : Double?
 
 
     /**
      Initializer
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/
     required public init(_ json: JSON) {
-
         id = json["id"].int
         resourceState = json["resource_state"].strava(ResourceState.self)
         externalId = json["external_id"].string
@@ -93,8 +91,8 @@ public final class Activity: Strava {
         distance = json["distance"].double
         movingTime = json["moving_time"].double
         elapsedTime = json["elapsed_time"].double
-		lowElevation = json["elev_low"].double
-		highElevation = json["elev_high"].double
+        lowElevation = json["elev_low"].double
+        highElevation = json["elev_high"].double
         totalElevationGain = json["total_elevation_gain"].double
         type = json["type"].strava(ActivityType.self)
         startDate = json["start_date"].string?.toDate()
@@ -108,7 +106,6 @@ public final class Activity: Strava {
         photoCount = json["php_count"].int
         totalPhotoCount = json["total_photo_count"].int
         photos = json["photos"].strava(Photo.self)
-        map = json["map"].strava(Map.self)
         trainer = json["trainer"].bool
         commute = json["commute"].bool
         manual = json["manual"].bool
@@ -126,27 +123,21 @@ public final class Activity: Strava {
         bestEfforts = json["best_efforts"].strava(Split.self)
         map = json["map"].strava(Map.self)
         timeZone = json["timezone"].string
-	
-		kiloJoules = json["kilojoules"].double
-		averagePower = json["average_watts"].double
-		maxPower = json["max_watts"].double
-		deviceWatts = json["device_watts"].bool
-	
-		hasHeartRate = json["has_heartrate"].bool
-		averageHeartRate = json["average_heartrate"].double
-		maxHeartRate = json["max_heartrate"].double
-	    
+        kiloJoules = json["kilojoules"].double
+        averagePower = json["average_watts"].double
+        maxPower = json["max_watts"].double
+        deviceWatts = json["device_watts"].bool
+        hasHeartRate = json["has_heartrate"].bool
+        averageHeartRate = json["average_heartrate"].double
+        maxHeartRate = json["max_heartrate"].double
     }
 }
 
 // MetaActivity is used by Effort to hold unique Activity ID
 public final class MetaActivity: Strava {
-	public let id: Int?
-	
-	required public init(_ json: JSON) {
-		id = json["id"].int
-	}
+    public let id: Int?
+
+    required public init(_ json: JSON) {
+        id = json["id"].int
+    }
 }
-
-
-

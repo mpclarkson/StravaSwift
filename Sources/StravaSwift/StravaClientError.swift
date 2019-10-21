@@ -8,18 +8,18 @@
 
 import Foundation
 
-/** 
+/**
  StravaClientError Enum
 */
 public enum StravaClientError: Error {
-    case
+
     /**
      The OAuthCredentials are invalid
     **/
-    invalidCredentials,
-    
+    case invalidCredentials
+
     /**
      Uknown error
-     **/
-    unknown
+    **/
+    case unknown
 }

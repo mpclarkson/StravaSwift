@@ -15,10 +15,10 @@ import SwiftyJSON
 public struct Location: Strava {
     public let lat: Double?
     public let lng: Double?
-    
+
     /**
      Initializer (failable)
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/

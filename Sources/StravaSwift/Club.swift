@@ -26,10 +26,10 @@ public final class Club: Strava {
     public let isPrivate: Bool?
     public let memberCount: Int?
     public let resourceState: ResourceState?
-    
+
     /**
      Initializer
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/

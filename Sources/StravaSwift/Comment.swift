@@ -11,7 +11,6 @@ import SwiftyJSON
 
 /**
  Comments on an activity can be viewed by any user. However, only internal applications are allowed to create or delete them.
- 
  Comment posting can be enabled on a per application basis, email developers@strava.com for more information.
  **/
 public final class Comment: Strava {
@@ -21,10 +20,10 @@ public final class Comment: Strava {
     public let text: String?
     public let athlete: Athlete?
     public let createdAt: Date?
-    
+
     /**
      Initializer
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/

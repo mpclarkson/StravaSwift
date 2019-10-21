@@ -9,7 +9,7 @@
 
 /**
  Athlete's gender
- 
+
  - Male
  - Female
 **/
@@ -20,7 +20,7 @@ public enum Sex: String {
 
 /**
  Following status of the athlete
- 
+
  - Pending
  - Accepted
  - Blocked
@@ -44,7 +44,7 @@ public enum MembershipStatus: String {
 
 /**
  Measurement units
- 
+
  - Feet
  - Meters
  **/
@@ -55,7 +55,7 @@ public enum Units: String {
 
 /**
  Resource state (describes the detail of the resource)
- 
+
  - Meta
  - Summary
  - Detailed
@@ -68,7 +68,7 @@ public enum ResourceState: Int {
 
 /**
  Workout type
- 
+
  - Run
  - RaceRun
  - LongRun
@@ -89,7 +89,7 @@ public enum WorkoutType: Int {
 
 /**
  Activity type
- 
+
   - AlpineSki
   - BackcountrySki
   - Canoeing
@@ -170,7 +170,7 @@ public enum ActivityType: String {
 
 /**
  Sport type
- 
+
  - Cycling
  - Running
  - Triathlon
@@ -185,7 +185,7 @@ public enum SportType: String {
 
 /**
  Club type
- 
+
  - CasualClub
  - RacingTeam
  - Shop
@@ -202,7 +202,7 @@ public enum ClubType: String {
 
 /**
  Frame type (cycling only)
- 
+
  - MTB
  - Cross
  - Road
@@ -217,7 +217,7 @@ public enum FrameType: Int {
 
 /**
  Resolution type
- 
+
  - Low
  - Medium
  - High
@@ -230,7 +230,7 @@ public enum ResolutionType: String {
 
 /**
  Stream type (ie the data type)
- 
+
  - Time
  - LatLng
  - Distance
@@ -262,9 +262,9 @@ public enum StreamType: String {
         case .time:
             return "integer seconds"
         case .latLng:
-            return	"floats [latitude, longitude]"
+            return "floats [latitude, longitude]"
         case .distance:
-            return	"float meters"
+            return "float meters"
         case .altitude:
             return "float meters"
         case .velocitySmooth:
@@ -287,7 +287,7 @@ public enum StreamType: String {
 
 /**
  Skill level
- 
+
  - Casual
  - Tempo
  - Hammerfest
@@ -300,7 +300,7 @@ public enum SkillLevel: Int {
 
 /**
  Terrain description
- 
+
  - MostlyFlat
  - RollingHills
  - KillerClimbs
@@ -313,7 +313,7 @@ public enum Terrain: Int {
 
 /**
  Photo source
- 
+
  - Strava
  - Instagram
  **/
@@ -324,7 +324,7 @@ public enum PhotoSource: Int {
 
 /**
  Achievement type
- 
+
  - Overall
  - PR
  - YearOverall

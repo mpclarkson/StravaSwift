@@ -18,10 +18,10 @@ public struct Split: Strava {
     public let movingTime: Int?
     public let elevationDifference: Int?
     public let split: Int?
-    
+
     /**
      Initializer
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/

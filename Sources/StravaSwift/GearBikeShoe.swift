@@ -24,7 +24,7 @@ open class Gear: Strava {
 
     /**
      Initializer
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/
@@ -50,10 +50,10 @@ public final class Shoe: Gear {}
  **/
 public final class Bike: Gear {
     public let frameType: FrameType?
-    
+
     /**
      Initializer
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/
@@ -62,4 +62,3 @@ public final class Bike: Gear {
         super.init(json)
     }
 }
-

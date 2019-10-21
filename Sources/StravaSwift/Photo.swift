@@ -26,10 +26,10 @@ public final class Photo: Strava {
     public let refs: String?
     public let uuid: String?
     public let type: String?
-    
+
     /**
      Initializer
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/
