@@ -11,17 +11,18 @@ import StravaSwift
 
 class ConnectViewController: UIViewController {
 
-    private var strava = StravaClient.sharedInstance
-    
     @IBOutlet weak var loginButton: UIButton!
-  
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView?
+
     var code: String?
     private var token: OAuthToken?
     
     @IBAction func login(_ sender: AnyObject) {
+        activityIndicator?.startAnimating()
         loginButton.isHidden = true
-        strava.authorize() { [weak self] (token, error) in
+        StravaClient.sharedInstance.authorize() { [weak self] (token, error) in
             guard let self = self else { return }
+            self.activityIndicator?.stopAnimating()
             self.loginButton.isHidden = false
             self.didAuthenticate(token: token, error: error) // Called when running iOS 11 and above
         }
@@ -41,10 +42,12 @@ class ConnectViewController: UIViewController {
     }
 
     @objc func willHandleToken(notification: NSNotification) {
+        activityIndicator?.startAnimating()
         loginButton.isHidden = true
     }
 
     @objc func didHandleToken(notification: NSNotification) {
+        activityIndicator?.stopAnimating()
         loginButton.isHidden = false
         guard let (token, error) = notification.object as? (OAuthToken?, NSError?) else { return }
         didAuthenticate(token: token, error: error) // Called when running iOS 9 or 10

@@ -73,8 +73,5 @@ public final class Segment: Strava {
         athleteCount = json["athlete_count"].int
         hazardous = json["hazardous"].bool
         starCount = json["star_count"].int
-
     }
 }
-
-

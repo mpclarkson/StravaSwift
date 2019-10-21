@@ -11,9 +11,9 @@ import StravaSwift
 
 extension UIImageView {
     func from(url: URL?) {
-        guard let u = url else { return }
+        guard let url = url else { return }
         do {
-            let data = try Data(contentsOf: u)
+            let data = try Data(contentsOf: url)
             self.image = UIImage(data: data)
         }
         catch {
@@ -24,9 +24,12 @@ extension UIImageView {
 
 
 class AthleteViewController: UIViewController {
-    
+
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView?
+
     @IBOutlet weak var name: UILabel?
     @IBOutlet weak var avatar: UIImageView?
+
     @IBOutlet weak var rides: UILabel?
     @IBOutlet weak var runs: UILabel?
     @IBOutlet weak var swims: UILabel?
@@ -34,7 +37,7 @@ class AthleteViewController: UIViewController {
     var athlete: Athlete? {
         didSet {
             name?.text = "\(athlete?.firstname ?? "") \(athlete?.lastname ?? "")"
-            avatar?.from(url: athlete?.profileMedium)
+            avatar?.from(url: athlete?.profile)
         }
     }
     
@@ -61,21 +64,26 @@ class AthleteViewController: UIViewController {
 extension AthleteViewController {
     
     func update() {
+        activityIndicator?.startAnimating()
         StravaClient.sharedInstance.request(Router.athlete, result: { [weak self] (athlete: Athlete?) in
-            
-            guard let self = self, let athlete = athlete else { return }
+            guard let self = self else { return }
+            self.activityIndicator?.stopAnimating()
+
+            guard let athlete = athlete else { return }
             self.athlete = athlete
             
             StravaClient.sharedInstance.request(Router.athletesStats(id: athlete.id!, params: nil), result: { [weak self] (stats: AthleteStats?) in
-                
                 guard let self = self else { return }
+                self.activityIndicator?.stopAnimating()
                 self.stats = stats
             
             }, failure: { (error: NSError) in
+                self.activityIndicator?.stopAnimating()
                 debugPrint(error)
             })
             
         }, failure: { (error: NSError) in
+            self.activityIndicator?.stopAnimating()
             debugPrint(error)
         })
     }

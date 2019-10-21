@@ -14,7 +14,8 @@
  - Female
 **/
 public enum Sex: String {
-    case male = "M", female = "F"
+    case male = "M"
+    case female = "F"
 }
 
 /**
@@ -25,17 +26,20 @@ public enum Sex: String {
  - Blocked
  **/
 public enum FollowingStatus: String {
-    case pending = "pending", accepted = "accepted", blocked = "Blocked"
+    case accepted
+    case blocked
+    case pending
 }
 
 /**
- Athlete type
- 
- - Cyclist
- - Runner
+ Membership status for a club
+
+ - Pending
+ - Accepted
  **/
-public enum AthleteType: Int {
-    case cyclist, runner
+public enum MembershipStatus: String {
+    case member
+    case pending
 }
 
 /**
@@ -45,7 +49,8 @@ public enum AthleteType: Int {
  - Meters
  **/
 public enum Units: String {
-    case feet = "feet", meters = "meters"
+    case feet
+    case meters
 }
 
 /**
@@ -56,7 +61,9 @@ public enum Units: String {
  - Detailed
  **/
 public enum ResourceState: Int {
-    case meta = 1, summary = 2, detailed = 3
+    case meta = 1
+    case summary = 2
+    case detailed = 3
 }
 
 /**
@@ -69,52 +76,96 @@ public enum ResourceState: Int {
  - Ride
  - RaceRide
  - WorkoutRide
- 
  **/
 public enum WorkoutType: Int {
-    case run = 0, raceRun = 1, longRun = 3, workoutRun = 4
-    case ride = 10, raceRide = 11, workoutRide = 12
+    case run = 0
+    case raceRun = 1
+    case longRun = 3
+    case workoutRun = 4
+    case ride = 10
+    case raceRide = 11
+    case workoutRide = 12
 }
 
 /**
  Activity type
  
-  - Ride
-  - Run
-  - Swim
-  - Hike
-  - Walk
   - AlpineSki
   - BackcountrySki
   - Canoeing
   - Crossfit
   - EBikeRide
   - Elliptical
+  - Golf
+  - Handcycle
+  - Hike
   - IceSkate
   - InlineSkate
   - Kayaking
-  - Yoga
   - Kitesurf
-  - NordicSki 
+  - NordicSki
+  - Ride
   - RockClimbing
   - RollerSki
   - Rowing
+  - Run
+  - Sail
+  - Skateboard
   - Snowboard
   - Snowshoe
+  - Soccer
   - StairStepper
   - StandUpPaddling
   - Surfing
+  - Swim
+  - Velomobile
   - VirtualRide
+  - VirtualRun
+  - Walk
   - WeightTraining
+  - Wheelchair
   - Windsurf
   - Workout
+  - Yoga
  **/
 public enum ActivityType: String {
-    case
-    AlpineSki, BackcountrySki, Canoeing, Crossfit, EBikeRide, Elliptical, Golf, Handcycle, Hike, IceSkate, 
- InlineSkate, Kayaking, Kitesurf, NordicSki, Ride, RockClimbing, RollerSki, Rowing, Run, Sail, Skateboard, 
- Snowboard, Snowshoe, Soccer, StairStepper, StandUpPaddling, Surfing, Swim, Velomobile, VirtualRide, VirtualRun, 
- Walk, WeightTraining, Wheelchair, Windsurf, Workout, Yoga
+    case alpineSki = "AlpineSki"
+    case backcountrySki = "BackcountrySki"
+    case canoeing = "Canoeing"
+    case crossfit = "Crossfit"
+    case eBikeRide = "EBikeRide"
+    case elliptical = "Elliptical"
+    case golf = "Golf"
+    case handcycle = "Handcycle"
+    case hike = "Hike"
+    case iceSkate = "IceSkate"
+    case inlineSkate = "InlineSkate"
+    case kayaking = "Kayaking"
+    case kitesurf = "Kitesurf"
+    case nordicSki = "NordicSki"
+    case ride = "Ride"
+    case rockClimbing = "RockClimbing"
+    case rollerSki = "RollerSki"
+    case rowing = "Rowing"
+    case run = "Run"
+    case sail = "Sail"
+    case skateboard = "Skateboard"
+    case snowboard = "Snowboard"
+    case snowshoe = "Snowshoe"
+    case soccer = "Soccer"
+    case stairStepper = "StairStepper"
+    case standUpPaddling = "StandUpPaddling"
+    case surfing = "Surfing"
+    case swim = "Swim"
+    case velomobile = "Velomobile"
+    case virtualRide = "VirtualRide"
+    case virtualRun = "VirtualRun"
+    case walk = "Walk"
+    case weightTraining = "WeightTraining"
+    case wheelchair = "Wheelchair"
+    case windsurf = "Windsurf"
+    case workout = "Workout"
+    case yoga = "Yoga"
 }
 
 /**
@@ -126,7 +177,10 @@ public enum ActivityType: String {
  - Other
  **/
 public enum SportType: String {
-    case cycling = "cycling", running = "running", triathlon = "triathlon", other = "other"
+    case cycling
+    case running
+    case triathlon
+    case other
 }
 
 /**
@@ -137,10 +191,13 @@ public enum SportType: String {
  - Shop
  - Company
  - Other
-
  **/
 public enum ClubType: String {
-    case casualClub = "casual_club", racingTeam = "racing_team", shop = "shop", company = "company", other = "other"
+    case casualClub = "casual_club"
+    case racingTeam = "racing_team"
+    case shop
+    case company
+    case other
 }
 
 /**
@@ -152,7 +209,10 @@ public enum ClubType: String {
  - TimeTrial
  **/
 public enum FrameType: Int {
-    case mtb = 1, cross = 2, road = 3, timeTrial = 4
+    case mtb = 1
+    case cross = 2
+    case road = 3
+    case timeTrial = 4
 }
 
 /**
@@ -163,7 +223,9 @@ public enum FrameType: Int {
  - High
  **/
 public enum ResolutionType: String {
-    case low = "low", medium = "medium", high = "High"
+    case low
+    case medium
+    case high
 }
 
 /**
@@ -182,17 +244,17 @@ public enum ResolutionType: String {
  - GradeSmooth
  **/
 public enum StreamType: String {
-    case time = "time",
-    latLng = "latlng",
-    distance = "distance",
-    altitude = "altitude",
-    velocitySmooth = "velocity_smooth",
-    heartRate = "heartrate",
-    cadence = "cadence",
-    watts = "watts",
-    temp = "temp",
-    moving = "moving",
-    gradeSmooth = "grade_smooth"
+    case time
+    case latLng = "latlng"
+    case distance
+    case altitude
+    case velocitySmooth = "velocity_smooth"
+    case heartRate = "heartrate"
+    case cadence
+    case watts
+    case temp
+    case moving
+    case gradeSmooth = "grade_smooth"
 
     //Description of the units associated with the stream
     var unit: String {
@@ -231,7 +293,9 @@ public enum StreamType: String {
  - Hammerfest
  **/
 public enum SkillLevel: Int {
-    case casual = 1, tempo = 2, hammerfest = 4
+    case casual = 1
+    case tempo = 2
+    case hammerfest = 4
 }
 
 /**
@@ -242,7 +306,9 @@ public enum SkillLevel: Int {
  - KillerClimbs
  **/
 public enum Terrain: Int {
-    case mostlyFlat = 0, rollingHills = 1, killerClimbs = 2
+    case mostlyFlat
+    case rollingHills
+    case killerClimbs
 }
 
 /**
@@ -252,7 +318,8 @@ public enum Terrain: Int {
  - Instagram
  **/
 public enum PhotoSource: Int {
-    case strava = 1, instagram = 2
+    case strava = 1
+    case instagram = 2
 }
 
 /**
@@ -263,22 +330,34 @@ public enum PhotoSource: Int {
  - YearOverall
  **/
 public enum AchievementType: String {
-    case overall = "overall", pr = "pr", yearOverall = "year_overall"
+    case overall
+    case pr
+    case yearOverall = "year_overall"
 }
 
 /** Route type enum **/
 public enum RouteType: Int {
-    case ride = 1, run = 2
+    case ride = 1
+    case run = 2
 }
 
 /** Route sub type enum **/
 public enum RouteSubType: Int {
-    case road = 1, mtb = 2, cx = 3, trail = 4, mixed = 5
+    case road = 1
+    case mtb = 2
+    case cx = 3
+    case trail = 4
+    case mixed = 5
 }
 
 /**
  Data type enum for uploaded activities
  **/
 public enum DataType: String {
-    case fit = "fit", fitGz = "fit.gz", tcx = "tcx", tcxGz = "tcx.gz", gpx = "gpx", gpxGz = "gpx.gz"
+    case fit
+    case fitGz = "fit.gz"
+    case tcx
+    case tcxGz = "tcx.gz"
+    case gpx
+    case gpxGz = "gpx.gz"
 }

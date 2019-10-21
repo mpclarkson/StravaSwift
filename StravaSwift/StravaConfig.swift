@@ -10,9 +10,9 @@
   OAuth scope
  */
 public enum Scope: String {
-    /** Read public segments, public routes, public profile data, public posts, public events, club feeds, and leaderboards */
+    /** Default: Read public segments, public routes, public profile data, public posts, public events, club feeds, and leaderboards */
     case read = "read"
-    /** Read private routes, private segments, and private events for the user */
+    /** Read private routes, private segments, and private events for the user* */
     case readAll = "read_all"
     /** Read all profile information even if the user has set their profile visibility to Followers or Only You */
     case profileReadAll = "profile:read_all"
@@ -20,7 +20,7 @@ public enum Scope: String {
     case profileWrite = "profile:write"
     /** Read the user's activity data for activities that are visible to Everyone and Followers, excluding privacy zone data */
     case activityRead = "activity:read"
-    /** The same access as activity:read, plus privacy zone data and access to read the user's activities with visibility set to Only You **/
+    /** The same access as activity:read, plus privacy zone data and access to read the user's activities with visibility set to Only You */
     case activityReadAll = "activity:read_all"
     /** Access to create manual activities and uploads, and access to edit any activities that are visible to the app, based on activity read access level */
     case activityWrite = "activity:write"
@@ -38,9 +38,11 @@ public struct StravaConfig {
     /** The application's RedirectURL - this should be registered in the info.plist **/
     public let redirectUri: String
     /** The requested permission scope **/
-    public let scope: Scope
+    public let scopes: [Scope]
     /** The delegate responsible for storing and retrieving the OAuth token in your app **/
     public let delegate: TokenDelegate
+    
+    public let forcePrompt: Bool
     
     /**
      Initializer
@@ -49,18 +51,20 @@ public struct StravaConfig {
         - clientId: Int
         - clientSecret: Int
         - redirectUri: String
-        - scope: Scope enum - default is .ViewPrivateWrite)
+        - scope: Scope enum - default is .read)
         - delegate: TokenDelegateProtocol - default is the DefaultTokenDelegate
      **/
     public init(clientId: Int,
                 clientSecret: String,
                 redirectUri: String,
-                scope: Scope = .activityRead,
-                delegate: TokenDelegate? = nil ) {
+                scopes: [Scope] = [.read],
+                delegate: TokenDelegate? = nil,
+                forcePrompt: Bool = true) {
         self.clientId = clientId
         self.clientSecret = clientSecret
         self.redirectUri = redirectUri
-        self.scope = scope
+        self.scopes = scopes
         self.delegate = delegate ?? DefaultTokenDelegate()
+        self.forcePrompt = forcePrompt
     }
 }

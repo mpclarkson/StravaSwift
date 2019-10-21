@@ -447,8 +447,9 @@ extension Router: URLRequestConvertible  {
                 default:
                     return try JSONEncoding.default.encode(urlRequest, with: params)
             }
+        } else {
+            return try JSONEncoding.default.encode(urlRequest)
         }
-        return try JSONEncoding.default.encode(urlRequest)
     }
 }
 

@@ -16,6 +16,7 @@
     "tag": "0.7.0"
   },
   "social_media_url": "https://twitter.com/matt_pc",
+  "swift_versions": "5.0",
   "platforms": {
     "ios": "9.0"
   },
@@ -25,7 +26,8 @@
       "~> 4"
     ],
     "SwiftyJSON": [
-      "~> 3"
+      "~> 5"
     ]
-  }
+  },
+  "swift_version": "5.0"
 }

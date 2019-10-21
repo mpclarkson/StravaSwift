@@ -31,7 +31,6 @@ public final class Athlete: Strava {
     public let friendCount: Int?
     public let followerCount: Int?
     public let mutualFriendCount: Int?
-    public let athleteType: AthleteType?
     public let datePreference: String?
     public let measurementPreference: Units?
     public let email: String?
@@ -48,8 +47,6 @@ public final class Athlete: Strava {
      - Internal
      **/
     required public init(_ json: JSON) {
-        
-        
         id = json["id"].int
         resourceState = json["resource_state"].strava(ResourceState.self)
         city = json["city"].string
@@ -68,7 +65,6 @@ public final class Athlete: Strava {
         followerCount = json["follower_count"].int
         friendCount = json["friend_count"].int
         mutualFriendCount = json["mutual_friend_count"].int
-        athleteType = json["athlete_type"].strava(AthleteType.self)
         datePreference = json["date_preference"].string
         measurementPreference = json["measurement_preference"].strava(Units.self)
         email = json["email"].string

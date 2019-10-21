@@ -24,7 +24,7 @@ open class StravaClient: NSObject {
     
     fileprivate override init() {}
     fileprivate var config: StravaConfig?
-    fileprivate var authSession: NSObject?
+    fileprivate var authSession: NSObject?  // Holds a reference to ASWebAuthenticationSession / SFAuthenticationSession depending on iOS version
 
     /** 
       The OAuthToken returned by the delegate
@@ -35,9 +35,9 @@ open class StravaClient: NSObject {
         return [
             "client_id" : config?.clientId ?? 0,
             "redirect_uri" : config?.redirectUri ?? "",
-            "scope" : config?.scope.rawValue ?? "",
+            "scope" : (config?.scopes ?? []).map { $0.rawValue }.joined(separator: ","),
             "state" : "ios" as AnyObject,
-            "approval_prompt" : "force",
+            "approval_prompt" : config?.forcePrompt ?? true ? "force" : "auto",
             "response_type" : "code"
         ]
     }
@@ -68,7 +68,7 @@ open class StravaClient: NSObject {
 extension StravaClient {
 
     /**
-     Initialize the shared instance with your credentials. You must use this otherwise fatal errors will be 
+     Initialize the shared instance with your credentials. You must use this otherwise fatal errors will be
      returned when making api requests.
      
      - Parameter config: a StravaConfig struct
