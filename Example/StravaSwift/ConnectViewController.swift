@@ -6,8 +6,9 @@
 //  Copyright © 2015 Matthew Clarkson. All rights reserved.
 //
 
-import UIKit
+import Alamofire
 import StravaSwift
+import UIKit
 
 class ConnectViewController: UIViewController {
 
@@ -20,45 +21,21 @@ class ConnectViewController: UIViewController {
     @IBAction func login(_ sender: AnyObject) {
         activityIndicator?.startAnimating()
         loginButton.isHidden = true
-        StravaClient.sharedInstance.authorize() { [weak self] (token, error) in
+        StravaClient.sharedInstance.authorize() { [weak self] (result: Alamofire.Result<OAuthToken>) in
             guard let self = self else { return }
             self.activityIndicator?.stopAnimating()
             self.loginButton.isHidden = false
-            self.didAuthenticate(token: token, error: error) // Called when running iOS 11 and above
+            self.didAuthenticate(result: result)
         }
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.willHandleToken(notification:)),
-                                               name: NSNotification.Name("willHandleToken"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.didHandleToken(notification:)),
-                                               name: NSNotification.Name("didHandleToken"), object: nil)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
 
-    @objc func willHandleToken(notification: NSNotification) {
-        activityIndicator?.startAnimating()
-        loginButton.isHidden = true
-    }
-
-    @objc func didHandleToken(notification: NSNotification) {
-        activityIndicator?.stopAnimating()
-        loginButton.isHidden = false
-        guard let (token, error) = notification.object as? (OAuthToken?, NSError?) else { return }
-        didAuthenticate(token: token, error: error) // Called when running iOS 9 or 10
-    }
-
-    private func didAuthenticate(token: OAuthToken?, error: NSError?) {
-        if let token = token {
-            self.token = token
-            self.performSegue(withIdentifier: "navigation", sender: self)
-        } else if let error = error {
-            debugPrint(error)
+    private func didAuthenticate(result: Alamofire.Result<OAuthToken>) {
+        switch result {
+            case .success(let token):
+                self.token = token
+                self.performSegue(withIdentifier: "navigation", sender: self)
+            case .failure(let error):
+                debugPrint(error)
         }
     }
 

@@ -43,14 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        let canHandle = strava.handleAuthorizationRedirect(url) { (token, error) in
-            NotificationCenter.default.post(name: Notification.Name("didHandleToken"), object: (token, error))
-        }
-        if canHandle {
-            NotificationCenter.default.post(name: Notification.Name("willHandleToken"), object: url)
-            return true
-        } else {
-            return false
-        }
+        return strava.handleAuthorizationRedirect(url)
     }
 }

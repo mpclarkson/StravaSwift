@@ -68,27 +68,30 @@ StravaClient.sharedInstance.initWithConfig(config)
 * Implement the following method in your `AppDelegate.swift` to handle the OAuth redirection from Strava:
 
 ```swift
+let strava = StravaClient.sharedInstance
+
 func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-    let canHandle = strava.handleAuthorizationRedirect(url) { (token, error) in
-        // Implement didHandleToken if needed
-        // The token is already available to the StravaClient thanks to the TokenDelegate
-    }
-    if canHandle {
-        // Implement willHandleToken if needed
-        return true
-    } else {
-        return false
-    }
+    return strava.handleAuthorizationRedirect(url)
 }
 ```
 
-* Now you can start requesting resources. 
+* After authorizing, you can start requesting resources:
+
+```swift
+StravaClient.sharedInstance.authorize() { [weak self] (result: Alamofire.Result<OAuthToken>) in
+    switch result {
+        case .success(let token):
+            //do something for success
+        case .failure(let error):
+            //do something for error
+    }
+}
+```
 
 > The Router implementation is based on this
 Alamofire [example](https://github.com/Alamofire/Alamofire#api-parameter-abstraction):
 
 ```swift
-
 let strava = StravaClient.sharedInstance
 
 strava.request(Router.Athletes(id: 9999999999)) { (athlete: Athlete?) in
