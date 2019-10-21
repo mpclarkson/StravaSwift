@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.9.0)
-  - StravaSwift (0.7.0):
+  - StravaSwift (1.0.0):
     - Alamofire (~> 4)
     - SwiftyJSON (~> 5)
   - SwiftyJSON (5.0.0)
@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
-  StravaSwift: cfdd14deef9d33bbba206bdb57911950e33cfa7b
+  StravaSwift: 42c3a978ceef1f7c402e869db079f9d29ab7052d
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
 PODFILE CHECKSUM: 830d895e372f32b9cdc73b0fe3c991b3ee08e234

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'StravaSwift'
-  s.version          = '0.7.0'
+  s.version          = '1.0.0'
   s.summary          = 'A Swift library for the Strava API v3'
   s.description      = <<-DESC
 A Swift library for the Strava API v3. For complete details visit the Strava developer site.
@@ -12,7 +12,7 @@ A Swift library for the Strava API v3. For complete details visit the Strava dev
   s.social_media_url = 'https://twitter.com/matt_pc'
   s.swift_version    = '5.0'
   s.ios.deployment_target = '9.0'
-  s.source_files = 'StravaSwift/**/*'
+  s.source_files = 'Sources/StravaSwift/**/*'
   s.dependency 'Alamofire', '~> 4'
   s.dependency 'SwiftyJSON', '~> 5'
 end

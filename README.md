@@ -16,11 +16,22 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-[StravaSwift](https://github.com/mpclarkson/StravaSwift) is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+[StravaSwift](https://github.com/mpclarkson/StravaSwift) is available through the Swift Package Manager and  [CocoaPods](http://cocoapods.org)
+
+### Swift Package Manager
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/mpclarkson/StravaSwift.git", from: "1.0.0")
+]
+```
+
+### Cocoapods
+
+To install it, simply add the following line to your Podfile:
 
 ```ruby
-pod "StravaSwift"
+pod "StravaSwift", '~> 1.0.0'
 ```
 
 ## Quick Start
