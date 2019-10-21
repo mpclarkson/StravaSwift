@@ -78,7 +78,7 @@ func application(_ app: UIApplication, open url: URL, options: [UIApplication.Op
 * After authorizing, you can start requesting resources:
 
 ```swift
-strava.authorize() { [weak self] (result: Result<OAuthToken>) in
+strava.authorize() { result in
     switch result {
         case .success(let token):
             //do something for success
