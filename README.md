@@ -88,6 +88,8 @@ strava.authorize() { [weak self] (result: Result<OAuthToken>) in
 }
 ```
 
+* Requesting resources:
+
 > The Router implementation is based on this
 Alamofire [example](https://github.com/Alamofire/Alamofire#api-parameter-abstraction):
 
