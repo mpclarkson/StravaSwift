@@ -16,7 +16,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-[StravaSwift](https://github.com/mpclarkson/StravaSwift) is available through the Swift Package Manager and  [CocoaPods](http://cocoapods.org)
+[StravaSwift](https://github.com/mpclarkson/StravaSwift) is available through the [Swift Package Manager](https://swift.org/package-manager/) and [CocoaPods](http://cocoapods.org).
 
 ### Swift Package Manager
 
