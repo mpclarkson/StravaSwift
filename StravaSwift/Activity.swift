@@ -33,6 +33,8 @@ public final class Activity: Strava {
     public let distance: Double?
     public let movingTime: TimeInterval?
     public let elapsedTime: TimeInterval?
+	public let highElevation : Double?
+	public let lowElevation : Double?
     public let totalElevationGain: Double?
     public let type: ActivityType?
     public let startDate: Date?
@@ -47,6 +49,7 @@ public final class Activity: Strava {
     public let photoCount: Count?
     public let totalPhotoCount: Count?
     public let photos: [Photo]?
+    public let map: Map?
     public let trainer: Bool?
     public let commute: Bool?
     public let manual: Bool?
@@ -62,7 +65,15 @@ public final class Activity: Strava {
     public let splitsMetric: [Split]?
     public let splitsStandard: [Split]?
     public let bestEfforts: [Split]?
-    public let `map`: Map?
+	public let kiloJoules: Double?
+	public let averagePower : Double?
+	public let maxPower : Double?
+	public let deviceWatts : Bool?
+	
+	public let hasHeartRate : Bool?
+	public let averageHeartRate : Double?
+	public let maxHeartRate : Double?
+
 
     /**
      Initializer
@@ -82,6 +93,8 @@ public final class Activity: Strava {
         distance = json["distance"].double
         movingTime = json["moving_time"].double
         elapsedTime = json["elapsed_time"].double
+		lowElevation = json["elev_low"].double
+		highElevation = json["elev_high"].double
         totalElevationGain = json["total_elevation_gain"].double
         type = json["type"].strava(ActivityType.self)
         startDate = json["start_date"].string?.toDate()
@@ -95,6 +108,7 @@ public final class Activity: Strava {
         photoCount = json["php_count"].int
         totalPhotoCount = json["total_photo_count"].int
         photos = json["photos"].strava(Photo.self)
+        map = json["map"].strava(Map.self)
         trainer = json["trainer"].bool
         commute = json["commute"].bool
         manual = json["manual"].bool
@@ -112,5 +126,27 @@ public final class Activity: Strava {
         bestEfforts = json["best_efforts"].strava(Split.self)
         map = json["map"].strava(Map.self)
         timeZone = json["timezone"].string
+	
+		kiloJoules = json["kilojoules"].double
+		averagePower = json["average_watts"].double
+		maxPower = json["max_watts"].double
+		deviceWatts = json["device_watts"].bool
+	
+		hasHeartRate = json["has_heartrate"].bool
+		averageHeartRate = json["average_heartrate"].double
+		maxHeartRate = json["max_heartrate"].double
+	    
     }
 }
+
+// MetaActivity is used by Effort to hold unique Activity ID
+public final class MetaActivity: Strava {
+	public let id: Int?
+	
+	required public init(_ json: JSON) {
+		id = json["id"].int
+	}
+}
+
+
+

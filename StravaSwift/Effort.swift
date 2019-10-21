@@ -16,7 +16,7 @@ public final class Effort: Strava {
     public let id: Int?
     public let resourceState: ResourceState?
     public let name: String?
-    public let activity: Activity?
+    public let activity: MetaActivity?
     public let athlete: Athlete?
     public let elapsedTime: Int?
     public let movingTime: Int?
@@ -45,7 +45,7 @@ public final class Effort: Strava {
         id = json["id"].int
         resourceState = json["resource_state"].strava(ResourceState.self)
         name = json["name"].string
-        activity = json["activity_type"].strava(Activity.self)
+        activity = json["activity"].strava(MetaActivity.self)
         athlete = json["athlete"].strava(Athlete.self)
         elapsedTime = json["elapsed_time"].int
         movingTime = json["moving_time"].int
