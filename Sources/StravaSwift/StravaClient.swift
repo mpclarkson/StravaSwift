@@ -142,10 +142,12 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
     Helper method to get the code from the redirection from Strava after the user has authorized the application (useful in AppDelegate)
 
      - Parameter url the url returned by Strava through the (ASWeb/SF)AuthenricationSession or application open options.
-     - Returns: a boolean that indicates if this url has a code and is been handled
+     - Returns: a boolean that indicates if this url is for Strava, has a code and can be handled properly
      **/
     public func handleAuthorizationRedirect(_ url: URL) -> Bool {
-        if url.getQueryParameters()?["code"] != nil {
+        if let redirectUri = config?.redirectUri, url.absoluteString.starts(with: redirectUri),
+           let params = url.getQueryParameters(), params["code"] != nil, params["scope"] != nil, params["state"] == "ios" {
+
             self.handleAuthorizationRedirect(url) { result in
                 if let currentAuthorizationHandler = self.currentAuthorizationHandler {
                     currentAuthorizationHandler(result)
@@ -190,6 +192,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
             result(.failure(error))
         }
     }
+
     /**
      Refresh an OAuth token from Strava
 
