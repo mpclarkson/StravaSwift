@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'StravaSwift'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'A Swift library for the Strava API v3'
   s.description      = <<-DESC
 A Swift library for the Strava API v3. For complete details visit the Strava developer site.
