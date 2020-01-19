@@ -207,7 +207,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
                     self.config?.delegate.set(token)
                     result(.success(token))
                 } else {
-                    result(.failure(generateError(failureReason: "No valid token", response: nil)))
+                    result(.failure(self.generateError(failureReason: "No valid token", response: nil)))
                 }
             }
         } catch let error as NSError {
