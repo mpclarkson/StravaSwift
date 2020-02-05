@@ -83,10 +83,9 @@ extension StravaClient {
 }
 
 //MARK : - Auth
-
+#if os(iOS)
 extension StravaClient: ASWebAuthenticationPresentationContextProviding {
 
-    #if os(iOS)
     var currentWindow: UIWindow? { return UIApplication.shared.keyWindow }
     var currentViewController: UIViewController? { return currentWindow?.rootViewController }
 
@@ -183,7 +182,10 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
     public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         return currentWindow ?? ASPresentationAnchor()
     }
-    #endif
+}
+#endif
+
+extension StravaClient {
     /**
      Get an OAuth token from Strava
 
@@ -225,6 +227,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
         }
     }
 }
+
 
 
 //MARK: - Athlete
