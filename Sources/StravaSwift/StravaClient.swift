@@ -10,8 +10,9 @@ import AuthenticationServices
 import Foundation
 import Alamofire
 import SwiftyJSON
+#if os(iOS)
 import SafariServices
-
+#endif
 /**
  StravaClient responsible for making all api requests
 */
@@ -85,6 +86,7 @@ extension StravaClient {
 
 extension StravaClient: ASWebAuthenticationPresentationContextProviding {
 
+    #if os(iOS)
     var currentWindow: UIWindow? { return UIApplication.shared.keyWindow }
     var currentViewController: UIViewController? { return currentWindow?.rootViewController }
 
@@ -173,7 +175,15 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
             result(.failure(generateError(failureReason: "Invalid authorization code", response: nil)))
         }
     }
+    
+    
+    // ASWebAuthenticationPresentationContextProviding
 
+    @available(iOS 12.0, *)
+    public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return currentWindow ?? ASPresentationAnchor()
+    }
+    #endif
     /**
      Get an OAuth token from Strava
 
@@ -213,13 +223,6 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
         } catch let error as NSError {
             result(.failure(error))
         }
-    }
-
-    // ASWebAuthenticationPresentationContextProviding
-
-    @available(iOS 12.0, *)
-    public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        return currentWindow ?? ASPresentationAnchor()
     }
 }
 
