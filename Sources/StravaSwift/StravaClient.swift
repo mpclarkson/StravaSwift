@@ -320,7 +320,7 @@ extension StravaClient {
         guard let url = try? URLRequest.asURLRequest() else { return }
 
         Alamofire.upload(multipartFormData: { multipartFormData in
-            multipartFormData.append(upload.file, withName: "\(upload.name ?? "default").\(upload.dataType)")
+            multipartFormData.append(upload.file, withName: "file", fileName: "\(upload.name ?? "default").\(upload.dataType)", mimeType: "octet/stream")
             for (key, value) in upload.params {
                 if let value = value as? String {
                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
