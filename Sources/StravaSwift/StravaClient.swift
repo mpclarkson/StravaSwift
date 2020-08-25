@@ -106,7 +106,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
                                                                           callbackURLScheme: config?.redirectUri,
                                                                           completionHandler: { (url, error) in
                     if let url = url, error == nil {
-                        _ = self.handleAuthorizationRedirect(url, result: result)
+                        self.handleAuthorizationRedirect(url, result: result)
                     } else {
                         result(.failure(error!))
                     }
@@ -120,7 +120,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
                 let authenticationSession = SFAuthenticationSession(url: Router.webAuthorizationUrl,
                                                                     callbackURLScheme: config?.redirectUri) { (url, error) in
                     if let url = url, error == nil {
-                        _ = self.handleAuthorizationRedirect(url, result: result)
+                        self.handleAuthorizationRedirect(url, result: result)
                     } else {
                         result(.failure(error!))
                     }
@@ -144,7 +144,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
      - Parameter url the url returned by Strava through the (ASWeb/SF)AuthenricationSession or application open options.
      - Returns: a boolean that indicates if this url is for Strava, has a code and can be handled properly
      **/
-    public func handleAuthorizationRedirect(_ url: URL) -> Bool {
+    @discardableResult public func handleAuthorizationRedirect(_ url: URL) -> Bool {
         if let redirectUri = config?.redirectUri, url.absoluteString.starts(with: redirectUri),
            let params = url.getQueryParameters(), params["code"] != nil, params["scope"] != nil, params["state"] == "ios" {
 
