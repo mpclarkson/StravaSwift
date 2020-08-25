@@ -69,7 +69,9 @@ The full library documentation is available [here](http://cocoadocs.org/docsets/
 
     let strava = StravaClient.sharedInstance.initWithConfig(config)
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
       return strava.handleAuthorizationRedirect(url)
     }
     ```
