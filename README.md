@@ -38,57 +38,78 @@ pod "StravaSwift", '~> 1.0.1'
 
 The full library documentation is available [here](http://cocoadocs.org/docsets/StravaSwift).
 
-* First, you must [register your app](http://labs.strava.com/developers/) with Strava and get an OAuth `client id` and `client secret`.
+### Authorize
 
-* Initialize the Strava Client as follows, preferably in your `AppDelegate.swift` to ensure it is configured before you call it:
+1. [Register your app](http://labs.strava.com/developers/) with Strava and get an OAuth `client id` and `client secret`.
 
-```swift
-let config = StravaConfig(
-    clientId: YourStravaClientId,
-    clientSecret: YourStravaClientSecret,
-    redirectUri: YourRedirectUrl
-)
+2. Register your redirect URL scheme in your `info.plist` file.
+    
+    The authentication will use the Strava app be default if it is installed on the device. If the user does not have Strava installed, it will fallback on `SFAuthenticationSession` or `ASWebAuthenticationSession` depending on the iOS version. If your app is linked on or after iOS 9.0, you must add `strava` in you app’s `info.plist` file. It should be added as an entry fo the array under the `LSApplicationQueriesSchemes` key. Failure to do this will result in a crash when calling `canOpenUrl:`.
 
-StravaClient.sharedInstance.initWithConfig(config)
-```
+    ```xml
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>strava</string>
+    </array>
+    ```
 
-* Note, by default the OAuth token is only available while the app is running, which means you need to request a new token. You can implement custom token storage and retrieval behaviour by overriding the default token `delegate` in the `StravaConfig` initializer which must implement the `TokenDelegate` protocol.
+3. Implement the following method in your `AppDelegate.swift` to handle the OAuth redirection from Strava:
 
-* Register your redirect URL scheme in your `info.plist` file.
+    > **_NOTE:_** by default the OAuth token is only available while the app is running, which means you need to request a new token. You can implement custom token storage and retrieval behaviour by overriding the default token `delegate` in the `StravaConfig` initializer which must implement the `TokenDelegate` protocol.
 
-* The authentication will use the Strava app be default if it is installed on the device. If the user does not have Strava installed, it will fallback on `SFAuthenticationSession` or `ASWebAuthenticationSession` depending on the iOS version. If your app is linked on or after iOS 9.0, you must add `strava` in you app’s `info.plist` file. It should be added as an entry fo the array under the `LSApplicationQueriesSchemes` key. Failure to do this will result in a crash when calling `canOpenUrl:`.
+    **UIKit**
+    Initialize the Strava Client as follows, preferably in your `AppDelegate.swift` to ensure it is configured before you call it:
 
-```xml
-<key>LSApplicationQueriesSchemes</key>
-<array>
-    <string>strava</string>
-</array>
-```
+    ```swift
+    let config = StravaConfig(
+      clientId: YourStravaClientId,
+      clientSecret: YourStravaClientSecret,
+      redirectUri: YourRedirectUrl
+    )
 
-* Implement the following method in your `AppDelegate.swift` to handle the OAuth redirection from Strava:
+    let strava = StravaClient.sharedInstance.initWithConfig(config)
 
-```swift
-let strava = StravaClient.sharedInstance
-
-func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-    return strava.handleAuthorizationRedirect(url)
-}
-```
-
-* After authorizing, you can start requesting resources:
-
-```swift
-strava.authorize() { result in
-    switch result {
-        case .success(let token):
-            //do something for success
-        case .failure(let error):
-            //do something for error
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+      return strava.handleAuthorizationRedirect(url)
     }
-}
-```
+    ```
 
-* Requesting resources:
+    **SwiftUI**
+    ```swift
+    @main
+    struct MyApplication: App {
+
+    var strava = StravaClient.sharedInstance.initWithConfig(StravaConfig(
+        clientId: YourStravaClientId,
+        clientSecret: YourStravaClientSecret,
+        redirectUri: YourRedirectUrl
+    ))
+
+    var body: some Scene {
+      WindowGroup {
+        ContentView()
+          .onOpenURL { url in
+            strava.handleAuthorizationRedirect(url)
+          }
+      }
+    }
+    }
+    ```
+
+6. After authorizing, you can start requesting resources:
+
+    ```swift
+    strava.authorize() { result in
+      switch result {
+          case .success(let token):
+              //do something for success
+          case .failure(let error):
+              //do something for error
+      }
+    }
+    ```
+
+### Requesting Resources
 
 > The Router implementation is based on this
 Alamofire [example](https://github.com/Alamofire/Alamofire#api-parameter-abstraction):
