@@ -12,7 +12,7 @@ import SwiftyJSON
 /**
  Gear represents equipment used during an activity. The object is returned in summary or detailed representations.
  **/
-open class Gear: Strava {
+open class Gear: Strava, Codable {
     public let id: String?
     public let primary: Bool?
     public let name: String?
@@ -60,5 +60,9 @@ public final class Bike: Gear {
     required public init(_ json: JSON) {
         frameType = json["frame_type"].strava(FrameType.self)
         super.init(json)
+    }
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
     }
 }

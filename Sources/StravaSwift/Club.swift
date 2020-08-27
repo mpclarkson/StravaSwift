@@ -12,7 +12,7 @@ import SwiftyJSON
 /**
  Clubs represent groups of athletes on Strava. They can be public or private. The object is returned in summary or detailed representations.
  **/
-public final class Club: Strava {
+public final class Club: Strava, Codable {
     public let id: Int?
     public let profileMedium: URL?
     public let profile: URL?

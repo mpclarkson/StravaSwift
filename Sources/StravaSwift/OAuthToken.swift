@@ -12,7 +12,7 @@ import SwiftyJSON
 /**
 OAuthToken which is required for requesting Strava resources
  **/
-public struct OAuthToken: Strava {
+public struct OAuthToken: Strava, Codable {
 
     /** The access token **/
     public let accessToken: String?

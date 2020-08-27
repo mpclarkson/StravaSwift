@@ -12,7 +12,7 @@ import SwiftyJSON
 /**
   Athletes are Strava users, Strava users are athletes. The object is returned in detailed, summary or meta representations.
  **/
-public final class Athlete: Strava {
+public final class Athlete: Strava, Codable {
     public let id: Int?
     public let resourceState: ResourceState?
     public let firstname: String?
