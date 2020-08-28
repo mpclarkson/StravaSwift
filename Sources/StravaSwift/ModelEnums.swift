@@ -13,7 +13,7 @@
  - Male
  - Female
 **/
-public enum Sex: String, Codable {
+public enum Sex: String, Codable, Equatable {
     case male = "M"
     case female = "F"
 }
@@ -25,7 +25,7 @@ public enum Sex: String, Codable {
  - Accepted
  - Blocked
  **/
-public enum FollowingStatus: String, Codable {
+public enum FollowingStatus: String, Codable, Equatable {
     case accepted
     case blocked
     case pending
@@ -48,7 +48,7 @@ public enum MembershipStatus: String {
  - Feet
  - Meters
  **/
-public enum Units: String, Codable {
+public enum Units: String, Codable, Equatable {
     case feet
     case meters
 }
@@ -60,7 +60,7 @@ public enum Units: String, Codable {
  - Summary
  - Detailed
  **/
-public enum ResourceState: Int, Codable {
+public enum ResourceState: Int, Codable, Equatable {
     case meta = 1
     case summary = 2
     case detailed = 3
@@ -208,7 +208,7 @@ public enum ClubType: String, Codable {
  - Road
  - TimeTrial
  **/
-public enum FrameType: Int, Codable {
+public enum FrameType: Int, Codable, Equatable {
     case mtb = 1
     case cross = 2
     case road = 3

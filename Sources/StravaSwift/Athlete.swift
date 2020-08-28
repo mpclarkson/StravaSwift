@@ -12,7 +12,7 @@ import SwiftyJSON
 /**
   Athletes are Strava users, Strava users are athletes. The object is returned in detailed, summary or meta representations.
  **/
-public final class Athlete: Strava, Codable {
+public struct Athlete: Strava, Codable, Equatable {
     public let id: Int?
     public let resourceState: ResourceState?
     public let firstname: String?
@@ -46,7 +46,7 @@ public final class Athlete: Strava, Codable {
      - Parameter json: SwiftyJSON object
      - Internal
      **/
-    required public init(_ json: JSON) {
+    public init(_ json: JSON) {
         id = json["id"].int
         resourceState = json["resource_state"].strava(ResourceState.self)
         city = json["city"].string

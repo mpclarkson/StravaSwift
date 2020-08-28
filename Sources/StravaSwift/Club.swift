@@ -12,7 +12,7 @@ import SwiftyJSON
 /**
  Clubs represent groups of athletes on Strava. They can be public or private. The object is returned in summary or detailed representations.
  **/
-public final class Club: Strava, Codable {
+public struct Club: Strava, Codable, Equatable {
     public let id: Int?
     public let profileMedium: URL?
     public let profile: URL?
@@ -33,7 +33,7 @@ public final class Club: Strava, Codable {
      - Parameter json: SwiftyJSON object
      - Internal
      **/
-    required public init(_ json: JSON) {
+    public init(_ json: JSON) {
         id = json["id"].int
         name = json["name"].string
         description = json["description"].string

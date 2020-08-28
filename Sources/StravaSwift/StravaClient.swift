@@ -183,8 +183,8 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
     private func getAccessToken(_ code: String, result: @escaping AuthorizationHandler) {
         do {
             try oauthRequest(Router.token(code: code))?.responseStrava { [weak self] (response: DataResponse<OAuthToken>) in
-                guard let self = self else { return }
-                let token = response.result.value!
+                guard let self = self,
+                      let token = response.result.value else { return }
                 self.config?.delegate.set(token)
                 result(.success(token))
             }
