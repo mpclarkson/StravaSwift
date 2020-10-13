@@ -22,6 +22,13 @@ open class StravaClient: NSObject {
      */
     public static let sharedInstance = StravaClient()
 
+    
+    // Properties to hold the latest access counts and limits for Strava API calls as retrieved from the most recent API call
+    // First value in each pair is 15 minute value, second is daily value
+    // See https://developers.strava.com/docs/rate-limits/
+    fileprivate var stravaAccessUsage: [Int]?
+    fileprivate var stravaAccessLimit: [Int]?
+    
     fileprivate override init() {}
     fileprivate var config: StravaConfig?
 
@@ -62,6 +69,17 @@ open class StravaClient: NSObject {
         ]
     }
 }
+
+// MARK: Access API counts
+extension StravaClient {
+    public func apiUsageCounts() -> [Int]? {
+        return self.stravaAccessUsage
+    }
+    public func apiUsageLimits() -> [Int]? {
+        return self.stravaAccessLimit
+    }
+}
+
 
 //MARK:varConfig
 
@@ -106,7 +124,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
                                                                           callbackURLScheme: config?.redirectUri,
                                                                           completionHandler: { (url, error) in
                     if let url = url, error == nil {
-                        _ = self.handleAuthorizationRedirect(url, result: result)
+                        self.handleAuthorizationRedirect(url, result: result)
                     } else {
                         result(.failure(error!))
                     }
@@ -120,7 +138,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
                 let authenticationSession = SFAuthenticationSession(url: Router.webAuthorizationUrl,
                                                                     callbackURLScheme: config?.redirectUri) { (url, error) in
                     if let url = url, error == nil {
-                        _ = self.handleAuthorizationRedirect(url, result: result)
+                        self.handleAuthorizationRedirect(url, result: result)
                     } else {
                         result(.failure(error!))
                     }
@@ -256,6 +274,7 @@ extension StravaClient {
                 if let statusCode = response.response?.statusCode, (400..<500).contains(statusCode) {
                     failure(self.generateError(failureReason: "Strava API Error", response: response.response))
                 } else {
+                    self.updateStravaUsage(response: response.response)
                     result(response.result.value)
                 }
             }
@@ -277,6 +296,7 @@ extension StravaClient {
                 if let statusCode = response.response?.statusCode, (400..<500).contains(statusCode) {
                     failure(self.generateError(failureReason: "Strava API Error", response: response.response))
                 } else {
+                    self.updateStravaUsage(response: response.response)
                     result(response.result.value)
                 }
             }
@@ -292,6 +312,13 @@ extension StravaClient {
         let returnError = NSError(domain: errorDomain, code: code, userInfo: userInfo)
 
         return returnError
+    }
+    
+    fileprivate func updateStravaUsage(response: HTTPURLResponse?) {
+        if #available(iOS 13.0, *) {
+            self.stravaAccessUsage = response?.value(forHTTPHeaderField: "x-ratelimit-usage")?.components(separatedBy: ",").map { Int($0) ?? 0 }
+            self.stravaAccessLimit = response?.value(forHTTPHeaderField: "x-ratelimit-limit")?.components(separatedBy: ",").map { Int($0) ?? 0 }
+        }
     }
 
 }
