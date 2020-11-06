@@ -308,7 +308,7 @@ extension StravaClient {
     fileprivate func generateError(failureReason: String, response: HTTPURLResponse?) -> NSError {
         let errorDomain = "com.stravaswift.error"
         var userInfo = [NSLocalizedFailureReasonErrorKey: failureReason]
-        userInfo[NSURLErrorKey] = response?.url.absoluteString ?? "URL Unavailable"
+        userInfo[NSURLErrorKey] = response?.url?.absoluteString ?? "URL Unavailable"
         let code = response?.statusCode ?? 0
         let returnError = NSError(domain: errorDomain, code: code, userInfo: userInfo)
 
