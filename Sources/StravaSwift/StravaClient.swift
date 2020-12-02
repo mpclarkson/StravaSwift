@@ -41,7 +41,8 @@ open class StravaClient: NSObject {
             "scope" : (config?.scopes ?? []).map { $0.rawValue }.joined(separator: ","),
             "state" : "ios" as AnyObject,
             "approval_prompt" : config?.forcePrompt ?? true ? "force" : "auto",
-            "response_type" : "code"
+            "response_type" : "code",
+            "fallbackUrl": config?.fallbackUrl ?? ""
         ]
     }
 

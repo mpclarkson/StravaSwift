@@ -37,6 +37,8 @@ public struct StravaConfig {
     public let clientSecret: String
     /** The application's RedirectURL - this should be registered in the info.plist **/
     public let redirectUri: String
+    /** The application's FallbackURL  **/
+    public let fallbackUrl: String
     /** The requested permission scope **/
     public let scopes: [Scope]
     /** The delegate responsible for storing and retrieving the OAuth token in your app **/
@@ -57,12 +59,14 @@ public struct StravaConfig {
     public init(clientId: Int,
                 clientSecret: String,
                 redirectUri: String,
+                fallbackUrl: String,
                 scopes: [Scope] = [.read],
                 delegate: TokenDelegate? = nil,
                 forcePrompt: Bool = true) {
         self.clientId = clientId
         self.clientSecret = clientSecret
         self.redirectUri = redirectUri
+        self.fallbackUrl = fallbackUrl
         self.scopes = scopes
         self.delegate = delegate ?? DefaultTokenDelegate()
         self.forcePrompt = forcePrompt
