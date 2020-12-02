@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 /**
  Upload struct
@@ -69,19 +68,20 @@ public struct UploadData {
     /**
      Upload status
      **/
-    public final class Status: Strava {
+    public struct Status: Decodable {
         let id: Int?
         let externalId: String?
         let error: String?
         let status: String?
         let activityId: Int?
-
-        public required init(_ json: JSON) {
-            id = json["id"].int
-            externalId = json["external_id"].string
-            error = json["error"].string
-            status = json["status"].string
-            activityId = json["activity_id"].int
+        
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case externalId = "external_id"
+            case error
+            case status
+            case activityId = "activity_id"
         }
     }
 }

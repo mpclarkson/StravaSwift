@@ -7,12 +7,11 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 /**
 OAuthToken which is required for requesting Strava resources
  **/
-public struct OAuthToken: Strava {
+public struct OAuthToken: Decodable {
 
     /** The access token **/
     public let accessToken: String?
@@ -26,16 +25,11 @@ public struct OAuthToken: Strava {
     /** The athlete **/
     public let athlete: Athlete?
 
-    /**
-     Initializers
-
-     - Parameter json: A SwiftyJSON object
-     **/
-    public init(_ json: JSON) {
-        accessToken = json["access_token"].string
-        refreshToken = json["refresh_token"].string
-        expiresAt = json["expires_at"].int
-        athlete = Athlete(json["athlete"])
+    enum CodingKeys: String, CodingKey {
+        case accessToken = "access_token"
+        case refreshToken = "refresh_token"
+        case expiresAt = "expires_at"
+        case athlete
     }
 
     public init(access: String?, refresh: String?, expiry: Int?) {

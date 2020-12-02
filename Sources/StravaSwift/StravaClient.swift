@@ -9,7 +9,6 @@
 import AuthenticationServices
 import Foundation
 import Alamofire
-import SwiftyJSON
 import SafariServices
 
 /**
@@ -203,7 +202,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
 
 extension StravaClient {
 
-    public func upload<T: Strava>(_ route: Router, upload: UploadData, result: @escaping (((T)?) -> Void), failure: @escaping (NSError) -> Void) {
+    public func upload<T: Decodable>(_ route: Router, upload: UploadData, result: @escaping (((T)?) -> Void), failure: @escaping (NSError) -> Void) {
         do {
             try oauthUpload(URLRequest: route.asURLRequest(), upload: upload) { (response: DataResponse<T>) in
                 if let statusCode = response.response?.statusCode, (400..<500).contains(statusCode) {
@@ -224,7 +223,7 @@ extension StravaClient {
      - Parameter route: a Router enum case which may require parameters
      - Parameter result: a closure to handle the returned object
      **/
-    public func request<T: Strava>(_ route: Router, result: @escaping (((T)?) -> Void), failure: @escaping (NSError) -> Void) {
+    public func request<T: Decodable>(_ route: Router, result: @escaping (((T)?) -> Void), failure: @escaping (NSError) -> Void) {
         do {
             try oauthRequest(route)?.responseStrava { (response: DataResponse<T>) in
                 // HTTP Status codes above 400 are errors
@@ -245,7 +244,7 @@ extension StravaClient {
      - Parameter route: a Router enum case which may require parameters
      - Parameter result: a closure to handle the returned objects
      **/
-    public func request<T: Strava>(_ route: Router, result: @escaping ((([T])?) -> Void), failure: @escaping (NSError) -> Void) {
+    public func request<T: Decodable>(_ route: Router, result: @escaping ((([T])?) -> Void), failure: @escaping (NSError) -> Void) {
         do {
             try oauthRequest(route)?.responseStravaArray { (response: DataResponse<[T]>) in
                 // HTTP Status codes above 400 are errors
@@ -289,7 +288,7 @@ extension StravaClient {
         return Alamofire.request(urlRequest)
     }
 
-    fileprivate func oauthUpload<T: Strava>(URLRequest: URLRequestConvertible, upload: UploadData, completion: @escaping (DataResponse<T>) -> ()) {
+    fileprivate func oauthUpload<T: Decodable>(URLRequest: URLRequestConvertible, upload: UploadData, completion: @escaping (DataResponse<T>) -> ()) {
         checkConfiguration()
 
         guard let url = try? URLRequest.asURLRequest() else { return }

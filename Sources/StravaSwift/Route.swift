@@ -6,12 +6,10 @@
 //
 //
 
-import SwiftyJSON
-
 /**
  Routes are manually-created paths made up of sections called legs.
  **/
-public final class Route: Strava {
+public struct Route: Decodable {
     public let id: Int?
     public let resourceState: ResourceState?
     public let name: String?
@@ -22,31 +20,25 @@ public final class Route: Strava {
     public let map: Map?
     public let type: RouteType?
     public let subType: RouteSubType?
-    public let `private`: Bool?
+    public let isPrivate: Bool?
     public let starred: Bool?
     public let timeStamp: Int?
     public let segments: [Segment]?
 
-    /**
-     Initializer
-
-     - Parameter json: SwiftyJSON object
-     - Internal
-     **/
-    required public init(_ json: JSON) {
-        id = json["id"].int
-        resourceState = json["resource_state"].strava(ResourceState.self)
-        name = json["name"].string
-        description = json["description"].string
-        athlete = json["athlete"].strava(Athlete.self)
-        distance = json["distance"].double
-        elevationGain = json["elevation_gain"].double
-        map = json["map"].strava(Map.self)
-        type = json["type"].strava(RouteType.self)
-        subType = json["sub_type"].strava(RouteSubType.self)
-        `private` = json["private"].bool
-        starred = json["starred"].bool
-        timeStamp = json["time_stamp"].int
-        segments = json["segments"].strava(Segment.self)
+    enum CodingKeys: String, CodingKey {
+        case id
+        case resourceState = "resource_state"
+        case name
+        case description
+        case athlete
+        case distance
+        case elevationGain = "elevation_gain"
+        case map
+        case type
+        case subType = "sub_type"
+        case isPrivate = "private"
+        case starred
+        case timeStamp = "time_stamp"
+        case segments
     }
 }

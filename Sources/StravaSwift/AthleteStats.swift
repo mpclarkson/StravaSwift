@@ -7,14 +7,13 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 /**
  Stats are aggregated data for an athlete
  **/
-public final class AthleteStats: Strava {
+public struct AthleteStats: Decodable {
 
-    public final class Totals {
+    public struct Totals: Decodable {
 
         public let count: Int?
         public let distance: Double?
@@ -22,14 +21,14 @@ public final class AthleteStats: Strava {
         public let elapsedTime: TimeInterval?
         public let elevationGain: Double?
         public let achievementCount: Int?
-
-        required public init(_ json: JSON) {
-            count = json["count"].int
-            distance = json["distance"].double
-            movingTime = json["moving_time"].double
-            elapsedTime = json["elapsed_time"].double
-            elevationGain = json["elevation_gain"].double
-            achievementCount = json["achievement_count"].int
+        
+        enum CodingKeys: String, CodingKey {
+            case count
+            case distance
+            case movingTime = "moving_time"
+            case elapsedTime = "elapsed_time"
+            case elevationGain = "elevation_gain"
+            case achievementCount = "achievement_count"
         }
     }
 
@@ -44,25 +43,18 @@ public final class AthleteStats: Strava {
     public let allRideTotals: Totals?
     public let allRunTotals: Totals?
     public let allSwimTotals: Totals?
-
-    /**
-     Initializer
-
-     - Parameter json: SwiftyJSON object
-     - Internal
-     **/
-    required public init(_ json: JSON) {
-
-        biggestRideDistance = json["biggest_ride_distance"].double
-        biggestClimbElevationGain = json["biggest_climb_elevation_gain"].double
-        recentRideTotals = Totals(json["recent_ride_totals"])
-        recentRunTotals = Totals(json["recent_run_totals"])
-        recentSwimTotals = Totals(json["recent_swim_totals"])
-        ytdRideTotals = Totals(json["ytd_ride_totals"])
-        ytdRunTotals = Totals(json["ytd_run_totals"])
-        ytdSwimTotals = Totals(json["ytd_swim_totals"])
-        allRideTotals = Totals(json["all_ride_totals"])
-        allRunTotals = Totals(json["all_run_totals"])
-        allSwimTotals = Totals(json["all_swim_totals"])
+    
+    enum CodingKeys: String, CodingKey {
+        case biggestRideDistance = "biggest_ride_distance"
+        case biggestClimbElevationGain = "biggest_climb_elevation_gain"
+        case recentRideTotals = "recent_ride_totals"
+        case recentRunTotals = "recent_run_totals"
+        case recentSwimTotals = "recent_swim_totals"
+        case ytdRideTotals = "ytd_ride_totals"
+        case ytdRunTotals = "ytd_run_totals"
+        case ytdSwimTotals = "ytd_swim_totals"
+        case allRideTotals = "all_ride_totals"
+        case allRunTotals = "all_run_totals"
+        case allSwimTotals = "all_swim_totals"
     }
 }

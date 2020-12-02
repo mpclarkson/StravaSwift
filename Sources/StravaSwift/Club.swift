@@ -7,12 +7,11 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 /**
  Clubs represent groups of athletes on Strava. They can be public or private. The object is returned in summary or detailed representations.
  **/
-public final class Club: Strava {
+public struct Club: Decodable {
     public let id: Int?
     public let profileMedium: URL?
     public let profile: URL?
@@ -26,26 +25,20 @@ public final class Club: Strava {
     public let isPrivate: Bool?
     public let memberCount: Int?
     public let resourceState: ResourceState?
-
-    /**
-     Initializer
-
-     - Parameter json: SwiftyJSON object
-     - Internal
-     **/
-    required public init(_ json: JSON) {
-        id = json["id"].int
-        name = json["name"].string
-        description = json["description"].string
-        resourceState = json["resource_state"].strava(ResourceState.self)
-        city = json["city"].string
-        state = json["state"].string
-        country = json["country"].string
-        clubType = json["club_type"].strava(ClubType.self)
-        sportType = json["sport_type"].strava(SportType.self)
-        profileMedium = URL(optionalString: json["profile_medium"].string)
-        profile = URL(optionalString: json["profile"].string)
-        isPrivate = json["private"].bool
-        memberCount = json["member_count"].int
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case description
+        case resourceState = "resource_state"
+        case city
+        case state
+        case country
+        case clubType = "club_type"
+        case sportType = "sport_type"
+        case profileMedium = "profile_medium"
+        case profile
+        case isPrivate = "private"
+        case memberCount = "member_count"
     }
 }

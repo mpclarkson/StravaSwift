@@ -7,32 +7,25 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 /**
  Comments on an activity can be viewed by any user. However, only internal applications are allowed to create or delete them.
  Comment posting can be enabled on a per application basis, email developers@strava.com for more information.
  **/
-public final class Comment: Strava {
+public struct Comment: Decodable {
     public let id: Int?
     public let resourceState: ResourceState?
     public let activityId: Int?
     public let text: String?
     public let athlete: Athlete?
     public let createdAt: Date?
-
-    /**
-     Initializer
-
-     - Parameter json: SwiftyJSON object
-     - Internal
-     **/
-    required public init(_ json: JSON) {
-        id = json["id"].int
-        resourceState = json["resource_state"].strava(ResourceState.self)
-        activityId = json["activity_id"].int
-        text = json["text"].string
-        athlete = json["athlete"].strava(Athlete.self)
-        createdAt = json["created_at"].string?.toDate()
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case resourceState = "resource_state"
+        case activityId = "activity_id"
+        case text
+        case athlete
+        case createdAt
     }
 }

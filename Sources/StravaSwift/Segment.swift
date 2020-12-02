@@ -7,12 +7,11 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 /**
   Segments are specific sections of road. Athletes’ times are compared on these segments and leaderboards are created.
  **/
-public final class Segment: Strava {
+public struct Segment: Decodable {
     public let id: Int?
     public let name: String?
     public let descr: String?
@@ -29,49 +28,43 @@ public final class Segment: Strava {
     public let city: String?
     public let state: String?
     public let country: String?
-    public let `private`: Bool?
+    public let isPrivate: Bool?
     public let starred: Bool?
     public let createdAt: Date?
-    public let updateAt: Date?
+    public let updatedAt: Date?
     public let totalElevationGain: Double?
     public let map: Map?
     public let effortCount: Int?
     public let athleteCount: Int?
     public let hazardous: Bool?
     public let starCount: Int?
-
-    /**
-     Initializer
-
-     - Parameter json: SwiftyJSON object
-     - Internal
-     **/
-    required public init(_ json: JSON) {
-        id = json["id"].int
-        resourceState = json["resource_state"].strava(ResourceState.self)
-        name = json["name"].string
-        descr = json["description"].string
-        activityType = json["activity_type"].strava(ActivityType.self)
-        distance = json["distance"].double
-        averageGrade = json["average_grade"].double
-        maximumGrade = json["maximum_grade"].double
-        elevationHigh = json["elevation_high"].double
-        elevationLow = json["elevation_low"].double
-        startLatLng = json["start_latlng"].strava(Location.self)
-        endLatLng = json["end_latlng"].strava(Location.self)
-        climbCategory = json["climb_category"].int
-        city = json["city"].string
-        state = json["state"].string
-        country = json["country"].string
-        `private` = json["private"].bool
-        starred = json["starred"].bool
-        createdAt = json["created_at"].string?.toDate()
-        updateAt = json["updated_at"].string?.toDate()
-        totalElevationGain = json["total_elevation_gained"].double
-        map = json["map"].strava(Map.self)
-        effortCount = json["effort_count"].int
-        athleteCount = json["athlete_count"].int
-        hazardous = json["hazardous"].bool
-        starCount = json["star_count"].int
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case resourceState = "resource_state"
+        case name
+        case descr = "description"
+        case activityType = "activity_type"
+        case distance
+        case averageGrade = "average_grade"
+        case maximumGrade = "maximum_grade"
+        case elevationHigh = "elevation_high"
+        case elevationLow = "elevation_low"
+        case startLatLng = "start_latlng"
+        case endLatLng = "end_latlng"
+        case climbCategory = "climb_category"
+        case city
+        case state
+        case country
+        case isPrivate = "private"
+        case starred
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case totalElevationGain = "total_elevation_gained"
+        case map
+        case effortCount = "effort_count"
+        case athleteCount = "athlete_count"
+        case hazardous
+        case starCount = "star_count"
     }
 }

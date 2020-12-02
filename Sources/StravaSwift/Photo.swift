@@ -7,12 +7,11 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 /**
  Photos are objects associated with an activity. Currently, the only external photo source is Instagram. Photos can also be stored on Strava - these photos are referred to as “native”.
  **/
-public final class Photo: Strava {
+public struct Photo: Decodable {
     public let id: Int?
     public let uniqueId: String?
     public let activityId: Int?
@@ -27,25 +26,19 @@ public final class Photo: Strava {
     public let uuid: String?
     public let type: String?
 
-    /**
-     Initializer
-
-     - Parameter json: SwiftyJSON object
-     - Internal
-     **/
-    required public init(_ json: JSON) {
-        id = json["id"].int
-        resourceState = json["resource_state"].strava(ResourceState.self)
-        uniqueId = json["unique_id"].string
-        activityId = json["activity_id"].int
-        urls = json["urls"].dictionary?.compactMap { URL(optionalString: $0.1.string) }
-        caption = json["caption"].string
-        source = json["source"].strava(PhotoSource.self)
-        uploadedAt = json["uploaded_at"].string?.toDate()
-        createdAt = json["created_at"].string?.toDate()
-        location = json["location"].strava(Location.self)
-        refs = json["refs"].string
-        uuid = json["uuid"].string
-        type = json["type"].string
+    enum CodingKeys: String, CodingKey {
+        case id
+        case resourceState = "resource_state"
+        case uniqueId = "unique_id"
+        case activityId = "activity_id"
+        case urls
+        case caption
+        case source
+        case uploadedAt = "uploaded_at"
+        case createdAt = "created_at"
+        case location
+        case refs
+        case uuid
+        case type
     }
 }

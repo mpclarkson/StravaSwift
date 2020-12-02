@@ -7,12 +7,10 @@
 //
 
 import Foundation
-import SwiftyJSON
-
 /**
   Athletes are Strava users, Strava users are athletes. The object is returned in detailed, summary or meta representations.
  **/
-public final class Athlete: Strava {
+public struct Athlete: Decodable {
     public let id: Int?
     public let resourceState: ResourceState?
     public let firstname: String?
@@ -40,38 +38,32 @@ public final class Athlete: Strava {
     public let bikes: [Bike]?
     public let shoes: [Shoe]?
 
-    /**
-     Initializer
-
-     - Parameter json: SwiftyJSON object
-     - Internal
-     **/
-    required public init(_ json: JSON) {
-        id = json["id"].int
-        resourceState = json["resource_state"].strava(ResourceState.self)
-        city = json["city"].string
-        state = json["state"].string
-        country = json["country"].string
-        profileMedium = URL(optionalString: json["profile_medium"].string)
-        profile = URL(optionalString: json["profile"].string)
-        firstname = json["firstname"].string
-        lastname = json["lastname"].string
-        sex = json["sex"].strava(Sex.self)
-        friend = json["friend"].strava(FollowingStatus.self)
-        follower = json["follower"].strava(FollowingStatus.self)
-        premium = json["premium"].bool
-        createdAt = json["created_at"].string?.toDate()
-        updatedAt = json["updated_at"].string?.toDate()
-        followerCount = json["follower_count"].int
-        friendCount = json["friend_count"].int
-        mutualFriendCount = json["mutual_friend_count"].int
-        datePreference = json["date_preference"].string
-        measurementPreference = json["measurement_preference"].strava(Units.self)
-        email = json["email"].string
-        FTP = json["ftp"].int
-        weight = json["weight"].double
-        clubs = json["clubs"].strava(Club.self)
-        bikes = json["bikes"].strava(Bike.self)
-        shoes = json["shoes"].strava(Shoe.self)
+    enum CodingKeys: String, CodingKey {
+        case id
+        case resourceState = "resource_state"
+        case city
+        case state
+        case country
+        case profileMedium = "profile_medium"
+        case profile
+        case firstname
+        case lastname
+        case sex
+        case friend
+        case follower
+        case premium
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+        case followerCount = "follower_count"
+        case friendCount = "friend_count"
+        case mutualFriendCount = "mutual_friend_count"
+        case datePreference = "date_preference"
+        case measurementPreference = "measurement_preference"
+        case email
+        case FTP = "ftp"
+        case weight
+        case clubs
+        case bikes
+        case shoes
     }
 }

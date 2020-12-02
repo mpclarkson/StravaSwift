@@ -13,7 +13,7 @@
  - Male
  - Female
 **/
-public enum Sex: String {
+public enum Sex: String, Decodable {
     case male = "M"
     case female = "F"
 }
@@ -25,7 +25,7 @@ public enum Sex: String {
  - Accepted
  - Blocked
  **/
-public enum FollowingStatus: String {
+public enum FollowingStatus: String, Decodable {
     case accepted
     case blocked
     case pending
@@ -37,7 +37,7 @@ public enum FollowingStatus: String {
  - Pending
  - Accepted
  **/
-public enum MembershipStatus: String {
+public enum MembershipStatus: String, Decodable {
     case member
     case pending
 }
@@ -48,7 +48,7 @@ public enum MembershipStatus: String {
  - Feet
  - Meters
  **/
-public enum Units: String {
+public enum Units: String, Decodable {
     case feet
     case meters
 }
@@ -60,7 +60,7 @@ public enum Units: String {
  - Summary
  - Detailed
  **/
-public enum ResourceState: Int {
+public enum ResourceState: Int, Decodable {
     case meta = 1
     case summary = 2
     case detailed = 3
@@ -77,7 +77,7 @@ public enum ResourceState: Int {
  - RaceRide
  - WorkoutRide
  **/
-public enum WorkoutType: Int {
+public enum WorkoutType: Int, Decodable {
     case run = 0
     case raceRun = 1
     case longRun = 3
@@ -128,7 +128,7 @@ public enum WorkoutType: Int {
   - Workout
   - Yoga
  **/
-public enum ActivityType: String {
+public enum ActivityType: String, Decodable {
     case alpineSki = "AlpineSki"
     case backcountrySki = "BackcountrySki"
     case canoeing = "Canoeing"
@@ -176,7 +176,7 @@ public enum ActivityType: String {
  - Triathlon
  - Other
  **/
-public enum SportType: String {
+public enum SportType: String, Decodable {
     case cycling
     case running
     case triathlon
@@ -192,7 +192,7 @@ public enum SportType: String {
  - Company
  - Other
  **/
-public enum ClubType: String {
+public enum ClubType: String, Decodable {
     case casualClub = "casual_club"
     case racingTeam = "racing_team"
     case shop
@@ -208,7 +208,7 @@ public enum ClubType: String {
  - Road
  - TimeTrial
  **/
-public enum FrameType: Int {
+public enum FrameType: Int, Decodable {
     case mtb = 1
     case cross = 2
     case road = 3
@@ -222,7 +222,7 @@ public enum FrameType: Int {
  - Medium
  - High
  **/
-public enum ResolutionType: String {
+public enum ResolutionType: String, Decodable {
     case low
     case medium
     case high
@@ -243,7 +243,7 @@ public enum ResolutionType: String {
  - Moving
  - GradeSmooth
  **/
-public enum StreamType: String {
+public enum StreamType: String, Decodable {
     case time
     case latLng = "latlng"
     case distance
@@ -292,7 +292,7 @@ public enum StreamType: String {
  - Tempo
  - Hammerfest
  **/
-public enum SkillLevel: Int {
+public enum SkillLevel: Int, Decodable {
     case casual = 1
     case tempo = 2
     case hammerfest = 4
@@ -305,7 +305,7 @@ public enum SkillLevel: Int {
  - RollingHills
  - KillerClimbs
  **/
-public enum Terrain: Int {
+public enum Terrain: Int, Decodable {
     case mostlyFlat
     case rollingHills
     case killerClimbs
@@ -317,7 +317,7 @@ public enum Terrain: Int {
  - Strava
  - Instagram
  **/
-public enum PhotoSource: Int {
+public enum PhotoSource: Int, Decodable {
     case strava = 1
     case instagram = 2
 }
@@ -329,20 +329,20 @@ public enum PhotoSource: Int {
  - PR
  - YearOverall
  **/
-public enum AchievementType: String {
+public enum AchievementType: String, Decodable {
     case overall
     case pr
     case yearOverall = "year_overall"
 }
 
 /** Route type enum **/
-public enum RouteType: Int {
+public enum RouteType: Int, Decodable {
     case ride = 1
     case run = 2
 }
 
 /** Route sub type enum **/
-public enum RouteSubType: Int {
+public enum RouteSubType: Int, Decodable {
     case road = 1
     case mtb = 2
     case cx = 3
@@ -353,7 +353,7 @@ public enum RouteSubType: Int {
 /**
  Data type enum for uploaded activities
  **/
-public enum DataType: String {
+public enum DataType: String, Decodable {
     case fit
     case fitGz = "fit.gz"
     case tcx

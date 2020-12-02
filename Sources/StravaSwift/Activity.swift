@@ -7,10 +7,9 @@
 //
 
 import Foundation
-import SwiftyJSON
 
 /**
- Achievement class - a detailed representation is returned if the activity is owned by the requesting athlete, otherwise
+ Achievement struct - a detailed representation is returned if the activity is owned by the requesting athlete, otherwise
  a summary representation is returned for all other requests.
 
  Activity details, including segment efforts, splits and best efforts, are only available to the owner of the activity.
@@ -18,7 +17,7 @@ import SwiftyJSON
  By default, only “important” efforts are included. “Importance” is based on a number of factors and its value may change over time.
 
  **/
-public final class Activity: Strava {
+public struct Activity: Decodable {
 
     public typealias Speed = Double
     public typealias Count = Int
@@ -53,7 +52,7 @@ public final class Activity: Strava {
     public let trainer: Bool?
     public let commute: Bool?
     public let manual: Bool?
-    public let `private`: Bool?
+    public let isPrivate: Bool?
     public let flagged: Bool?
     public let workoutType: WorkoutType?
     public let gear: Gear?
@@ -73,71 +72,60 @@ public final class Activity: Strava {
     public let averageHeartRate : Double?
     public let maxHeartRate : Double?
 
-
-    /**
-     Initializer
-
-     - Parameter json: SwiftyJSON object
-     - Internal
-     **/
-    required public init(_ json: JSON) {
-        id = json["id"].int
-        resourceState = json["resource_state"].strava(ResourceState.self)
-        externalId = json["external_id"].string
-        uploadId = json["upload_id"].int
-        athlete = json["athlete"].strava(Athlete.self)
-        name = json["name"].string
-        description = json["description"].string
-        distance = json["distance"].double
-        movingTime = json["moving_time"].double
-        elapsedTime = json["elapsed_time"].double
-        lowElevation = json["elev_low"].double
-        highElevation = json["elev_high"].double
-        totalElevationGain = json["total_elevation_gain"].double
-        type = json["type"].strava(ActivityType.self)
-        startDate = json["start_date"].string?.toDate()
-        startDateLocal = json["start_date_local"].string?.toDate()
-        startLatLng = json["start_latlng"].strava(Location.self)
-        endLatLng = json["end_latlng"].strava(Location.self)
-        achievementCount = json["achievement_count"].int
-        kudosCount = json["kudos_count"].int
-        commentCount = json["comment_count"].int
-        athleteCount = json["athlete_count"].int
-        photoCount = json["php_count"].int
-        totalPhotoCount = json["total_photo_count"].int
-        photos = json["photos"].strava(Photo.self)
-        trainer = json["trainer"].bool
-        commute = json["commute"].bool
-        manual = json["manual"].bool
-        `private` = json["private"].bool
-        flagged = json["flagged"].bool
-        workoutType = json["workout_type"].strava(WorkoutType.self)
-        gear = json["gear"].strava(Gear.self)
-        averageSpeed = json["average_speed"].double
-        maxSpeed = json["max_speed"].double
-        calories = json["calories"].double
-        hasKudoed = json["has_kudoed"].bool
-        segmentEfforts = json["segment_efforts"].strava(Effort.self)
-        splitsMetric = json["splits_metric"].strava(Split.self)
-        splitsStandard = json["splits_standard"].strava(Split.self)
-        bestEfforts = json["best_efforts"].strava(Split.self)
-        map = json["map"].strava(Map.self)
-        timeZone = json["timezone"].string
-        kiloJoules = json["kilojoules"].double
-        averagePower = json["average_watts"].double
-        maxPower = json["max_watts"].double
-        deviceWatts = json["device_watts"].bool
-        hasHeartRate = json["has_heartrate"].bool
-        averageHeartRate = json["average_heartrate"].double
-        maxHeartRate = json["max_heartrate"].double
+    enum CodingKeys: String, CodingKey {
+        case id
+        case resourceState = "resource_state"
+        case externalId = "external_id"
+        case uploadId = "upload_id"
+        case athlete
+        case name
+        case description
+        case distance
+        case movingTime = "moving_time"
+        case elapsedTime = "elapsed_time"
+        case lowElevation = "elev_low"
+        case highElevation = "elev_high"
+        case totalElevationGain = "total_elevation_gain"
+        case startDate = "start_date"
+        case startDateLocal = "start_date_local"
+        case startLatLng = "start_latlng"
+        case endLatLng = "end_latlng"
+        case achievementCount = "achievement_count"
+        case kudosCount = "kudos_count"
+        case commentCount = "comment_count"
+        case athleteCount = "athlete_count"
+        case photoCount = "php_count"
+        case totalPhotoCount = "total_photo_count"
+        case photos
+        case trainer
+        case commute
+        case manual
+        case isPrivate = "private"
+        case flagged
+        case workoutType = "workout_type"
+        case gear
+        case averageSpeed = "average_speed"
+        case maxSpeed = "max_speed"
+        case calories
+        case hasKudoed = "has_kudoed"
+        case segmentEfforts = "segment_efforts"
+        case splitsMetric = "splits_metric"
+        case splitsStandard = "splits_standard"
+        case bestEfforts = "best_efforts"
+        case map
+        case timeZone
+        case kiloJoules
+        case averagePower = "average_watts"
+        case maxPower = "max_watts"
+        case deviceWatts = "device_watts"
+        case hasHeartRate = "has_heartrate"
+        case averageHeartRate = "average_heartrate"
+        case maxHeartRate = "max_heartrate"
+        case type
     }
 }
 
 // MetaActivity is used by Effort to hold unique Activity ID
-public final class MetaActivity: Strava {
+public struct MetaActivity: Decodable {
     public let id: Int?
-
-    required public init(_ json: JSON) {
-        id = json["id"].int
-    }
 }
