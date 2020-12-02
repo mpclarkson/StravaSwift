@@ -38,5 +38,13 @@ public struct OAuthToken: Decodable {
         self.expiresAt = expiry
         self.athlete = nil
     }
+}
 
+extension OAuthToken: Encodable {
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(accessToken, forKey: .accessToken)
+        try container.encode(refreshToken, forKey: .refreshToken)
+        try container.encode(expiresAt, forKey: .expiresAt)
+    }
 }
