@@ -18,7 +18,7 @@ public struct Comment: Decodable {
     public let activityId: Int?
     public let text: String?
     public let athlete: Athlete?
-    public let createdAt: Date?
+//    public let createdAt: Date?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -26,6 +26,6 @@ public struct Comment: Decodable {
         case activityId = "activity_id"
         case text
         case athlete
-        case createdAt
+//        case createdAt
     }
 }

@@ -19,8 +19,8 @@ public struct Photo: Decodable {
     public let urls: [URL]?
     public let caption: String?
     public let source: PhotoSource?
-    public let uploadedAt: Date?
-    public let createdAt: Date?
+//    public let uploadedAt: Date?
+//    public let createdAt: Date?
     public let location: Location?
     public let refs: String?
     public let uuid: String?
@@ -34,8 +34,8 @@ public struct Photo: Decodable {
         case urls
         case caption
         case source
-        case uploadedAt = "uploaded_at"
-        case createdAt = "created_at"
+//        case uploadedAt = "uploaded_at"
+//        case createdAt = "created_at"
         case location
         case refs
         case uuid

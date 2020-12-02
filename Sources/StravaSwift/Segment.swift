@@ -30,8 +30,8 @@ public struct Segment: Decodable {
     public let country: String?
     public let isPrivate: Bool?
     public let starred: Bool?
-    public let createdAt: Date?
-    public let updatedAt: Date?
+//    public let createdAt: Date?
+//    public let updatedAt: Date?
     public let totalElevationGain: Double?
     public let map: Map?
     public let effortCount: Int?
@@ -58,8 +58,8 @@ public struct Segment: Decodable {
         case country
         case isPrivate = "private"
         case starred
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
+ //       case createdAt = "created_at"
+ //       case updatedAt = "updated_at"
         case totalElevationGain = "total_elevation_gained"
         case map
         case effortCount = "effort_count"

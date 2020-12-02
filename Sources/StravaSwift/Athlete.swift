@@ -24,8 +24,8 @@ public struct Athlete: Decodable {
     public let friend: FollowingStatus?
     public let follower: FollowingStatus?
     public let premium:Bool?
-    public let createdAt: Date?
-    public let updatedAt: Date?
+    //public let createdAt: Date?
+    //public let updatedAt: Date?
     public let friendCount: Int?
     public let followerCount: Int?
     public let mutualFriendCount: Int?
@@ -52,8 +52,8 @@ public struct Athlete: Decodable {
         case friend
         case follower
         case premium
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
+        //case createdAt = "created_at"
+        //case updatedAt = "updated_at"
         case followerCount = "follower_count"
         case friendCount = "friend_count"
         case mutualFriendCount = "mutual_friend_count"

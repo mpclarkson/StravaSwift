@@ -19,7 +19,7 @@ public struct Event: Decodable {
     public let clubId: Int?
     public let organizingAthlete: Athlete?
     public let activityType: ActivityType?
-    public let createdAt: Date?
+//   public let createdAt: Date?
     public let routeId: Int?
     public let womenOnly: Bool?
     public let isPrivate: Bool?
@@ -38,7 +38,7 @@ public struct Event: Decodable {
         case clubId = "club_id"
         case organizingAthlete = "organizing_athlete"
         case activityType = "activity_type"
-        case createdAt = "created_at"
+//        case createdAt = "created_at"
         case routeId = "route_id"
         case womenOnly = "women_only"
         case isPrivate = "private"
