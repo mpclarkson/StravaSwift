@@ -158,9 +158,13 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
         do {
             try oauthRequest(Router.token(code: code))?.responseStrava { [weak self] (response: DataResponse<OAuthToken>) in
                 guard let self = self else { return }
-                let token = response.result.value!
-                self.config?.delegate.set(token)
-                result(.success(token))
+                switch response.result {
+                case let .success(token):
+                    self.config?.delegate.set(token)
+                    result(.success(token))
+                case let .failure(error):
+                    result(.failure(error))
+                }
             }
         } catch let error as NSError {
             result(.failure(error))
