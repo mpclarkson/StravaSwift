@@ -37,7 +37,7 @@ open class StravaClient: NSObject {
     internal var authParams: [String: Any] {
         return [
             "client_id" : config?.clientId ?? 0,
-            "redirect_uri" : config?.redirectUri ?? "",
+            "redirect_uri" : "\(config?.redirectUri ?? "")%3A%2F%2F\(config?.fallbackUrl ?? "")",
             "scope" : (config?.scopes ?? []).map { $0.rawValue }.joined(separator: ","),
             "state" : "ios" as AnyObject,
             "approval_prompt" : config?.forcePrompt ?? true ? "force" : "auto",
