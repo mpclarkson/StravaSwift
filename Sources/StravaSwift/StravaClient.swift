@@ -22,6 +22,16 @@ open class StravaClient: NSObject {
      */
     public static let sharedInstance = StravaClient()
 
+    
+    // Properties to hold the latest access counts and limits for Strava API calls as retrieved from the most recent API call
+    // First value in each pair is 15 minute value, second is daily value
+    // See https://developers.strava.com/docs/rate-limits/
+    fileprivate var stravaAccessUsage: [Int]?
+    fileprivate var stravaAccessLimit: [Int]?
+    
+    // 'Scope' string returned from Stava with authorised permissions
+    fileprivate var stravaScope: String?
+    
     fileprivate override init() {}
     fileprivate var config: StravaConfig?
 
@@ -60,6 +70,23 @@ open class StravaClient: NSObject {
             "grant_type" : "refresh_token",
             "refresh_token" : refreshToken
         ]
+    }
+}
+
+// MARK: Access API counts
+extension StravaClient {
+    public func apiUsageCounts() -> [Int]? {
+        return self.stravaAccessUsage
+    }
+    public func apiUsageLimits() -> [Int]? {
+        return self.stravaAccessLimit
+    }
+}
+
+// MARK: Access authorised scope
+extension StravaClient {
+    public func authorisedScope() -> [Scope] {
+        return stravaScope?.split(separator: ",").compactMap { scopeString in Scope(rawValue: String(scopeString)) } ?? []
     }
 }
 
@@ -106,7 +133,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
                                                                           callbackURLScheme: config?.redirectUri,
                                                                           completionHandler: { (url, error) in
                     if let url = url, error == nil {
-                        _ = self.handleAuthorizationRedirect(url, result: result)
+                        self.handleAuthorizationRedirect(url, result: result)
                     } else {
                         result(.failure(error!))
                     }
@@ -120,7 +147,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
                 let authenticationSession = SFAuthenticationSession(url: Router.webAuthorizationUrl,
                                                                     callbackURLScheme: config?.redirectUri) { (url, error) in
                     if let url = url, error == nil {
-                        _ = self.handleAuthorizationRedirect(url, result: result)
+                        self.handleAuthorizationRedirect(url, result: result)
                     } else {
                         result(.failure(error!))
                     }
@@ -147,7 +174,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
     public func handleAuthorizationRedirect(_ url: URL) -> Bool {
         if let redirectUri = config?.redirectUri, url.absoluteString.starts(with: redirectUri),
            let params = url.getQueryParameters(), params["code"] != nil, params["scope"] != nil, params["state"] == "ios" {
-
+            self.stravaScope = url.getQueryParameters()?["scope"]?.removingPercentEncoding
             self.handleAuthorizationRedirect(url) { result in
                 if let currentAuthorizationHandler = self.currentAuthorizationHandler {
                     currentAuthorizationHandler(result)
@@ -168,6 +195,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
      **/
     private func handleAuthorizationRedirect(_ url: URL, result: @escaping AuthorizationHandler) {
         if let code = url.getQueryParameters()?["code"] {
+            self.stravaScope = url.getQueryParameters()?["scope"]?.removingPercentEncoding
             self.getAccessToken(code, result: result)
         } else {
             result(.failure(generateError(failureReason: "Invalid authorization code", response: nil)))
@@ -180,13 +208,19 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
      - Parameter code: the code (string) returned from strava
      - Parameter result: a closure to handle the OAuthToken
      **/
+    // Edited to check response before force unwrap of the token as errors cause crash
     private func getAccessToken(_ code: String, result: @escaping AuthorizationHandler) {
         do {
             try oauthRequest(Router.token(code: code))?.responseStrava { [weak self] (response: DataResponse<OAuthToken>) in
                 guard let self = self else { return }
-                let token = response.result.value!
-                self.config?.delegate.set(token)
-                result(.success(token))
+                switch response.result {
+                case .success:
+                    let token = response.result.value!
+                    self.config?.delegate.set(token)
+                    result(.success(token))
+                case .failure(let error):
+                    result(.failure(error))
+                }
             }
         } catch let error as NSError {
             result(.failure(error))
@@ -256,6 +290,7 @@ extension StravaClient {
                 if let statusCode = response.response?.statusCode, (400..<500).contains(statusCode) {
                     failure(self.generateError(failureReason: "Strava API Error", response: response.response))
                 } else {
+                    self.updateStravaUsage(response: response.response)
                     result(response.result.value)
                 }
             }
@@ -277,6 +312,7 @@ extension StravaClient {
                 if let statusCode = response.response?.statusCode, (400..<500).contains(statusCode) {
                     failure(self.generateError(failureReason: "Strava API Error", response: response.response))
                 } else {
+                    self.updateStravaUsage(response: response.response)
                     result(response.result.value)
                 }
             }
@@ -287,11 +323,19 @@ extension StravaClient {
 
     fileprivate func generateError(failureReason: String, response: HTTPURLResponse?) -> NSError {
         let errorDomain = "com.stravaswift.error"
-        let userInfo = [NSLocalizedFailureReasonErrorKey: failureReason]
+        var userInfo = [NSLocalizedFailureReasonErrorKey: failureReason]
+        userInfo[NSURLErrorKey] = response?.url?.absoluteString ?? "URL Unavailable"
         let code = response?.statusCode ?? 0
         let returnError = NSError(domain: errorDomain, code: code, userInfo: userInfo)
 
         return returnError
+    }
+    
+    fileprivate func updateStravaUsage(response: HTTPURLResponse?) {
+        if #available(iOS 13.0, *) {
+            self.stravaAccessUsage = response?.value(forHTTPHeaderField: "x-ratelimit-usage")?.components(separatedBy: ",").map { Int($0) ?? 0 }
+            self.stravaAccessLimit = response?.value(forHTTPHeaderField: "x-ratelimit-limit")?.components(separatedBy: ",").map { Int($0) ?? 0 }
+        }
     }
 
 }

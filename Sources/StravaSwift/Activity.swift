@@ -57,6 +57,7 @@ public final class Activity: Strava {
     public let flagged: Bool?
     public let workoutType: WorkoutType?
     public let gear: Gear?
+    public let gearID: String?
     public let averageSpeed: Speed?
     public let maxSpeed: Speed?
     public let calories: Double?
@@ -113,6 +114,7 @@ public final class Activity: Strava {
         flagged = json["flagged"].bool
         workoutType = json["workout_type"].strava(WorkoutType.self)
         gear = json["gear"].strava(Gear.self)
+        gearID = json["gear_id"].string
         averageSpeed = json["average_speed"].double
         maxSpeed = json["max_speed"].double
         calories = json["calories"].double
