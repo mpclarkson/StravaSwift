@@ -207,13 +207,19 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
      - Parameter code: the code (string) returned from strava
      - Parameter result: a closure to handle the OAuthToken
      **/
+    // Edited to check response before force unwrap of the token as errors cause crash
     private func getAccessToken(_ code: String, result: @escaping AuthorizationHandler) {
         do {
             try oauthRequest(Router.token(code: code))?.responseStrava { [weak self] (response: DataResponse<OAuthToken>) in
                 guard let self = self else { return }
-                let token = response.result.value!
-                self.config?.delegate.set(token)
-                result(.success(token))
+                switch response.result {
+                case .success:
+                    let token = response.result.value!
+                    self.config?.delegate.set(token)
+                    result(.success(token))
+                case .failure(let error):
+                    result(.failure(error))
+                }
             }
         } catch let error as NSError {
             result(.failure(error))
