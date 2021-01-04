@@ -174,6 +174,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
     public func handleAuthorizationRedirect(_ url: URL) -> Bool {
         if let redirectUri = config?.redirectUri, url.absoluteString.starts(with: redirectUri),
            let params = url.getQueryParameters(), params["code"] != nil, params["scope"] != nil, params["state"] == "ios" {
+            self.stravaScope = url.getQueryParameters()?["scope"]?.removingPercentEncoding
             self.handleAuthorizationRedirect(url) { result in
                 if let currentAuthorizationHandler = self.currentAuthorizationHandler {
                     currentAuthorizationHandler(result)
@@ -194,7 +195,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
      **/
     private func handleAuthorizationRedirect(_ url: URL, result: @escaping AuthorizationHandler) {
         if let code = url.getQueryParameters()?["code"] {
-            self.stravaScope = url.getQueryParameters()?["scope"]
+            self.stravaScope = url.getQueryParameters()?["scope"]?.removingPercentEncoding
             self.getAccessToken(code, result: result)
         } else {
             result(.failure(generateError(failureReason: "Invalid authorization code", response: nil)))
