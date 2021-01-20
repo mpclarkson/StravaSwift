@@ -1,25 +1,19 @@
-//
-//  StravaClientError.swift
-//  StravaSwift
-//
-//  Created by Matthew on 11/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// StravaClientError.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 
 /**
  StravaClientError Enum
-*/
+ */
 public enum StravaClientError: Error {
-
     /**
-     The OAuthCredentials are invalid
-    **/
+      The OAuthCredentials are invalid
+     **/
     case invalidCredentials
 
     /**
-     Uknown error
-    **/
+      Uknown error
+     **/
     case unknown
 }

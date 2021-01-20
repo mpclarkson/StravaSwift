@@ -1,26 +1,5 @@
-//
-//  Result.swift
-//
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  THE SOFTWARE.
-//
+// Result.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 
@@ -53,7 +32,7 @@ public enum Result<Value> {
     /// Returns the associated value if the result is a success, `nil` otherwise.
     public var value: Value? {
         switch self {
-        case .success(let value):
+        case let .success(value):
             return value
         case .failure:
             return nil
@@ -65,7 +44,7 @@ public enum Result<Value> {
         switch self {
         case .success:
             return nil
-        case .failure(let error):
+        case let .failure(error):
             return error
         }
     }
@@ -93,9 +72,9 @@ extension Result: CustomDebugStringConvertible {
     /// success or failure in addition to the value or error.
     public var debugDescription: String {
         switch self {
-        case .success(let value):
+        case let .success(value):
             return "SUCCESS: \(value)"
-        case .failure(let error):
+        case let .failure(error):
             return "FAILURE: \(error)"
         }
     }
@@ -103,7 +82,7 @@ extension Result: CustomDebugStringConvertible {
 
 // MARK: - Functional APIs
 
-extension Result {
+public extension Result {
     /// Creates a `Result` instance from the result of a closure.
     ///
     /// A failure result is created when the closure throws, and a success result is created when the closure
@@ -122,7 +101,7 @@ extension Result {
     ///     let result = Result { try someString() }
     ///
     /// - parameter value: The closure to execute and create the result for.
-    public init(value: () throws -> Value) {
+    init(value: () throws -> Value) {
         do {
             self = try .success(value())
         } catch {
@@ -139,11 +118,11 @@ extension Result {
     ///     let noString: Result<String> = .failure(error)
     ///     try print(noString.unwrap())
     ///     // Throws error
-    public func unwrap() throws -> Value {
+    func unwrap() throws -> Value {
         switch self {
-        case .success(let value):
+        case let .success(value):
             return value
-        case .failure(let error):
+        case let .failure(error):
             throw error
         }
     }
@@ -166,11 +145,11 @@ extension Result {
     ///
     /// - returns: A `Result` containing the result of the given closure. If this instance is a failure, returns the
     ///            same failure.
-    public func map<T>(_ transform: (Value) -> T) -> Result<T> {
+    func map<T>(_ transform: (Value) -> T) -> Result<T> {
         switch self {
-        case .success(let value):
+        case let .success(value):
             return .success(transform(value))
-        case .failure(let error):
+        case let .failure(error):
             return .failure(error)
         }
     }
@@ -188,15 +167,15 @@ extension Result {
     ///
     /// - returns: A `Result` containing the result of the given closure. If this instance is a failure, returns the
     ///            same failure.
-    public func flatMap<T>(_ transform: (Value) throws -> T) -> Result<T> {
+    func flatMap<T>(_ transform: (Value) throws -> T) -> Result<T> {
         switch self {
-        case .success(let value):
+        case let .success(value):
             do {
                 return try .success(transform(value))
             } catch {
                 return .failure(error)
             }
-        case .failure(let error):
+        case let .failure(error):
             return .failure(error)
         }
     }
@@ -211,9 +190,9 @@ extension Result {
     /// - Parameter transform: A closure that takes the error of the instance.
     /// - Returns: A `Result` instance containing the result of the transform. If this instance is a success, returns
     ///            the same instance.
-    public func mapError<T: Error>(_ transform: (Error) -> T) -> Result {
+    func mapError<T: Error>(_ transform: (Error) -> T) -> Result {
         switch self {
-        case .failure(let error):
+        case let .failure(error):
             return .failure(transform(error))
         case .success:
             return self
@@ -233,9 +212,9 @@ extension Result {
     ///
     /// - Returns: A `Result` instance containing the result of the transform. If this instance is a success, returns
     ///            the same instance.
-    public func flatMapError<T: Error>(_ transform: (Error) throws -> T) -> Result {
+    func flatMapError<T: Error>(_ transform: (Error) throws -> T) -> Result {
         switch self {
-        case .failure(let error):
+        case let .failure(error):
             do {
                 return try .failure(transform(error))
             } catch {
@@ -253,7 +232,7 @@ extension Result {
     /// - Parameter closure: A closure that takes the success value of this instance.
     /// - Returns: This `Result` instance, unmodified.
     @discardableResult
-    public func withValue(_ closure: (Value) throws -> Void) rethrows -> Result {
+    func withValue(_ closure: (Value) throws -> Void) rethrows -> Result {
         if case let .success(value) = self { try closure(value) }
 
         return self
@@ -266,7 +245,7 @@ extension Result {
     /// - Parameter closure: A closure that takes the success value of this instance.
     /// - Returns: This `Result` instance, unmodified.
     @discardableResult
-    public func withError(_ closure: (Error) throws -> Void) rethrows -> Result {
+    func withError(_ closure: (Error) throws -> Void) rethrows -> Result {
         if case let .failure(error) = self { try closure(error) }
 
         return self
@@ -279,7 +258,7 @@ extension Result {
     /// - Parameter closure: A `Void` closure.
     /// - Returns: This `Result` instance, unmodified.
     @discardableResult
-    public func ifSuccess(_ closure: () throws -> Void) rethrows -> Result {
+    func ifSuccess(_ closure: () throws -> Void) rethrows -> Result {
         if isSuccess { try closure() }
 
         return self
@@ -292,7 +271,7 @@ extension Result {
     /// - Parameter closure: A `Void` closure.
     /// - Returns: This `Result` instance, unmodified.
     @discardableResult
-    public func ifFailure(_ closure: () throws -> Void) rethrows -> Result {
+    func ifFailure(_ closure: () throws -> Void) rethrows -> Result {
         if isFailure { try closure() }
 
         return self

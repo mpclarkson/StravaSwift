@@ -1,10 +1,5 @@
-//
-//  StringExtensions.swift
-//  StravaSwift
-//
-//  Created by MATTHEW CLARKSON on 23/05/2016.
-//  Copyright © 2016 Matthew Clarkson. All rights reserved.
-//
+// StringExtensions.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 

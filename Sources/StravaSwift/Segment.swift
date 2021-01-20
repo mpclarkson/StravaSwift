@@ -1,10 +1,5 @@
-//
-//  Segment.swift
-//  StravaSwift
-//
-//  Created by Matthew on 11/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// Segment.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
@@ -12,7 +7,8 @@ import SwiftyJSON
 /**
   Segments are specific sections of road. Athletes’ times are compared on these segments and leaderboards are created.
  **/
-public final class Segment: Strava {
+public struct Segment: Strava, Hashable {
+    
     public let id: Int?
     public let name: String?
     public let descr: String?
@@ -46,7 +42,7 @@ public final class Segment: Strava {
      - Parameter json: SwiftyJSON object
      - Internal
      **/
-    required public init(_ json: JSON) {
+    public init(_ json: JSON) {
         id = json["id"].int
         resourceState = json["resource_state"].strava(ResourceState.self)
         name = json["name"].string

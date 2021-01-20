@@ -1,10 +1,5 @@
-//
-//  SwiftJSON.swift
-//  Pods
-//
-//  Created by MATTHEW CLARKSON on 28/05/2016.
-//
-//
+// SwiftyJSON.swift
+// Copyright (c) 2021 Copilot
 
 import SwiftyJSON
 
@@ -15,20 +10,20 @@ extension RawRepresentable {
     }
 }
 
-extension JSON  {
-    public func strava<T: Strava>(_ type: T.Type?) -> T? {
-        return type?.init(self)
+public extension JSON {
+    func strava<T: Strava>(_ type: T.Type?) -> T? {
+        type?.init(self)
     }
 
-    public func strava<T: RawRepresentable>(_ type: T.Type?) -> T? where T.RawValue == Int {
-        return type?.init(optionalRawValue: self.int)
+    func strava<T: RawRepresentable>(_ type: T.Type?) -> T? where T.RawValue == Int {
+        type?.init(optionalRawValue: int)
     }
 
-    public func strava<T: RawRepresentable>(_ type: T.Type?) -> T? where T.RawValue == String {
-        return type?.init(optionalRawValue: self.string)
+    func strava<T: RawRepresentable>(_ type: T.Type?) -> T? where T.RawValue == String {
+        type?.init(optionalRawValue: string)
     }
 
-    public func strava<T: Strava>(_ type: T.Type?) -> [T]? {
-        return self.arrayValue.compactMap  { T($0) }
+    func strava<T: Strava>(_: T.Type?) -> [T]? {
+        arrayValue.compactMap { T($0) }
     }
 }

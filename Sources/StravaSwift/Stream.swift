@@ -1,10 +1,5 @@
-//
-//  Stream.swift
-//  StravaSwift
-//
-//  Created by Matthew on 11/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// Stream.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
@@ -14,7 +9,7 @@ import SwiftyJSON
  **/
 public struct Stream: Strava {
     public let type: StreamType?
-    public let data: [Any]?
+    public let data: Data?
     public let seriesType: String?
     public let originalSize: Int?
     public let resolution: ResolutionType?
@@ -27,9 +22,9 @@ public struct Stream: Strava {
      **/
     public init(_ json: JSON) {
         type = json["type"].strava(StreamType.self)
-        data = json["data"].arrayObject
+        data = try? json["data"].rawData()
         seriesType = json["series_type"].string
         originalSize = json["original_size"].int
-        resolution  = json["resolution"].strava(ResolutionType.self)
+        resolution = json["resolution"].strava(ResolutionType.self)
     }
 }

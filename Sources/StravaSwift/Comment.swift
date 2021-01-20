@@ -1,10 +1,5 @@
-//
-//  Comment.swift
-//  StravaSwift
-//
-//  Created by Matthew on 24/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// Comment.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
@@ -13,7 +8,7 @@ import SwiftyJSON
  Comments on an activity can be viewed by any user. However, only internal applications are allowed to create or delete them.
  Comment posting can be enabled on a per application basis, email developers@strava.com for more information.
  **/
-public final class Comment: Strava {
+public struct Comment: Strava {
     public let id: Int?
     public let resourceState: ResourceState?
     public let activityId: Int?
@@ -27,7 +22,7 @@ public final class Comment: Strava {
      - Parameter json: SwiftyJSON object
      - Internal
      **/
-    required public init(_ json: JSON) {
+    public init(_ json: JSON) {
         id = json["id"].int
         resourceState = json["resource_state"].strava(ResourceState.self)
         activityId = json["activity_id"].int

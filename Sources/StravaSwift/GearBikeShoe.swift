@@ -1,29 +1,24 @@
-//
-//  Gear.swift
-//  StravaSwift
-//
-//  Created by Matthew on 15/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// GearBikeShoe.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
 
-public protocol Gearable: Strava, Codable, Equatable {
-    var id: String? { get set}
-    var primary: Bool? { get set}
-    var name: String? { get set}
-    var description: String? { get set}
-    var resourceState: ResourceState? { get set}
-    var distance: Double? { get set}
-    var brandName: String? { get set}
-    var modelName: String? { get set}
+public protocol Gearable: Strava, Codable {
+    var id: String? { get set }
+    var primary: Bool? { get set }
+    var name: String? { get set }
+    var description: String? { get set }
+    var resourceState: ResourceState? { get set }
+    var distance: Double? { get set }
+    var brandName: String? { get set }
+    var modelName: String? { get set }
 }
 
 /**
  Gear represents equipment used during an activity. The object is returned in summary or detailed representations.
  **/
-public struct Gear: Strava, Gearable {
+public struct Gear: Strava, Gearable, Hashable {
     public var id: String?
     public var primary: Bool?
     public var name: String?
@@ -54,23 +49,23 @@ public struct Gear: Strava, Gearable {
 /**
  Shoe represents shoes worn on a run. The object is returned in summary or detailed representations.
  **/
-public struct Shoe: Gearable {
+public struct Shoe: Gearable, Equatable, Hashable {
     public var id: String?
-    
+
     public var primary: Bool?
-    
+
     public var name: String?
-    
+
     public var description: String?
-    
+
     public var resourceState: ResourceState?
-    
+
     public var distance: Double?
-    
+
     public var brandName: String?
-    
+
     public var modelName: String?
-    
+
     /**
      Initializer
 
@@ -92,28 +87,28 @@ public struct Shoe: Gearable {
 /**
  Bike represents a... bike!  The object is returned in summary or detailed representations.
  **/
-public struct Bike: Gearable {
+public struct Bike: Gearable, Equatable, Hashable {
     public var id: String?
-    
+
     public var primary: Bool?
-    
+
     public var name: String?
-    
+
     public var description: String?
-    
+
     public var resourceState: ResourceState?
-    
+
     public var distance: Double?
-    
+
     public var brandName: String?
-    
+
     public var modelName: String?
-    
+
     public let frameType: FrameType?
-    
+
     /**
      Initializer
-     
+
      - Parameter json: SwiftyJSON object
      - Internal
      **/
@@ -128,5 +123,4 @@ public struct Bike: Gearable {
         modelName = json["model_name"].string
         frameType = json["frame_type"].strava(FrameType.self)
     }
-    
 }

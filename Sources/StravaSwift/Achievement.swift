@@ -1,10 +1,5 @@
-//
-//  Achievement.swift
-//  StravaSwift
-//
-//  Created by Matthew on 24/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// Achievement.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON

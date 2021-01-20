@@ -1,10 +1,5 @@
-//
-//  Location.swift
-//  StravaSwift
-//
-//  Created by MATTHEW CLARKSON on 23/05/2016.
-//  Copyright © 2016 Matthew Clarkson. All rights reserved.
-//
+// Location.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
@@ -12,7 +7,7 @@ import SwiftyJSON
 /**
     Represents the latitude and longitude of a point
  **/
-public struct Location: Strava {
+public struct Location: Strava, Hashable {
     public let lat: Double?
     public let lng: Double?
 
@@ -24,7 +19,7 @@ public struct Location: Strava {
      **/
     public init(_ json: JSON) {
         let points = json.arrayValue
-        self.lat = points.first?.double
-        self.lng = points.last?.double
+        lat = points.first?.double
+        lng = points.last?.double
     }
 }

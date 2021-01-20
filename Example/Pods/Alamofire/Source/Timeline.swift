@@ -1,26 +1,5 @@
-//
-//  Timeline.swift
-//
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  THE SOFTWARE.
-//
+// Timeline.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 
@@ -64,17 +43,17 @@ public struct Timeline {
         requestStartTime: CFAbsoluteTime = 0.0,
         initialResponseTime: CFAbsoluteTime = 0.0,
         requestCompletedTime: CFAbsoluteTime = 0.0,
-        serializationCompletedTime: CFAbsoluteTime = 0.0)
-    {
+        serializationCompletedTime: CFAbsoluteTime = 0.0
+    ) {
         self.requestStartTime = requestStartTime
         self.initialResponseTime = initialResponseTime
         self.requestCompletedTime = requestCompletedTime
         self.serializationCompletedTime = serializationCompletedTime
 
-        self.latency = initialResponseTime - requestStartTime
-        self.requestDuration = requestCompletedTime - requestStartTime
-        self.serializationDuration = serializationCompletedTime - requestCompletedTime
-        self.totalDuration = serializationCompletedTime - requestStartTime
+        latency = initialResponseTime - requestStartTime
+        requestDuration = requestCompletedTime - requestStartTime
+        serializationDuration = serializationCompletedTime - requestCompletedTime
+        totalDuration = serializationCompletedTime - requestStartTime
     }
 }
 
@@ -95,7 +74,7 @@ extension Timeline: CustomStringConvertible {
             "\"Latency\": " + latency + " secs",
             "\"Request Duration\": " + requestDuration + " secs",
             "\"Serialization Duration\": " + serializationDuration + " secs",
-            "\"Total Duration\": " + totalDuration + " secs"
+            "\"Total Duration\": " + totalDuration + " secs",
         ]
 
         return "Timeline: { " + timings.joined(separator: ", ") + " }"
@@ -128,7 +107,7 @@ extension Timeline: CustomDebugStringConvertible {
             "\"Latency\": " + latency + " secs",
             "\"Request Duration\": " + requestDuration + " secs",
             "\"Serialization Duration\": " + serializationDuration + " secs",
-            "\"Total Duration\": " + totalDuration + " secs"
+            "\"Total Duration\": " + totalDuration + " secs",
         ]
 
         return "Timeline: { " + timings.joined(separator: ", ") + " }"

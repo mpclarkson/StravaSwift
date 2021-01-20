@@ -1,10 +1,5 @@
-//
-//  Activity.swift
-//  StravaSwift
-//
-//  Created by Matthew on 11/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// Activity.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
@@ -18,8 +13,7 @@ import SwiftyJSON
  By default, only “important” efforts are included. “Importance” is based on a number of factors and its value may change over time.
 
  **/
-public final class Activity: Strava {
-
+public struct Activity: Strava, Hashable {
     public typealias Speed = Double
     public typealias Count = Int
 
@@ -33,8 +27,8 @@ public final class Activity: Strava {
     public let distance: Double?
     public let movingTime: TimeInterval?
     public let elapsedTime: TimeInterval?
-    public let highElevation : Double?
-    public let lowElevation : Double?
+    public let highElevation: Double?
+    public let lowElevation: Double?
     public let totalElevationGain: Double?
     public let type: ActivityType?
     public let startDate: Date?
@@ -66,13 +60,12 @@ public final class Activity: Strava {
     public let splitsStandard: [Split]?
     public let bestEfforts: [Split]?
     public let kiloJoules: Double?
-    public let averagePower : Double?
-    public let maxPower : Double?
-    public let deviceWatts : Bool?
-    public let hasHeartRate : Bool?
-    public let averageHeartRate : Double?
-    public let maxHeartRate : Double?
-
+    public let averagePower: Double?
+    public let maxPower: Double?
+    public let deviceWatts: Bool?
+    public let hasHeartRate: Bool?
+    public let averageHeartRate: Double?
+    public let maxHeartRate: Double?
 
     /**
      Initializer
@@ -80,7 +73,7 @@ public final class Activity: Strava {
      - Parameter json: SwiftyJSON object
      - Internal
      **/
-    required public init(_ json: JSON) {
+    public init(_ json: JSON) {
         id = json["id"].int
         resourceState = json["resource_state"].strava(ResourceState.self)
         externalId = json["external_id"].string
@@ -134,10 +127,10 @@ public final class Activity: Strava {
 }
 
 // MetaActivity is used by Effort to hold unique Activity ID
-public final class MetaActivity: Strava {
+public struct MetaActivity: Strava, Hashable {
     public let id: Int?
 
-    required public init(_ json: JSON) {
+    public init(_ json: JSON) {
         id = json["id"].int
     }
 }

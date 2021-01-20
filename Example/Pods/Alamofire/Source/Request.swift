@@ -1,26 +1,5 @@
-//
-//  Request.swift
-//
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  THE SOFTWARE.
-//
+// Request.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 
@@ -71,7 +50,6 @@ public typealias HTTPHeaders = [String: String]
 /// Responsible for sending a request and receiving the response and associated data from the server, as well as
 /// managing its underlying `URLSessionTask`.
 open class Request {
-
     // MARK: Helper Types
 
     /// A closure executed when monitoring upload or download progress of a request.
@@ -89,11 +67,11 @@ open class Request {
     /// The delegate for the underlying task.
     open internal(set) var delegate: TaskDelegate {
         get {
-            taskDelegateLock.lock() ; defer { taskDelegateLock.unlock() }
+            taskDelegateLock.lock(); defer { taskDelegateLock.unlock() }
             return taskDelegate
         }
         set {
-            taskDelegateLock.lock() ; defer { taskDelegateLock.unlock() }
+            taskDelegateLock.lock(); defer { taskDelegateLock.unlock() }
             taskDelegate = newValue
         }
     }
@@ -129,16 +107,16 @@ open class Request {
         self.session = session
 
         switch requestTask {
-        case .data(let originalTask, let task):
+        case let .data(originalTask, task):
             taskDelegate = DataTaskDelegate(task: task)
             self.originalTask = originalTask
-        case .download(let originalTask, let task):
+        case let .download(originalTask, task):
             taskDelegate = DownloadTaskDelegate(task: task)
             self.originalTask = originalTask
-        case .upload(let originalTask, let task):
+        case let .upload(originalTask, task):
             taskDelegate = UploadTaskDelegate(task: task)
             self.originalTask = originalTask
-        case .stream(let originalTask, let task):
+        case let .stream(originalTask, task):
             taskDelegate = TaskDelegate(task: task)
             self.originalTask = originalTask
         }
@@ -160,7 +138,8 @@ open class Request {
     open func authenticate(
         user: String,
         password: String,
-        persistence: URLCredential.Persistence = .forSession)
+        persistence: URLCredential.Persistence = .forSession
+    )
         -> Self
     {
         let credential = URLCredential(user: user, password: password, persistence: persistence)
@@ -196,7 +175,7 @@ open class Request {
 
     /// Resumes the request.
     open func resume() {
-        guard let task = task else { delegate.queue.isSuspended = false ; return }
+        guard let task = task else { delegate.queue.isSuspended = false; return }
 
         if startTime == nil { startTime = CFAbsoluteTimeGetCurrent() }
 
@@ -282,7 +261,7 @@ extension Request: CustomDebugStringConvertible {
             components.append("-X \(httpMethod)")
         }
 
-        if let credentialStorage = self.session.configuration.urlCredentialStorage {
+        if let credentialStorage = session.configuration.urlCredentialStorage {
             let protectionSpace = URLProtectionSpace(
                 host: host,
                 port: url.port ?? 0,
@@ -310,21 +289,21 @@ extension Request: CustomDebugStringConvertible {
             {
                 let string = cookies.reduce("") { $0 + "\($1.name)=\($1.value);" }
 
-            #if swift(>=3.2)
-                components.append("-b \"\(string[..<string.index(before: string.endIndex)])\"")
-            #else
-                components.append("-b \"\(string.substring(to: string.characters.index(before: string.endIndex)))\"")
-            #endif
+                #if swift(>=3.2)
+                    components.append("-b \"\(string[..<string.index(before: string.endIndex)])\"")
+                #else
+                    components.append("-b \"\(string.substring(to: string.characters.index(before: string.endIndex)))\"")
+                #endif
             }
         }
 
         var headers: [AnyHashable: Any] = [:]
 
-        session.configuration.httpAdditionalHeaders?.filter {  $0.0 != AnyHashable("Cookie") }
-                                                    .forEach { headers[$0.0] = $0.1 }
+        session.configuration.httpAdditionalHeaders?.filter { $0.0 != AnyHashable("Cookie") }
+            .forEach { headers[$0.0] = $0.1 }
 
         request.allHTTPHeaderFields?.filter { $0.0 != "Cookie" }
-                                    .forEach { headers[$0.0] = $0.1 }
+            .forEach { headers[$0.0] = $0.1 }
 
         components += headers.map {
             let escapedValue = String(describing: $0.value).replacingOccurrences(of: "\"", with: "\\\"")
@@ -349,7 +328,6 @@ extension Request: CustomDebugStringConvertible {
 
 /// Specific type of `Request` that manages an underlying `URLSessionDataTask`.
 open class DataRequest: Request {
-
     // MARK: Helper Types
 
     struct Requestable: TaskConvertible {
@@ -368,7 +346,7 @@ open class DataRequest: Request {
     // MARK: Properties
 
     /// The request sent or to be sent to the server.
-    open override var request: URLRequest? {
+    override open var request: URLRequest? {
         if let request = super.request { return request }
         if let requestable = originalTask as? Requestable { return requestable.urlRequest }
 
@@ -416,7 +394,6 @@ open class DataRequest: Request {
 
 /// Specific type of `Request` that manages an underlying `URLSessionDownloadTask`.
 open class DownloadRequest: Request {
-
     // MARK: Helper Types
 
     /// A collection of options to be executed prior to moving a downloaded file from the temporary URL to the
@@ -447,7 +424,8 @@ open class DownloadRequest: Request {
     /// the options defining how the file should be moved.
     public typealias DownloadFileDestination = (
         _ temporaryURL: URL,
-        _ response: HTTPURLResponse)
+        _ response: HTTPURLResponse
+    )
         -> (destinationURL: URL, options: DownloadOptions)
 
     enum Downloadable: TaskConvertible {
@@ -476,7 +454,7 @@ open class DownloadRequest: Request {
     // MARK: Properties
 
     /// The request sent or to be sent to the server.
-    open override var request: URLRequest? {
+    override open var request: URLRequest? {
         if let request = super.request { return request }
 
         if let downloadable = originalTask as? Downloadable, case let .request(urlRequest) = downloadable {
@@ -543,7 +521,8 @@ open class DownloadRequest: Request {
     /// - returns: A download file destination closure.
     open class func suggestedDownloadDestination(
         for directory: FileManager.SearchPathDirectory = .documentDirectory,
-        in domain: FileManager.SearchPathDomainMask = .userDomainMask)
+        in domain: FileManager.SearchPathDomainMask = .userDomainMask
+    )
         -> DownloadFileDestination
     {
         return { temporaryURL, response in
@@ -562,7 +541,6 @@ open class DownloadRequest: Request {
 
 /// Specific type of `Request` that manages an underlying `URLSessionUploadTask`.
 open class UploadRequest: DataRequest {
-
     // MARK: Helper Types
 
     enum Uploadable: TaskConvertible {
@@ -596,13 +574,13 @@ open class UploadRequest: DataRequest {
     // MARK: Properties
 
     /// The request sent or to be sent to the server.
-    open override var request: URLRequest? {
+    override open var request: URLRequest? {
         if let request = super.request { return request }
 
         guard let uploadable = originalTask as? Uploadable else { return nil }
 
         switch uploadable {
-        case .data(_, let urlRequest), .file(_, let urlRequest), .stream(_, let urlRequest):
+        case let .data(_, urlRequest), let .file(_, urlRequest), let .stream(_, urlRequest):
             return urlRequest
         }
     }
@@ -635,26 +613,26 @@ open class UploadRequest: DataRequest {
 
 #if !os(watchOS)
 
-/// Specific type of `Request` that manages an underlying `URLSessionStreamTask`.
-@available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
-open class StreamRequest: Request {
-    enum Streamable: TaskConvertible {
-        case stream(hostName: String, port: Int)
-        case netService(NetService)
+    /// Specific type of `Request` that manages an underlying `URLSessionStreamTask`.
+    @available(iOS 9.0, macOS 10.11, tvOS 9.0, *)
+    open class StreamRequest: Request {
+        enum Streamable: TaskConvertible {
+            case stream(hostName: String, port: Int)
+            case netService(NetService)
 
-        func task(session: URLSession, adapter: RequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
-            let task: URLSessionTask
+            func task(session: URLSession, adapter _: RequestAdapter?, queue: DispatchQueue) throws -> URLSessionTask {
+                let task: URLSessionTask
 
-            switch self {
-            case let .stream(hostName, port):
-                task = queue.sync { session.streamTask(withHostName: hostName, port: port) }
-            case let .netService(netService):
-                task = queue.sync { session.streamTask(with: netService) }
+                switch self {
+                case let .stream(hostName, port):
+                    task = queue.sync { session.streamTask(withHostName: hostName, port: port) }
+                case let .netService(netService):
+                    task = queue.sync { session.streamTask(with: netService) }
+                }
+
+                return task
             }
-
-            return task
         }
     }
-}
 
 #endif

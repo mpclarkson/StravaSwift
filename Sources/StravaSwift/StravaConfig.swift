@@ -1,17 +1,12 @@
-//
-//  Client.swift
-//  StravaSwift
-//
-//  Created by Matthew on 11/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// StravaConfig.swift
+// Copyright (c) 2021 Copilot
 
 /**
   OAuth scope
  */
 public enum Scope: String {
     /** Default: Read public segments, public routes, public profile data, public posts, public events, club feeds, and leaderboards **/
-    case read = "read"
+    case read
     /** Read private routes, private segments, and private events for the user **/
     case readAll = "read_all"
     /** Read all profile information even if the user has set their profile visibility to Followers or Only You **/
@@ -30,7 +25,6 @@ public enum Scope: String {
   Strava configuration struct which should be passed to the StravaClient.sharedInstance.initWithConfig(_:) method
  **/
 public struct StravaConfig {
-
     /** The application's Id **/
     public let clientId: Int
     /** The application's Secrent **/
@@ -59,7 +53,8 @@ public struct StravaConfig {
                 redirectUri: String,
                 scopes: [Scope] = [.read],
                 delegate: TokenDelegate? = nil,
-                forcePrompt: Bool = true) {
+                forcePrompt: Bool = true)
+    {
         self.clientId = clientId
         self.clientSecret = clientSecret
         self.redirectUri = redirectUri

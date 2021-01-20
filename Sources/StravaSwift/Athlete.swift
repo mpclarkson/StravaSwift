@@ -1,10 +1,5 @@
-//
-//  Athelete.swift
-//  StravaSwift
-//
-//  Created by Matthew on 11/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// Athlete.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
@@ -12,7 +7,7 @@ import SwiftyJSON
 /**
   Athletes are Strava users, Strava users are athletes. The object is returned in detailed, summary or meta representations.
  **/
-public struct Athlete: Strava, Codable, Equatable {
+public struct Athlete: Strava, Codable, Hashable {
     public let id: Int?
     public let resourceState: ResourceState?
     public let firstname: String?
@@ -25,7 +20,7 @@ public struct Athlete: Strava, Codable, Equatable {
     public let sex: Sex?
     public let friend: FollowingStatus?
     public let follower: FollowingStatus?
-    public let premium:Bool?
+    public let premium: Bool?
     public let createdAt: Date?
     public let updatedAt: Date?
     public let friendCount: Int?

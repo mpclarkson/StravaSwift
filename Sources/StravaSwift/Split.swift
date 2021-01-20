@@ -1,10 +1,5 @@
-//
-//  Split.swift
-//  StravaSwift
-//
-//  Created by Matthew on 24/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// Split.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
@@ -12,7 +7,7 @@ import SwiftyJSON
 /**
  Represents a summary of a split
  **/
-public struct Split: Strava {
+public struct Split: Strava, Hashable {
     public let distance: Double?
     public let elapsedTime: Int?
     public let movingTime: Int?
@@ -32,5 +27,4 @@ public struct Split: Strava {
         elevationDifference = json["elevation_difference"].int
         split = json["split"].int
     }
-
 }

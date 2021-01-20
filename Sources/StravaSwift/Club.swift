@@ -1,10 +1,5 @@
-//
-//  Club.swift
-//  StravaSwift
-//
-//  Created by Matthew on 11/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// Club.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
@@ -12,7 +7,7 @@ import SwiftyJSON
 /**
  Clubs represent groups of athletes on Strava. They can be public or private. The object is returned in summary or detailed representations.
  **/
-public struct Club: Strava, Codable, Equatable {
+public struct Club: Strava, Codable, Equatable, Hashable {
     public let id: Int?
     public let profileMedium: URL?
     public let profile: URL?

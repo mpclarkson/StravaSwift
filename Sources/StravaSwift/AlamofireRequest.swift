@@ -1,61 +1,54 @@
-//
-//  SwiftyJSONRequest.swift
-//  StravaSwift
-//
-//  Created by Matthew on 15/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// AlamofireRequest.swift
+// Copyright (c) 2021 Copilot
 
-import Foundation
 import Alamofire
+import Foundation
 import SwiftyJSON
 
-//MARK: - Methods
+// MARK: - Methods
 
 extension DataRequest {
-
     @discardableResult
     func responseStrava<T: Strava>(_ completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
-        return responseStrava(nil, keyPath: nil, completionHandler: completionHandler)
+        responseStrava(nil, keyPath: nil, completionHandler: completionHandler)
     }
 
     @discardableResult
     func responseStrava<T: Strava>(_ keyPath: String, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
-        return responseStrava(nil, keyPath: keyPath, completionHandler: completionHandler)
+        responseStrava(nil, keyPath: keyPath, completionHandler: completionHandler)
     }
 
     @discardableResult
     func responseStrava<T: Strava>(_ queue: DispatchQueue?, keyPath: String?, completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
-        return response(queue: queue, responseSerializer: DataRequest.StravaSerializer(keyPath), completionHandler: completionHandler)
+        response(queue: queue, responseSerializer: DataRequest.StravaSerializer(keyPath), completionHandler: completionHandler)
     }
 
     @discardableResult
     func responseStravaArray<T: Strava>(_ completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
-        return responseStravaArray(nil, keyPath: nil, completionHandler: completionHandler)
+        responseStravaArray(nil, keyPath: nil, completionHandler: completionHandler)
     }
 
     @discardableResult
     func responseStravaArray<T: Strava>(_ keyPath: String, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
-        return responseStravaArray(nil, keyPath: keyPath, completionHandler: completionHandler)
+        responseStravaArray(nil, keyPath: keyPath, completionHandler: completionHandler)
     }
 
     @discardableResult
     func responseStravaArray<T: Strava>(_ queue: DispatchQueue?, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
-        return responseStravaArray(queue, keyPath: nil, completionHandler: completionHandler)
+        responseStravaArray(queue, keyPath: nil, completionHandler: completionHandler)
     }
 
     @discardableResult
     func responseStravaArray<T: Strava>(_ queue: DispatchQueue?, keyPath: String?, completionHandler: @escaping (DataResponse<[T]>) -> Void) -> Self {
-        return response(queue: queue, responseSerializer: DataRequest.StravaArraySerializer(keyPath), completionHandler: completionHandler)
+        response(queue: queue, responseSerializer: DataRequest.StravaArraySerializer(keyPath), completionHandler: completionHandler)
     }
 }
 
-//MARK: Serializers
+// MARK: Serializers
 
-//TODO: Clean these up so there is no duplication
+// TODO: Clean these up so there is no duplication
 
 extension DataRequest {
-
     typealias SerializeResponse = (URLRequest?, HTTPURLResponse?, Data?, Error?)
 
     fileprivate static func parseResponse(_ info: SerializeResponse) -> (Result<Any>?, Error?) {
@@ -81,8 +74,8 @@ extension DataRequest {
         return returnError
     }
 
-    static func StravaSerializer<T: Strava>(_ keyPath: String?) -> DataResponseSerializer<T> {
-        return DataResponseSerializer { request, response, data, error in
+    static func StravaSerializer<T: Strava>(_: String?) -> DataResponseSerializer<T> {
+        DataResponseSerializer { request, response, data, error in
             let (result, e) = parseResponse((request, response, data, error))
 
             if let e = e {
@@ -90,7 +83,7 @@ extension DataRequest {
             }
 
             if let json = result?.value {
-                let object = T.init(JSON(json))
+                let object = T(JSON(json))
                 return .success(object)
             }
 
@@ -98,8 +91,8 @@ extension DataRequest {
         }
     }
 
-    static func StravaArraySerializer<T: Strava>(_ keyPath: String?) -> DataResponseSerializer<[T]> {
-        return DataResponseSerializer { request, response, data, error in
+    static func StravaArraySerializer<T: Strava>(_: String?) -> DataResponseSerializer<[T]> {
+        DataResponseSerializer { request, response, data, error in
 
             let (result, e) = parseResponse((request, response, data, error))
 
@@ -110,7 +103,7 @@ extension DataRequest {
             if let json = result?.value {
                 var results: [T] = []
                 JSON(json).array?.forEach {
-                    results.append(T.init($0))
+                    results.append(T($0))
                 }
 
                 return .success(results)

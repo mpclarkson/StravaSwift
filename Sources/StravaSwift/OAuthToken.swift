@@ -1,19 +1,13 @@
-//
-//  OAuthToken.swift
-//  StravaSwift
-//
-//  Created by Matthew on 11/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// OAuthToken.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
 
 /**
-OAuthToken which is required for requesting Strava resources
- **/
+ OAuthToken which is required for requesting Strava resources
+  **/
 public struct OAuthToken: Strava, Codable {
-
     /** The access token **/
     public let accessToken: String?
 
@@ -21,7 +15,7 @@ public struct OAuthToken: Strava, Codable {
     public let refreshToken: String?
 
     /** Expiry for the token in seconds since the epoch **/
-    public let expiresAt : Int?
+    public let expiresAt: Int?
 
     /** The athlete **/
     public let athlete: Athlete?
@@ -39,10 +33,9 @@ public struct OAuthToken: Strava, Codable {
     }
 
     public init(access: String?, refresh: String?, expiry: Int?) {
-        self.accessToken = access
-        self.refreshToken = refresh
-        self.expiresAt = expiry
-        self.athlete = nil
+        accessToken = access
+        refreshToken = refresh
+        expiresAt = expiry
+        athlete = nil
     }
-
 }

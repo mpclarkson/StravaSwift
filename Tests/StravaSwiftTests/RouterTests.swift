@@ -1,8 +1,10 @@
+// RouterTests.swift
+// Copyright (c) 2021 Copilot
+
 import XCTest
 @testable import StravaSwift
 
 final class RouterTests: XCTestCase {
-
     let baseApiUrl = "https://www.strava.com/api/v3"
 
     func testAthleteRequest() {

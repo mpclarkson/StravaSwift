@@ -1,16 +1,11 @@
-//
-//  DefaultTokenDelegate.swift
-//  Pods
-//
-//  Created by MATTHEW CLARKSON on 24/05/2016.
-//
-//
+// DefaultTokenDelegate.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 
 /**
- The default token delegate. You should replace this with something that persists the token (e.g. to NSUserDefaults)
-**/
+  The default token delegate. You should replace this with something that persists the token (e.g. to NSUserDefaults)
+ **/
 open class DefaultTokenDelegate: TokenDelegate {
     fileprivate var token: OAuthToken?
 
@@ -20,7 +15,7 @@ open class DefaultTokenDelegate: TokenDelegate {
      - Returns: a optional OAuthToken
      **/
     open func get() -> OAuthToken? {
-        return token
+        token
     }
 
     /**

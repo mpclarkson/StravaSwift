@@ -1,17 +1,12 @@
-//
-//  Route.swift
-//  Pods
-//
-//  Created by MATTHEW CLARKSON on 25/05/2016.
-//
-//
+// Route.swift
+// Copyright (c) 2021 Copilot
 
 import SwiftyJSON
 
 /**
  Routes are manually-created paths made up of sections called legs.
  **/
-public final class Route: Strava {
+public struct Route: Strava {
     public let id: Int?
     public let resourceState: ResourceState?
     public let name: String?
@@ -33,7 +28,7 @@ public final class Route: Strava {
      - Parameter json: SwiftyJSON object
      - Internal
      **/
-    required public init(_ json: JSON) {
+    public init(_ json: JSON) {
         id = json["id"].int
         resourceState = json["resource_state"].strava(ResourceState.self)
         name = json["name"].string
