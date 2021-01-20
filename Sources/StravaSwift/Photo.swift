@@ -1,10 +1,5 @@
-//
-//  Photo.swift
-//  StravaSwift
-//
-//  Created by MATTHEW CLARKSON on 23/05/2016.
-//  Copyright © 2016 Matthew Clarkson. All rights reserved.
-//
+// Photo.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
@@ -12,7 +7,7 @@ import SwiftyJSON
 /**
  Photos are objects associated with an activity. Currently, the only external photo source is Instagram. Photos can also be stored on Strava - these photos are referred to as “native”.
  **/
-public final class Photo: Strava {
+public struct Photo: Strava, Hashable {
     public let id: Int?
     public let uniqueId: String?
     public let activityId: Int?
@@ -33,7 +28,7 @@ public final class Photo: Strava {
      - Parameter json: SwiftyJSON object
      - Internal
      **/
-    required public init(_ json: JSON) {
+    public init(_ json: JSON) {
         id = json["id"].int
         resourceState = json["resource_state"].strava(ResourceState.self)
         uniqueId = json["unique_id"].string

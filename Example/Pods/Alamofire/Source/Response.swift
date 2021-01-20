@@ -1,26 +1,5 @@
-//
-//  Response.swift
-//
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  THE SOFTWARE.
-//
+// Response.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 
@@ -58,8 +37,8 @@ public struct DefaultDataResponse {
         data: Data?,
         error: Error?,
         timeline: Timeline = Timeline(),
-        metrics: AnyObject? = nil)
-    {
+        metrics _: AnyObject? = nil
+    ) {
         self.request = request
         self.response = response
         self.data = data
@@ -109,8 +88,8 @@ public struct DataResponse<Value> {
         response: HTTPURLResponse?,
         data: Data?,
         result: Result<Value>,
-        timeline: Timeline = Timeline())
-    {
+        timeline: Timeline = Timeline()
+    ) {
         self.request = request
         self.response = response
         self.data = data
@@ -145,7 +124,7 @@ extension DataResponse: CustomStringConvertible, CustomDebugStringConvertible {
 
 // MARK: -
 
-extension DataResponse {
+public extension DataResponse {
     /// Evaluates the specified closure when the result of this `DataResponse` is a success, passing the unwrapped
     /// result value as a parameter.
     ///
@@ -158,7 +137,7 @@ extension DataResponse {
     ///
     /// - returns: A `DataResponse` whose result wraps the value returned by the given closure. If this instance's
     ///            result is a failure, returns a response wrapping the same failure.
-    public func map<T>(_ transform: (Value) -> T) -> DataResponse<T> {
+    func map<T>(_ transform: (Value) -> T) -> DataResponse<T> {
         var response = DataResponse<T>(
             request: request,
             response: self.response,
@@ -186,7 +165,7 @@ extension DataResponse {
     ///
     /// - returns: A success or failure `DataResponse` depending on the result of the given closure. If this instance's
     ///            result is a failure, returns the same failure.
-    public func flatMap<T>(_ transform: (Value) throws -> T) -> DataResponse<T> {
+    func flatMap<T>(_ transform: (Value) throws -> T) -> DataResponse<T> {
         var response = DataResponse<T>(
             request: request,
             response: self.response,
@@ -209,7 +188,7 @@ extension DataResponse {
     ///
     /// - Parameter transform: A closure that takes the error of the instance.
     /// - Returns: A `DataResponse` instance containing the result of the transform.
-    public func mapError<E: Error>(_ transform: (Error) -> E) -> DataResponse {
+    func mapError<E: Error>(_ transform: (Error) -> E) -> DataResponse {
         var response = DataResponse(
             request: request,
             response: self.response,
@@ -235,7 +214,7 @@ extension DataResponse {
     /// - Parameter transform: A throwing closure that takes the error of the instance.
     ///
     /// - Returns: A `DataResponse` instance containing the result of the transform.
-    public func flatMapError<E: Error>(_ transform: (Error) throws -> E) -> DataResponse {
+    func flatMapError<E: Error>(_ transform: (Error) throws -> E) -> DataResponse {
         var response = DataResponse(
             request: request,
             response: self.response,
@@ -296,8 +275,8 @@ public struct DefaultDownloadResponse {
         resumeData: Data?,
         error: Error?,
         timeline: Timeline = Timeline(),
-        metrics: AnyObject? = nil)
-    {
+        metrics _: AnyObject? = nil
+    ) {
         self.request = request
         self.response = response
         self.temporaryURL = temporaryURL
@@ -359,8 +338,8 @@ public struct DownloadResponse<Value> {
         destinationURL: URL?,
         resumeData: Data?,
         result: Result<Value>,
-        timeline: Timeline = Timeline())
-    {
+        timeline: Timeline = Timeline()
+    ) {
         self.request = request
         self.response = response
         self.temporaryURL = temporaryURL
@@ -400,7 +379,7 @@ extension DownloadResponse: CustomStringConvertible, CustomDebugStringConvertibl
 
 // MARK: -
 
-extension DownloadResponse {
+public extension DownloadResponse {
     /// Evaluates the given closure when the result of this `DownloadResponse` is a success, passing the unwrapped
     /// result value as a parameter.
     ///
@@ -413,7 +392,7 @@ extension DownloadResponse {
     ///
     /// - returns: A `DownloadResponse` whose result wraps the value returned by the given closure. If this instance's
     ///            result is a failure, returns a response wrapping the same failure.
-    public func map<T>(_ transform: (Value) -> T) -> DownloadResponse<T> {
+    func map<T>(_ transform: (Value) -> T) -> DownloadResponse<T> {
         var response = DownloadResponse<T>(
             request: request,
             response: self.response,
@@ -443,7 +422,7 @@ extension DownloadResponse {
     ///
     /// - returns: A success or failure `DownloadResponse` depending on the result of the given closure. If this
     /// instance's result is a failure, returns the same failure.
-    public func flatMap<T>(_ transform: (Value) throws -> T) -> DownloadResponse<T> {
+    func flatMap<T>(_ transform: (Value) throws -> T) -> DownloadResponse<T> {
         var response = DownloadResponse<T>(
             request: request,
             response: self.response,
@@ -468,7 +447,7 @@ extension DownloadResponse {
     ///
     /// - Parameter transform: A closure that takes the error of the instance.
     /// - Returns: A `DownloadResponse` instance containing the result of the transform.
-    public func mapError<E: Error>(_ transform: (Error) -> E) -> DownloadResponse {
+    func mapError<E: Error>(_ transform: (Error) -> E) -> DownloadResponse {
         var response = DownloadResponse(
             request: request,
             response: self.response,
@@ -496,7 +475,7 @@ extension DownloadResponse {
     /// - Parameter transform: A throwing closure that takes the error of the instance.
     ///
     /// - Returns: A `DownloadResponse` instance containing the result of the transform.
-    public func flatMapError<E: Error>(_ transform: (Error) throws -> E) -> DownloadResponse {
+    func flatMapError<E: Error>(_ transform: (Error) throws -> E) -> DownloadResponse {
         var response = DownloadResponse(
             request: request,
             response: self.response,
@@ -536,32 +515,32 @@ extension Response {
 
 @available(iOS 10.0, macOS 10.12, tvOS 10.0, *)
 extension DefaultDataResponse: Response {
-#if !os(watchOS)
-    /// The task metrics containing the request / response statistics.
-    public var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
-#endif
+    #if !os(watchOS)
+        /// The task metrics containing the request / response statistics.
+        public var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
+    #endif
 }
 
 @available(iOS 10.0, macOS 10.12, tvOS 10.0, *)
 extension DataResponse: Response {
-#if !os(watchOS)
-    /// The task metrics containing the request / response statistics.
-    public var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
-#endif
+    #if !os(watchOS)
+        /// The task metrics containing the request / response statistics.
+        public var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
+    #endif
 }
 
 @available(iOS 10.0, macOS 10.12, tvOS 10.0, *)
 extension DefaultDownloadResponse: Response {
-#if !os(watchOS)
-    /// The task metrics containing the request / response statistics.
-    public var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
-#endif
+    #if !os(watchOS)
+        /// The task metrics containing the request / response statistics.
+        public var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
+    #endif
 }
 
 @available(iOS 10.0, macOS 10.12, tvOS 10.0, *)
 extension DownloadResponse: Response {
-#if !os(watchOS)
-    /// The task metrics containing the request / response statistics.
-    public var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
-#endif
+    #if !os(watchOS)
+        /// The task metrics containing the request / response statistics.
+        public var metrics: URLSessionTaskMetrics? { return _metrics as? URLSessionTaskMetrics }
+    #endif
 }

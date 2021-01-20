@@ -1,31 +1,9 @@
-//
-//  Validation.swift
-//
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  THE SOFTWARE.
-//
+// Validation.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 
 extension Request {
-
     // MARK: Helper Types
 
     fileprivate typealias ErrorReason = AFError.ResponseValidationFailureReason
@@ -49,11 +27,11 @@ extension Request {
             let components: [String] = {
                 let stripped = string.trimmingCharacters(in: .whitespacesAndNewlines)
 
-            #if swift(>=3.2)
-                let split = stripped[..<(stripped.range(of: ";")?.lowerBound ?? stripped.endIndex)]
-            #else
-                let split = stripped.substring(to: stripped.range(of: ";")?.lowerBound ?? stripped.endIndex)
-            #endif
+                #if swift(>=3.2)
+                    let split = stripped[..<(stripped.range(of: ";")?.lowerBound ?? stripped.endIndex)]
+                #else
+                    let split = stripped.substring(to: stripped.range(of: ";")?.lowerBound ?? stripped.endIndex)
+                #endif
 
                 return split.components(separatedBy: "/")
             }()
@@ -78,7 +56,7 @@ extension Request {
 
     // MARK: Properties
 
-    fileprivate var acceptableStatusCodes: [Int] { return Array(200..<300) }
+    fileprivate var acceptableStatusCodes: [Int] { return Array(200 ..< 300) }
 
     fileprivate var acceptableContentTypes: [String] {
         if let accept = request?.value(forHTTPHeaderField: "Accept") {
@@ -92,7 +70,8 @@ extension Request {
 
     fileprivate func validate<S: Sequence>(
         statusCode acceptableStatusCodes: S,
-        response: HTTPURLResponse)
+        response: HTTPURLResponse
+    )
         -> ValidationResult
         where S.Iterator.Element == Int
     {
@@ -109,11 +88,12 @@ extension Request {
     fileprivate func validate<S: Sequence>(
         contentType acceptableContentTypes: S,
         response: HTTPURLResponse,
-        data: Data?)
+        data: Data?
+    )
         -> ValidationResult
         where S.Iterator.Element == String
     {
-        guard let data = data, data.count > 0 else { return .success }
+        guard let data = data, !data.isEmpty else { return .success }
 
         guard
             let responseContentType = response.mimeType,
@@ -154,10 +134,10 @@ extension Request {
 
 // MARK: -
 
-extension DataRequest {
+public extension DataRequest {
     /// A closure used to validate a request that takes a URL request, a URL response and data, and returns whether the
     /// request was valid.
-    public typealias Validation = (URLRequest?, HTTPURLResponse, Data?) -> ValidationResult
+    typealias Validation = (URLRequest?, HTTPURLResponse, Data?) -> ValidationResult
 
     /// Validates the request, using the specified closure.
     ///
@@ -167,7 +147,7 @@ extension DataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate(_ validation: @escaping Validation) -> Self {
+    func validate(_ validation: @escaping Validation) -> Self {
         let validationExecution: () -> Void = { [unowned self] in
             if
                 let response = self.response,
@@ -191,9 +171,9 @@ extension DataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate<S: Sequence>(statusCode acceptableStatusCodes: S) -> Self where S.Iterator.Element == Int {
+    func validate<S: Sequence>(statusCode acceptableStatusCodes: S) -> Self where S.Iterator.Element == Int {
         return validate { [unowned self] _, response, _ in
-            return self.validate(statusCode: acceptableStatusCodes, response: response)
+            self.validate(statusCode: acceptableStatusCodes, response: response)
         }
     }
 
@@ -205,9 +185,9 @@ extension DataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Self where S.Iterator.Element == String {
+    func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Self where S.Iterator.Element == String {
         return validate { [unowned self] _, response, data in
-            return self.validate(contentType: acceptableContentTypes, response: response, data: data)
+            self.validate(contentType: acceptableContentTypes, response: response, data: data)
         }
     }
 
@@ -218,7 +198,7 @@ extension DataRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate() -> Self {
+    func validate() -> Self {
         let contentTypes = { [unowned self] in
             self.acceptableContentTypes
         }
@@ -228,14 +208,15 @@ extension DataRequest {
 
 // MARK: -
 
-extension DownloadRequest {
+public extension DownloadRequest {
     /// A closure used to validate a request that takes a URL request, a URL response, a temporary URL and a
     /// destination URL, and returns whether the request was valid.
-    public typealias Validation = (
+    typealias Validation = (
         _ request: URLRequest?,
         _ response: HTTPURLResponse,
         _ temporaryURL: URL?,
-        _ destinationURL: URL?)
+        _ destinationURL: URL?
+    )
         -> ValidationResult
 
     /// Validates the request, using the specified closure.
@@ -246,7 +227,7 @@ extension DownloadRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate(_ validation: @escaping Validation) -> Self {
+    func validate(_ validation: @escaping Validation) -> Self {
         let validationExecution: () -> Void = { [unowned self] in
             let request = self.request
             let temporaryURL = self.downloadDelegate.temporaryURL
@@ -274,9 +255,9 @@ extension DownloadRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate<S: Sequence>(statusCode acceptableStatusCodes: S) -> Self where S.Iterator.Element == Int {
+    func validate<S: Sequence>(statusCode acceptableStatusCodes: S) -> Self where S.Iterator.Element == Int {
         return validate { [unowned self] _, response, _, _ in
-            return self.validate(statusCode: acceptableStatusCodes, response: response)
+            self.validate(statusCode: acceptableStatusCodes, response: response)
         }
     }
 
@@ -288,7 +269,7 @@ extension DownloadRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Self where S.Iterator.Element == String {
+    func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Self where S.Iterator.Element == String {
         return validate { [unowned self] _, response, _, _ in
             let fileURL = self.downloadDelegate.fileURL
 
@@ -312,7 +293,7 @@ extension DownloadRequest {
     ///
     /// - returns: The request.
     @discardableResult
-    public func validate() -> Self {
+    func validate() -> Self {
         let contentTypes = { [unowned self] in
             self.acceptableContentTypes
         }

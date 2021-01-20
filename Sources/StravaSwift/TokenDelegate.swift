@@ -1,16 +1,10 @@
-//
-//  TokenDelegate.swift
-//  StravaSwift
-//
-//  Created by MATTHEW CLARKSON on 23/05/2016.
-//  Copyright © 2016 Matthew Clarkson. All rights reserved.
-//
+// TokenDelegate.swift
+// Copyright (c) 2021 Copilot
 
 /**
  Token Delegate protocol - responsible for storing and retrieving the OAuth token
  **/
 public protocol TokenDelegate {
-
     /**
      Retrieves the token
 

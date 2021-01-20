@@ -1,10 +1,5 @@
-//
-//  Upload.swift
-//  StravaSwift
-//
-//  Created by Matthew on 11/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// Upload.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
@@ -39,10 +34,11 @@ public struct UploadData {
     }
 
     public init(activityType: ActivityType?, name: String?, description: String?,
-                `private`: Bool?, trainer: Bool?, externalId: String?, dataType: DataType, file: Data) {
+                private: Bool?, trainer: Bool?, externalId: String?, dataType: DataType, file: Data)
+    {
         self.activityType = activityType
         self.description = description
-        self.`private` = `private`
+        self.private = `private`
         self.trainer = trainer
         self.externalId = externalId
         self.name = name
@@ -51,7 +47,6 @@ public struct UploadData {
     }
 
     internal var params: [String: Any] {
-
         var params: [String: Any] = [:]
         params["data_type"] = dataType.rawValue
         params["name"] = name
@@ -69,14 +64,14 @@ public struct UploadData {
     /**
      Upload status
      **/
-    public final class Status: Strava {
+    public struct Status: Strava {
         let id: Int?
         let externalId: String?
         let error: String?
         let status: String?
         let activityId: Int?
 
-        public required init(_ json: JSON) {
+        public init(_ json: JSON) {
             id = json["id"].int
             externalId = json["external_id"].string
             error = json["error"].string

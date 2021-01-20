@@ -1,10 +1,5 @@
-//
-//  Event.swift
-//  StravaSwift
-//
-//  Created by Matthew on 11/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// Event.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
@@ -12,7 +7,7 @@ import SwiftyJSON
 /**
  Group Events are optionally recurring events for club members. Only club members can access private club events. The objects are returned in summary representation.
  **/
-public final class Event: Strava {
+public struct Event: Strava {
     public let id: Int?
     public let resourceState: ResourceState?
     public let title: String?
@@ -34,7 +29,7 @@ public final class Event: Strava {
      - Parameter json: SwiftyJSON object
      - Internal
      **/
-    required public init(_ json: JSON) {
+    public init(_ json: JSON) {
         resourceState = json["resource_state"].strava(ResourceState.self)
         id = json["id"].int
         title = json["title"].string
@@ -45,7 +40,7 @@ public final class Event: Strava {
         createdAt = json["created_at"].string?.toDate()
         routeId = json["route_id"].int
         womenOnly = json["women_only"].bool
-        `private` =  json["private"].bool
+        `private` = json["private"].bool
         skillLevels = json["skill_level"].strava(SkillLevel.self)
         terrain = json["terrain"].strava(Terrain.self)
         upcomingOccurrences = json["terrain"].arrayValue.compactMap { $0.string?.toDate() }

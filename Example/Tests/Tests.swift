@@ -1,10 +1,11 @@
-// https://github.com/Quick/Quick
+// Tests.swift
+// Copyright (c) 2021 Copilot
 
-//import Quick
-//import Nimble
-//import StravaSwift
+// import Quick
+// import Nimble
+// import StravaSwift
 //
-//class TableOfContentsSpec: QuickSpec {
+// class TableOfContentsSpec: QuickSpec {
 //    override func spec() {
 //        describe("these will fail") {
 //
@@ -19,7 +20,7 @@
 //            it("will eventually fail") {
 //                expect("time").toEventually( equal("done") )
 //            }
-//            
+//
 //            context("these will pass") {
 //
 //                it("can do maths") {
@@ -47,4 +48,4 @@
 //            }
 //        }
 //    }
-//}
+// }

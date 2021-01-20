@@ -1,10 +1,5 @@
-//
-//  Map.swift
-//  StravaSwift
-//
-//  Created by Matthew on 24/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// Map.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
@@ -12,7 +7,7 @@ import SwiftyJSON
 /**
   Represents a map of a ride or route
  **/
-public final class Map: Strava {
+public struct Map: Strava, Hashable {
     public let id: String?
     public let resourceState: ResourceState?
     public let polyline: String?
@@ -24,7 +19,7 @@ public final class Map: Strava {
      - Parameter json: SwiftyJSON object
      - Internal
      **/
-    required public init(_ json: JSON) {
+    public init(_ json: JSON) {
         id = json["id"].string
         resourceState = json["resource_state"].strava(ResourceState.self)
         polyline = json["polyline"].string

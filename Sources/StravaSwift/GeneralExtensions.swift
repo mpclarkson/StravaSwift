@@ -1,10 +1,5 @@
-//
-//  GeneralExtensions.swift
-//  StravaSwift
-//
-//  Created by Matthew on 19/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// GeneralExtensions.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 
@@ -16,7 +11,7 @@ extension RawRepresentable {
 }
 
 extension DateFormatter {
-    func dateFromString(optional string: String?)  -> Date? {
+    func dateFromString(optional string: String?) -> Date? {
         guard let string = string else { return nil }
         return date(from: string)
     }

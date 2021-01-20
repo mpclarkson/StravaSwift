@@ -1,46 +1,38 @@
-//
-//  ProfileViewController.swift
-//  StravaSwift
-//
-//  Created by MATTHEW CLARKSON on 20/05/2016.
-//  Copyright © 2016 Matthew Clarkson. All rights reserved.
-//
+// AthleteViewController.swift
+// Copyright (c) 2021 Copilot
 
-import UIKit
 import StravaSwift
+import UIKit
 
 extension UIImageView {
     func from(url: URL?) {
         guard let url = url else { return }
         do {
             let data = try Data(contentsOf: url)
-            self.image = UIImage(data: data)
-        }
-        catch {
+            image = UIImage(data: data)
+        } catch {
             return
         }
     }
 }
 
-
 class AthleteViewController: UIViewController {
+    @IBOutlet var activityIndicator: UIActivityIndicatorView?
 
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView?
+    @IBOutlet var name: UILabel?
+    @IBOutlet var avatar: UIImageView?
 
-    @IBOutlet weak var name: UILabel?
-    @IBOutlet weak var avatar: UIImageView?
+    @IBOutlet var rides: UILabel?
+    @IBOutlet var runs: UILabel?
+    @IBOutlet var swims: UILabel?
 
-    @IBOutlet weak var rides: UILabel?
-    @IBOutlet weak var runs: UILabel?
-    @IBOutlet weak var swims: UILabel?
-    
     var athlete: Athlete? {
         didSet {
             name?.text = "\(athlete?.firstname ?? "") \(athlete?.lastname ?? "")"
             avatar?.from(url: athlete?.profile)
         }
     }
-    
+
     var stats: AthleteStats? {
         didSet {
             if let ridesInt = stats?.allRideTotals?.count {
@@ -54,7 +46,7 @@ class AthleteViewController: UIViewController {
             }
         }
     }
- 
+
     override func viewDidLoad() {
         super.viewDidLoad()
         update()
@@ -62,7 +54,6 @@ class AthleteViewController: UIViewController {
 }
 
 extension AthleteViewController {
-    
     func update() {
         activityIndicator?.startAnimating()
         StravaClient.sharedInstance.request(Router.athlete, result: { [weak self] (athlete: Athlete?) in
@@ -71,17 +62,17 @@ extension AthleteViewController {
 
             guard let athlete = athlete else { return }
             self.athlete = athlete
-            
+
             StravaClient.sharedInstance.request(Router.athletesStats(id: athlete.id!, params: nil), result: { [weak self] (stats: AthleteStats?) in
                 guard let self = self else { return }
                 self.activityIndicator?.stopAnimating()
                 self.stats = stats
-            
+
             }, failure: { (error: NSError) in
                 self.activityIndicator?.stopAnimating()
                 debugPrint(error)
             })
-            
+
         }, failure: { (error: NSError) in
             self.activityIndicator?.stopAnimating()
             debugPrint(error)

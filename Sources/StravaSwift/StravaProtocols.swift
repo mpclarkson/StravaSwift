@@ -1,10 +1,5 @@
-//
-//  StravaProtocols.swift
-//  StravaSwift
-//
-//  Created by Matthew on 11/11/2015.
-//  Copyright © 2015 Matthew Clarkson. All rights reserved.
-//
+// StravaProtocols.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
@@ -14,12 +9,12 @@ import SwiftyJSON
 
   - Internal
  **/
-public protocol Strava: CustomStringConvertible {
+public protocol Strava: CustomStringConvertible, Equatable {
     init(_ json: JSON)
 }
 
-extension Strava {
-    public var description: String {
+public extension Strava {
+    var description: String {
         let mirror = Mirror(reflecting: self)
         var desc = ""
         for child in mirror.children {

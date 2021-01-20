@@ -1,10 +1,5 @@
-//
-//  AthleteStats.swift
-//  StravaSwift
-//
-//  Created by Andy on 01/22/2017
-//  Copyright © 2017 Andy Gonzalez. All rights reserved.
-//
+// AthleteStats.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 import SwiftyJSON
@@ -12,10 +7,8 @@ import SwiftyJSON
 /**
  Stats are aggregated data for an athlete
  **/
-public final class AthleteStats: Strava {
-
-    public final class Totals {
-
+public struct AthleteStats: Strava {
+    public struct Totals: Equatable, Hashable {
         public let count: Int?
         public let distance: Double?
         public let movingTime: TimeInterval?
@@ -23,7 +16,7 @@ public final class AthleteStats: Strava {
         public let elevationGain: Double?
         public let achievementCount: Int?
 
-        required public init(_ json: JSON) {
+        public init(_ json: JSON) {
             count = json["count"].int
             distance = json["distance"].double
             movingTime = json["moving_time"].double
@@ -51,8 +44,7 @@ public final class AthleteStats: Strava {
      - Parameter json: SwiftyJSON object
      - Internal
      **/
-    required public init(_ json: JSON) {
-
+    public init(_ json: JSON) {
         biggestRideDistance = json["biggest_ride_distance"].double
         biggestClimbElevationGain = json["biggest_climb_elevation_gain"].double
         recentRideTotals = Totals(json["recent_ride_totals"])

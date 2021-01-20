@@ -1,26 +1,5 @@
-//
-//  ParameterEncoding.swift
-//
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  THE SOFTWARE.
-//
+// ParameterEncoding.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 
@@ -29,13 +8,13 @@ import Foundation
 /// See https://tools.ietf.org/html/rfc7231#section-4.3
 public enum HTTPMethod: String {
     case options = "OPTIONS"
-    case get     = "GET"
-    case head    = "HEAD"
-    case post    = "POST"
-    case put     = "PUT"
-    case patch   = "PATCH"
-    case delete  = "DELETE"
-    case trace   = "TRACE"
+    case get = "GET"
+    case head = "HEAD"
+    case post = "POST"
+    case put = "PUT"
+    case patch = "PATCH"
+    case delete = "DELETE"
+    case trace = "TRACE"
     case connect = "CONNECT"
 }
 
@@ -74,7 +53,6 @@ public protocol ParameterEncoding {
 /// `BoolEncoding` can be used to configure how boolean values are encoded. The default behavior is to encode
 /// `true` as 1 and `false` as 0.
 public struct URLEncoding: ParameterEncoding {
-
     // MARK: Helper Types
 
     /// Defines whether the url-encoded query string is applied to the existing query string or HTTP body of the
@@ -272,7 +250,7 @@ public struct URLEncoding: ParameterEncoding {
             while index != string.endIndex {
                 let startIndex = index
                 let endIndex = string.index(index, offsetBy: batchSize, limitedBy: string.endIndex) ?? string.endIndex
-                let range = startIndex..<endIndex
+                let range = startIndex ..< endIndex
 
                 let substring = string[range]
 
@@ -319,7 +297,6 @@ public struct URLEncoding: ParameterEncoding {
 /// Uses `JSONSerialization` to create a JSON representation of the parameters object, which is set as the body of the
 /// request. The `Content-Type` HTTP header field of an encoded request is set to `application/json`.
 public struct JSONEncoding: ParameterEncoding {
-
     // MARK: Properties
 
     /// Returns a `JSONEncoding` instance with default writing options.
@@ -407,7 +384,6 @@ public struct JSONEncoding: ParameterEncoding {
 /// associated format and write options values, which is set as the body of the request. The `Content-Type` HTTP header
 /// field of an encoded request is set to `application/x-plist`.
 public struct PropertyListEncoding: ParameterEncoding {
-
     // MARK: Properties
 
     /// Returns a default `PropertyListEncoding` instance.
@@ -435,8 +411,8 @@ public struct PropertyListEncoding: ParameterEncoding {
     /// - returns: The new `PropertyListEncoding` instance.
     public init(
         format: PropertyListSerialization.PropertyListFormat = .xml,
-        options: PropertyListSerialization.WriteOptions = 0)
-    {
+        options: PropertyListSerialization.WriteOptions = 0
+    ) {
         self.format = format
         self.options = options
     }
@@ -478,6 +454,6 @@ public struct PropertyListEncoding: ParameterEncoding {
 
 // MARK: -
 
-extension NSNumber {
-    fileprivate var isBool: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
+private extension NSNumber {
+    var isBool: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
 }

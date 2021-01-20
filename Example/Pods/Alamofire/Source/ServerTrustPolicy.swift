@@ -1,26 +1,5 @@
-//
-//  ServerTrustPolicy.swift
-//
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
-//
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
-//
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  THE SOFTWARE.
-//
+// ServerTrustPolicy.swift
+// Copyright (c) 2021 Copilot
 
 import Foundation
 
@@ -59,7 +38,7 @@ open class ServerTrustPolicyManager {
 // MARK: -
 
 extension URLSession {
-    private struct AssociatedKeys {
+    private enum AssociatedKeys {
         static var managerKey = "URLSession.ServerTrustPolicyManager"
     }
 
@@ -67,7 +46,7 @@ extension URLSession {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.managerKey) as? ServerTrustPolicyManager
         }
-        set (manager) {
+        set(manager) {
             objc_setAssociatedObject(self, &AssociatedKeys.managerKey, manager, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
@@ -249,7 +228,6 @@ public enum ServerTrustPolicy {
             let unspecified = SecTrustResultType.unspecified
             let proceed = SecTrustResultType.proceed
 
-
             isValid = result == unspecified || result == proceed
         }
 
@@ -261,7 +239,7 @@ public enum ServerTrustPolicy {
     private func certificateData(for trust: SecTrust) -> [Data] {
         var certificates: [SecCertificate] = []
 
-        for index in 0..<SecTrustGetCertificateCount(trust) {
+        for index in 0 ..< SecTrustGetCertificateCount(trust) {
             if let certificate = SecTrustGetCertificateAtIndex(trust, index) {
                 certificates.append(certificate)
             }
@@ -279,7 +257,7 @@ public enum ServerTrustPolicy {
     private static func publicKeys(for trust: SecTrust) -> [SecKey] {
         var publicKeys: [SecKey] = []
 
-        for index in 0..<SecTrustGetCertificateCount(trust) {
+        for index in 0 ..< SecTrustGetCertificateCount(trust) {
             if
                 let certificate = SecTrustGetCertificateAtIndex(trust, index),
                 let publicKey = publicKey(for: certificate)

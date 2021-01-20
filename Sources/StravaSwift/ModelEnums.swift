@@ -1,19 +1,13 @@
-//
-//  ModelEnums.swift
-//  StravaSwift
-//
-//  Created by MATTHEW CLARKSON on 23/05/2016.
-//  Copyright © 2016 Matthew Clarkson. All rights reserved.
-//
-
+// ModelEnums.swift
+// Copyright (c) 2021 Copilot
 
 /**
- Athlete's gender
+  Athlete's gender
 
- - Male
- - Female
-**/
-public enum Sex: String {
+  - Male
+  - Female
+ **/
+public enum Sex: String, Codable, Equatable {
     case male = "M"
     case female = "F"
 }
@@ -25,7 +19,7 @@ public enum Sex: String {
  - Accepted
  - Blocked
  **/
-public enum FollowingStatus: String {
+public enum FollowingStatus: String, Codable, Equatable {
     case accepted
     case blocked
     case pending
@@ -37,7 +31,7 @@ public enum FollowingStatus: String {
  - Pending
  - Accepted
  **/
-public enum MembershipStatus: String {
+public enum MembershipStatus: String, Codable, Equatable {
     case member
     case pending
 }
@@ -48,7 +42,7 @@ public enum MembershipStatus: String {
  - Feet
  - Meters
  **/
-public enum Units: String {
+public enum Units: String, Codable, Equatable {
     case feet
     case meters
 }
@@ -60,7 +54,7 @@ public enum Units: String {
  - Summary
  - Detailed
  **/
-public enum ResourceState: Int {
+public enum ResourceState: Int, Codable, Equatable, Hashable {
     case meta = 1
     case summary = 2
     case detailed = 3
@@ -77,7 +71,7 @@ public enum ResourceState: Int {
  - RaceRide
  - WorkoutRide
  **/
-public enum WorkoutType: Int {
+public enum WorkoutType: Int, Hashable {
     case run = 0
     case raceRun = 1
     case longRun = 3
@@ -128,7 +122,7 @@ public enum WorkoutType: Int {
   - Workout
   - Yoga
  **/
-public enum ActivityType: String {
+public enum ActivityType: String, Equatable {
     case alpineSki = "AlpineSki"
     case backcountrySki = "BackcountrySki"
     case canoeing = "Canoeing"
@@ -176,7 +170,7 @@ public enum ActivityType: String {
  - Triathlon
  - Other
  **/
-public enum SportType: String {
+public enum SportType: String, Codable {
     case cycling
     case running
     case triathlon
@@ -192,7 +186,7 @@ public enum SportType: String {
  - Company
  - Other
  **/
-public enum ClubType: String {
+public enum ClubType: String, Codable {
     case casualClub = "casual_club"
     case racingTeam = "racing_team"
     case shop
@@ -208,7 +202,7 @@ public enum ClubType: String {
  - Road
  - TimeTrial
  **/
-public enum FrameType: Int {
+public enum FrameType: Int, Codable, Equatable {
     case mtb = 1
     case cross = 2
     case road = 3
@@ -222,7 +216,7 @@ public enum FrameType: Int {
  - Medium
  - High
  **/
-public enum ResolutionType: String {
+public enum ResolutionType: String, Equatable {
     case low
     case medium
     case high
@@ -243,7 +237,7 @@ public enum ResolutionType: String {
  - Moving
  - GradeSmooth
  **/
-public enum StreamType: String {
+public enum StreamType: String, Equatable {
     case time
     case latLng = "latlng"
     case distance
@@ -256,7 +250,7 @@ public enum StreamType: String {
     case moving
     case gradeSmooth = "grade_smooth"
 
-    //Description of the units associated with the stream
+    // Description of the units associated with the stream
     var unit: String {
         switch self {
         case .time:
@@ -317,7 +311,7 @@ public enum Terrain: Int {
  - Strava
  - Instagram
  **/
-public enum PhotoSource: Int {
+public enum PhotoSource: Int, Equatable {
     case strava = 1
     case instagram = 2
 }
