@@ -118,6 +118,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
      - Parameter url the url returned by Strava through the (ASWeb/SF)AuthenricationSession or application open options.
      - Returns: a boolean that indicates if this url is for Strava, has a code and can be handled properly
      **/
+    @discardableResult
     public func handleAuthorizationRedirect(_ url: URL) -> Bool {
         if let redirectUri = config?.redirectUri, url.absoluteString.starts(with: redirectUri),
            let params = url.getQueryParameters(), params["code"] != nil, params["scope"] != nil, params["state"] == "ios" {
