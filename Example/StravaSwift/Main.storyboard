@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <deployment version="4864" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,10 +13,6 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="connect" id="BYZ-38-t0r" customClass="ConnectViewController" customModule="StravaSwift_Example" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -30,18 +28,19 @@
                                 <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="iqb-rh-r4j"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="I3g-m3-NBw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="3H8-et-VW9"/>
                             <constraint firstItem="Fn4-HB-sIb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="FRb-hV-kj9"/>
-                            <constraint firstItem="I3g-m3-NBw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GI2-3A-xLT"/>
-                            <constraint firstItem="Fn4-HB-sIb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bAW-TI-HIy"/>
+                            <constraint firstItem="I3g-m3-NBw" firstAttribute="centerX" secondItem="iqb-rh-r4j" secondAttribute="centerX" id="GI2-3A-xLT"/>
+                            <constraint firstItem="Fn4-HB-sIb" firstAttribute="centerX" secondItem="iqb-rh-r4j" secondAttribute="centerX" id="bAW-TI-HIy"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="I3g-m3-NBw" id="GdX-g5-GwF"/>
                         <outlet property="loginButton" destination="Fn4-HB-sIb" id="EdJ-Kf-dYB"/>
-                        <segue destination="hzD-wf-YbT" kind="show" identifier="navigation" id="opp-Er-HF9"/>
+                        <segue destination="hzD-wf-YbT" kind="presentation" identifier="navigation" id="opp-Er-HF9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -51,19 +50,15 @@
         <!--Profile-->
         <scene sceneID="z0V-4Y-fyB">
             <objects>
-                <viewController title="Profile" id="hO0-Ka-D15" customClass="AthleteViewController" customModule="StravaSwift_Example" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="oPY-0G-yzW"/>
-                        <viewControllerLayoutGuide type="bottom" id="N0R-LU-rwF"/>
-                    </layoutGuides>
+                <viewController title="Profile" modalPresentationStyle="fullScreen" id="hO0-Ka-D15" customClass="AthleteViewController" customModule="StravaSwift_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hl8-Xg-8W1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UeV-Er-v9n">
                                 <rect key="frame" x="16" y="8" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rides" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rR6-gg-GNo">
@@ -119,18 +114,19 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="ghw-YW-0ol"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="THZ-bG-Dsl" firstAttribute="centerX" secondItem="UeV-Er-v9n" secondAttribute="centerX" id="7Mc-08-fvt"/>
                             <constraint firstItem="THZ-bG-Dsl" firstAttribute="centerY" secondItem="ZbO-xY-7Dz" secondAttribute="centerY" id="Mye-Ss-51k"/>
                             <constraint firstItem="UeV-Er-v9n" firstAttribute="leading" secondItem="hl8-Xg-8W1" secondAttribute="leadingMargin" id="NKi-FI-2Sd"/>
                             <constraint firstItem="UeV-Er-v9n" firstAttribute="trailing" secondItem="hl8-Xg-8W1" secondAttribute="trailingMargin" id="UUm-mE-NvU"/>
-                            <constraint firstItem="UeV-Er-v9n" firstAttribute="top" secondItem="oPY-0G-yzW" secondAttribute="bottom" constant="8" id="d2F-Lz-UqS"/>
+                            <constraint firstItem="UeV-Er-v9n" firstAttribute="top" secondItem="ghw-YW-0ol" secondAttribute="top" constant="8" id="d2F-Lz-UqS"/>
                             <constraint firstItem="ZbO-xY-7Dz" firstAttribute="top" secondItem="UeV-Er-v9n" secondAttribute="bottom" constant="8" id="eTo-Pg-ugD"/>
-                            <constraint firstItem="ZbO-xY-7Dz" firstAttribute="centerX" secondItem="hl8-Xg-8W1" secondAttribute="centerX" id="r1A-gC-32I"/>
+                            <constraint firstItem="ZbO-xY-7Dz" firstAttribute="centerX" secondItem="ghw-YW-0ol" secondAttribute="centerX" id="r1A-gC-32I"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Athlete" id="4GX-Qp-bwu"/>
+                    <tabBarItem key="tabBarItem" title="Athlete" image="person" catalog="system" id="4GX-Qp-bwu"/>
                     <connections>
                         <outlet property="activityIndicator" destination="THZ-bG-Dsl" id="DdQ-ME-DEY"/>
                         <outlet property="avatar" destination="ZbO-xY-7Dz" id="9wu-e6-f5t"/>
@@ -142,19 +138,19 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a0W-3n-mgY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="648.79999999999995" y="-734.48275862068976"/>
+            <point key="canvasLocation" x="702" y="-734"/>
         </scene>
         <!--Activities-->
         <scene sceneID="Ihl-IE-Qnm">
             <objects>
-                <tableViewController id="v14-1O-Uzz" customClass="ActivitiesViewController" customModule="StravaSwift_Example" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController modalPresentationStyle="fullScreen" id="v14-1O-Uzz" customClass="ActivitiesViewController" customModule="StravaSwift_Example" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="D1a-sZ-6qz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="activity" textLabel="dTK-k7-XAq" detailTextLabel="8y9-s7-8My" style="IBUITableViewCellStyleSubtitle" id="pGl-4m-Xe5">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="44.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pGl-4m-Xe5" id="FAy-An-yoD">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -164,14 +160,14 @@
                                             <rect key="frame" x="16" y="6" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8y9-s7-8My">
                                             <rect key="frame" x="16" y="25.5" width="40.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -183,7 +179,7 @@
                             <outlet property="delegate" destination="v14-1O-Uzz" id="tOA-ip-iye"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Activities" id="TJL-jr-hL2"/>
+                    <tabBarItem key="tabBarItem" title="Activities" image="list.dash" catalog="system" id="TJL-jr-hL2"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PHf-cU-9kr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -192,15 +188,14 @@
         <!--Tab Bar Controller-->
         <scene sceneID="rxx-EL-cdk">
             <objects>
-                <tabBarController storyboardIdentifier="tab" id="hzD-wf-YbT" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tab" modalPresentationStyle="fullScreen" id="hzD-wf-YbT" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Aux-og-6mr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="hO0-Ka-D15" kind="relationship" relationship="viewControllers" id="hje-Dd-q6N"/>
-                        <segue destination="v14-1O-Uzz" kind="relationship" relationship="viewControllers" id="qH0-Ja-39A"/>
+                        <segue destination="hO0-Ka-D15" kind="relationship" relationship="viewControllers" id="WB7-wX-3QC"/>
+                        <segue destination="v14-1O-Uzz" kind="relationship" relationship="viewControllers" id="jKa-cJ-BBH"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XO0-J7-zh0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -210,5 +205,10 @@
     </scenes>
     <resources>
         <image name="Strava" width="171" height="31.5"/>
+        <image name="list.dash" catalog="system" width="128" height="85"/>
+        <image name="person" catalog="system" width="128" height="117"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

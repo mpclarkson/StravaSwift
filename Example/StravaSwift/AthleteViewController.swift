@@ -29,7 +29,6 @@ class AthleteViewController: UIViewController {
 
     @IBOutlet weak var name: UILabel?
     @IBOutlet weak var avatar: UIImageView?
-
     @IBOutlet weak var rides: UILabel?
     @IBOutlet weak var runs: UILabel?
     @IBOutlet weak var swims: UILabel?
