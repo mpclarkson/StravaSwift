@@ -1,5 +1,5 @@
 use_frameworks!
-platform :ios, '9.0'
+platform :ios, '12.0'
 
 target 'StravaSwift_Example' do
   pod 'StravaSwift', :path => '../'
