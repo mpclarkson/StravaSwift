@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		042240876C1C98B43960AA19 /* Pods_StravaSwift_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACA61AA5A9D07B6AA6D80544 /* Pods_StravaSwift_Tests.framework */; };
+		5A2F0F7B275E9545006CBD76 /* ActivityDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2F0F7A275E9545006CBD76 /* ActivityDetailVC.swift */; };
+		5A2F0F7D275EBEFD006CBD76 /* test2.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 5A2F0F7C275EBEFD006CBD76 /* test2.gpx */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		A70657D966A103F32858A0B8 /* Pods_StravaSwift_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A74C66DF27481B43059A3C /* Pods_StravaSwift_Example.framework */; };
@@ -37,6 +39,8 @@
 		357100604A445BFCF095B848 /* StravaSwift.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = StravaSwift.podspec; path = ../StravaSwift.podspec; sourceTree = "<group>"; };
 		50961F78A3E9092861111DD5 /* Pods-StravaSwift_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StravaSwift_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-StravaSwift_Example/Pods-StravaSwift_Example.release.xcconfig"; sourceTree = "<group>"; };
 		54225B8273D655E5B950E17C /* Pods-StravaSwift_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StravaSwift_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StravaSwift_Example/Pods-StravaSwift_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		5A2F0F7A275E9545006CBD76 /* ActivityDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDetailVC.swift; sourceTree = "<group>"; };
+		5A2F0F7C275EBEFD006CBD76 /* test2.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = test2.gpx; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* StravaSwift_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StravaSwift_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* StravaSwift_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StravaSwift_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,6 +103,7 @@
 			children = (
 				C9F475401CF3E19400B730EF /* AppDelegate.swift */,
 				C9F4753F1CF3E19400B730EF /* ActivitiesViewController.swift */,
+				5A2F0F7A275E9545006CBD76 /* ActivityDetailVC.swift */,
 				C9F475411CF3E19400B730EF /* AthleteViewController.swift */,
 				C9F475421CF3E19400B730EF /* ConnectViewController.swift */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
@@ -110,6 +115,7 @@
 		607FACD31AFB9204008FA782 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5A2F0F7C275EBEFD006CBD76 /* test2.gpx */,
 				C9F475471CF3E1B800B730EF /* Main.storyboard */,
 				C9E97C3D1CF3D522001C8BDD /* LaunchScreen.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
@@ -254,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9F475481CF3E1B800B730EF /* Main.storyboard in Resources */,
+				5A2F0F7D275EBEFD006CBD76 /* test2.gpx in Resources */,
 				C9E97C411CF3D522001C8BDD /* LaunchScreen.storyboard in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
@@ -335,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9F475451CF3E19400B730EF /* AthleteViewController.swift in Sources */,
+				5A2F0F7B275E9545006CBD76 /* ActivityDetailVC.swift in Sources */,
 				C9F475441CF3E19400B730EF /* AppDelegate.swift in Sources */,
 				C9F475431CF3E19400B730EF /* ActivitiesViewController.swift in Sources */,
 				C9F475461CF3E19400B730EF /* ConnectViewController.swift in Sources */,
