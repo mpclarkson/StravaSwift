@@ -6,7 +6,7 @@ language: swift
 podfile: Example/Podfile
 osx_image: xcode12.5.1
 rvm:
-  - 2.4.1
+  - 2.7.5
 before_install:
 #  - gem install xcpretty cocoapods --pre # Since Travis is not always on latest version
    - pod repo update
