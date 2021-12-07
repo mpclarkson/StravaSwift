@@ -65,23 +65,23 @@ public struct UploadData {
         params["external_id"] = externalId
         return params
     }
+}
 
-    /**
-     Upload status
-     **/
-    public final class Status: Strava {
-        let id: Int?
-        let externalId: String?
-        let error: String?
-        let status: String?
-        let activityId: Int?
+/**
+ Upload status
+ **/
+public final class UploadStatus: Strava {
+    public let id: Int?
+    public let externalId: String?
+    public let error: String?
+    public let status: String?
+    public let activityId: Int?
 
-        public required init(_ json: JSON) {
-            id = json["id"].int
-            externalId = json["external_id"].string
-            error = json["error"].string
-            status = json["status"].string
-            activityId = json["activity_id"].int
-        }
+    public required init(_ json: JSON) {
+        id = json["id"].int
+        externalId = json["external_id"].string
+        error = json["error"].string
+        status = json["status"].string
+        activityId = json["activity_id"].int
     }
 }
