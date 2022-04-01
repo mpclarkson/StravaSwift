@@ -20,6 +20,19 @@ class ActivitiesViewController: UITableViewController {
         self.tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         update()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "SegueActivityDetail":
+            // User tapped on a row and wants to view the ActivityDetailVC
+            // We must set the activityId property during the segue
+            if let vc = segue.destination as? ActivityDetailVC?, let indexPath = tableView.indexPathForSelectedRow {
+                vc?.activityID = activities[indexPath.row].id
+            }
+        default: break
+        }
+    }
+
 }
 
 extension ActivitiesViewController {

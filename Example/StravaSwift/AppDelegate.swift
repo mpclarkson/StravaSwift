@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             clientId: 8873,
             clientSecret: "97b97b29ede769eec2dc26c52dd281b5a1efe594",
             redirectUri: "stravaswift://mpclarkson.github.io",
-            scopes: [.activityReadAll]
+            scopes: [.activityReadAll, .activityWrite]
         )
         strava = StravaClient.sharedInstance.initWithConfig(config)
 

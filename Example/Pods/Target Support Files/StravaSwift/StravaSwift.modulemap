@@ -1,6 +1,0 @@
-framework module StravaSwift {
-  umbrella header "StravaSwift-umbrella.h"
-
-  export *
-  module * { export * }
-}
