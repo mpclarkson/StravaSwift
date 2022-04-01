@@ -368,26 +368,26 @@ public enum Router {
      **/
     case routeStreams(id: Id)
 
-//    /**
-//     Upload an activity
-//
-//     Requires write permissions, as requested during the authorization process.
-//
-//     Posting a file for upload will enqueue it for processing. Initial checks will be done for malformed data and duplicates.
-//
-//     - parameter upload: an upload object
-//     **/
+    /**
+     Upload an activity
+
+     Requires write permissions, as requested during the authorization process.
+
+     Posting a file for upload will enqueue it for processing. Initial checks will be done for malformed data and duplicates.
+
+     - parameter upload: an upload object
+     **/
     case uploadFile(upload: StravaSwift.UploadData)
-//
-//    /**
-//     Check upload status
-//
-//     Upon upload, Strava will respond with an upload ID. You may use this ID to poll the status of your upload. Strava recommends polling no more than once a second. Polling more frequently is unnecessary. The mean processing time is around 8 seconds.
-//
-//     - parameter id: the upload id
-//     **/
-//    case uploads(id: Id)
-//
+
+    /**
+     Check upload status
+
+     Upon upload, Strava will respond with an upload ID. You may use this ID to poll the status of your upload. Strava recommends polling no more than once a second. Polling more frequently is unnecessary. The mean processing time is around 8 seconds.
+
+     - parameter id: the upload id
+     **/
+    case uploads(id: Id)
+
 
 }
 
@@ -563,8 +563,8 @@ extension Router {
 
         case .uploadFile(let upload):
             return ("/uploads", upload.params, .post)
-//        case .uploads(let id):
-//            return ("/uploads/\(id)", nil, .post)
+        case .uploads(let id):
+            return ("/uploads/\(id)", nil, .get)
         }
     }
 }
