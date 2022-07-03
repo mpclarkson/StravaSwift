@@ -118,7 +118,11 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
                 webAuthenticationSession.start()
             } else {
                 currentAuthorizationHandler = result    // Stores the handler to be executed once `handleAuthorizationRedirect(url:)` is called
-                UIApplication.shared.open(Router.webAuthorizationUrl, options: [:])
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(Router.webAuthorizationUrl, options: [:])
+                } else {
+                    // Fallback on earlier versions
+                }
             }
         }
     }
