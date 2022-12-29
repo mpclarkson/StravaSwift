@@ -107,7 +107,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
                                                                           callbackURLScheme: config?.redirectUri,
                                                                           completionHandler: { (url, error) in
                     if let url = url, error == nil {
-                        _ = self.handleAuthorizationRedirect(url, result: result)
+                        self.handleAuthorizationRedirect(url, result: result)
                     } else {
                         result(.failure(error!))
                     }
@@ -117,24 +117,9 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
                     webAuthenticationSession.presentationContextProvider = self
                 }
                 webAuthenticationSession.start()
-            } else if #available(iOS 11.0, *) {
-                let authenticationSession = SFAuthenticationSession(url: Router.webAuthorizationUrl,
-                                                                    callbackURLScheme: config?.redirectUri) { (url, error) in
-                    if let url = url, error == nil {
-                        _ = self.handleAuthorizationRedirect(url, result: result)
-                    } else {
-                        result(.failure(error!))
-                    }
-                }
-                authSession = authenticationSession
-                authenticationSession.start()
             } else {
                 currentAuthorizationHandler = result    // Stores the handler to be executed once `handleAuthorizationRedirect(url:)` is called
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(Router.webAuthorizationUrl, options: [:])
-                } else {
-                    UIApplication.shared.openURL(Router.webAuthorizationUrl)
-                }
+                UIApplication.shared.open(Router.webAuthorizationUrl, options: [:])
             }
         }
     }
@@ -242,7 +227,6 @@ extension StravaClient {
                 } else {
                     result(response.result.value)
                 }
-                result(response.result.value)
             }
         } catch let error as NSError {
             failure(error)
@@ -326,7 +310,7 @@ extension StravaClient {
         guard let url = try? URLRequest.asURLRequest() else { return }
 
         Alamofire.upload(multipartFormData: { multipartFormData in
-            multipartFormData.append(upload.file, withName: "\(upload.name ?? "default").\(upload.dataType)")
+            multipartFormData.append(upload.file, withName: "file", fileName: "\(upload.name ?? "default").\(upload.dataType)", mimeType: "octet/stream")
             for (key, value) in upload.params {
                 if let value = value as? String {
                     multipartFormData.append(value.data(using: .utf8)!, withName: key)
