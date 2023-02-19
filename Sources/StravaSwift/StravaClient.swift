@@ -219,6 +219,10 @@ extension StravaClient {
 
 extension StravaClient {
 
+    public func download(manager: SessionManager = SessionManager.default, _ route: Router) -> DownloadRequest?{
+        return oauthDownloadRequest(manager, route)
+    }
+    
     public func upload<T: Strava>(_ route: Router, upload: UploadData, result: @escaping (((T)?) -> Void), failure: @escaping (NSError) -> Void) {
         do {
             try oauthUpload(URLRequest: route.asURLRequest(), upload: upload) { (response: DataResponse<T>) in
@@ -302,6 +306,16 @@ extension StravaClient {
         checkConfiguration()
 
         return Alamofire.request(urlRequest)
+    }
+    
+    fileprivate func oauthDownloadRequest(_ manager: SessionManager, _ urlRequest: URLRequestConvertible) -> DownloadRequest?  {
+        checkConfiguration()
+        let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+            let temporaryDirectoryURL = FileManager.default.temporaryDirectory
+            let temporaryFilename = ProcessInfo().globallyUniqueString
+            let temporaryFileURL = temporaryDirectoryURL.appendingPathComponent(temporaryFilename)
+        return (temporaryFileURL, [.removePreviousFile, .createIntermediateDirectories]) }
+        return manager.download(urlRequest, to: destination)
     }
 
     fileprivate func oauthUpload<T: Strava>(URLRequest: URLRequestConvertible, upload: UploadData, completion: @escaping (DataResponse<T>) -> ()) {
