@@ -211,6 +211,10 @@ extension StravaClient {
             result(.failure(error))
         }
     }
+    
+    public func refreshAccessTokenDownloadRequest(manager: SessionManager = SessionManager.default, _ refreshToken: String) -> DownloadRequest? {
+        return download(manager: manager, Router.refresh(refreshToken: refreshToken))
+    }
 }
 
 
