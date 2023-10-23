@@ -103,7 +103,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
         } else {
             if #available(iOS 12.0, *) {
                 let webAuthenticationSession = ASWebAuthenticationSession(url: Router.webAuthorizationUrl,
-                                                                          callbackURLScheme: config?.redirectUri,
+                                                                          callbackURLScheme: config?.redirectUri.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed),
                                                                           completionHandler: { (url, error) in
                     if let url = url, error == nil {
                         self.handleAuthorizationRedirect(url, result: result)
