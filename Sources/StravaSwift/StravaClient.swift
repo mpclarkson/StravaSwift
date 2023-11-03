@@ -10,8 +10,9 @@ import AuthenticationServices
 import Foundation
 import Alamofire
 import SwiftyJSON
+#if os(iOS)
 import SafariServices
-
+#endif
 /**
  StravaClient responsible for making all api requests
 */
@@ -82,7 +83,7 @@ extension StravaClient {
 }
 
 //MARK : - Auth
-
+#if os(iOS)
 extension StravaClient: ASWebAuthenticationPresentationContextProviding {
 
     var currentWindow: UIWindow? { return UIApplication.shared.keyWindow }
@@ -103,7 +104,7 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
         } else {
             if #available(iOS 12.0, *) {
                 let webAuthenticationSession = ASWebAuthenticationSession(url: Router.webAuthorizationUrl,
-                                                                          callbackURLScheme: config?.redirectUri,
+                                                                          callbackURLScheme: config?.redirectUri.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!,
                                                                           completionHandler: { (url, error) in
                     if let url = url, error == nil {
                         self.handleAuthorizationRedirect(url, result: result)
@@ -158,7 +159,18 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
             result(.failure(generateError(failureReason: "Invalid authorization code", response: nil)))
         }
     }
+    
+    
+    // ASWebAuthenticationPresentationContextProviding
 
+    @available(iOS 12.0, *)
+    public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return currentWindow ?? ASPresentationAnchor()
+    }
+}
+#endif
+
+extension StravaClient {
     /**
      Get an OAuth token from Strava
 
@@ -199,20 +211,22 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
             result(.failure(error))
         }
     }
-
-    // ASWebAuthenticationPresentationContextProviding
-
-    @available(iOS 12.0, *)
-    public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        return currentWindow ?? ASPresentationAnchor()
+    
+    public func refreshAccessTokenDownloadRequest(manager: SessionManager = SessionManager.default, _ refreshToken: String) -> DownloadRequest? {
+        return download(manager: manager, Router.refresh(refreshToken: refreshToken))
     }
 }
+
 
 
 //MARK: - Athlete
 
 extension StravaClient {
 
+    public func download(manager: SessionManager = SessionManager.default, _ route: Router) -> DownloadRequest?{
+        return oauthDownloadRequest(manager, route)
+    }
+    
     public func upload<T: Strava>(_ route: Router, upload: UploadData, result: @escaping (((T)?) -> Void), failure: @escaping (NSError) -> Void) {
         do {
             try oauthUpload(URLRequest: route.asURLRequest(), upload: upload) { (response: DataResponse<T>) in
@@ -296,6 +310,16 @@ extension StravaClient {
         checkConfiguration()
 
         return Alamofire.request(urlRequest)
+    }
+    
+    fileprivate func oauthDownloadRequest(_ manager: SessionManager, _ urlRequest: URLRequestConvertible) -> DownloadRequest?  {
+        checkConfiguration()
+        let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+            let temporaryDirectoryURL = FileManager.default.temporaryDirectory
+            let temporaryFilename = ProcessInfo().globallyUniqueString
+            let temporaryFileURL = temporaryDirectoryURL.appendingPathComponent(temporaryFilename)
+        return (temporaryFileURL, [.removePreviousFile, .createIntermediateDirectories]) }
+        return manager.download(urlRequest, to: destination)
     }
 
     fileprivate func oauthUpload<T: Strava>(URLRequest: URLRequestConvertible, upload: UploadData, completion: @escaping (DataResponse<T>) -> ()) {

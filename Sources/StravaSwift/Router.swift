@@ -399,7 +399,7 @@ extension Router: URLRequestConvertible  {
     static var appAuthorizationUrl: URL {
         let baseUrl = "strava://oauth/mobile/authorize"
         let authParams = StravaClient.sharedInstance.authParams
-            .map { "\($0.key)=\($0.value)" }
+            .map { "\($0.key)=\("\($0.value)".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)" }
             .joined(separator:"&")
         return URL(string: "\(baseUrl)?\(authParams)")!
     }
@@ -410,7 +410,7 @@ extension Router: URLRequestConvertible  {
     static var webAuthorizationUrl: URL {
         let baseUrl = "https://www.strava.com/oauth/authorize"
         let authParams = StravaClient.sharedInstance.authParams
-            .map { "\($0.key)=\($0.value)" }
+            .map { "\($0.key)=\("\($0.value)".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)" }
             .joined(separator:"&")
         return URL(string: "\(baseUrl)?\(authParams)")!
     }
