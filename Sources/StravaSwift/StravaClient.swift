@@ -10,7 +10,9 @@ import AuthenticationServices
 import Foundation
 import Alamofire
 import SwiftyJSON
+#if os(iOS)
 import SafariServices
+#endif
 
 /**
  StravaClient responsible for making all api requests
@@ -82,7 +84,7 @@ extension StravaClient {
 }
 
 //MARK : - Auth
-
+#if os(iOS)
 extension StravaClient: ASWebAuthenticationPresentationContextProviding {
 
     var currentWindow: UIWindow? { return UIApplication.shared.keyWindow }
@@ -118,7 +120,11 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
                 webAuthenticationSession.start()
             } else {
                 currentAuthorizationHandler = result    // Stores the handler to be executed once `handleAuthorizationRedirect(url:)` is called
-                UIApplication.shared.open(Router.webAuthorizationUrl, options: [:])
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(Router.webAuthorizationUrl, options: [:])
+                } else {
+                    // Fallback on earlier versions
+                }
             }
         }
     }
@@ -205,9 +211,9 @@ extension StravaClient: ASWebAuthenticationPresentationContextProviding {
     @available(iOS 12.0, *)
     public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         return currentWindow ?? ASPresentationAnchor()
-    }
+    } 
 }
-
+#endif
 
 //MARK: - Athlete
 
