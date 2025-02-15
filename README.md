@@ -31,7 +31,7 @@ dependencies: [
 To install it, simply add the following line to your Podfile:
 
 ```ruby
-pod "StravaSwift", '~> 1.0.1'
+pod "StravaSwift", '~> 1.0.0'
 ```
 
 ## Quick Start
